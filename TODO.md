@@ -33,6 +33,8 @@ when check failed, with panic, replace with something like:
 🚫 not in a git repository. (cd into a git repository and try again)
 🥺 Script doesn't know how to continue
 
+use different error/return codes for an unrecoverable error and a recoverable error
+
 ---
 
 make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file, using ollama llama3.2:latest to write the commit message
