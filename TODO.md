@@ -18,6 +18,21 @@ create a shell script that starts a nix shell using the config in my monorepo ro
 
 change the sh.sh script to not require nix to be installed. first, check for each required tool and verify that the version is correct. if any tool is missing, THEN try using nix-shell to make them available. then check again. if any tool is still missing, inform the user what they need to do to fix the problem by either installing nix or manually install the missing tool
 
+the logs should look like this:
+
+while checking:
+🔍 in a git repository? ...
+
+when the check passed, replace with something like:
+✅ in a git repository
+
+when check failed with warning, replace with something like:
+⚠️ not in a git repository. (some features may not work as expected)
+
+when check failed, with panic, replace with something like:
+🚫 not in a git repository. (cd into a git repository and try again)
+🥺 Script doesn't know how to continue
+
 ---
 
 make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file, using ollama llama3.2:latest to write the commit message
