@@ -10,15 +10,6 @@ Stuff that I plan to do
 
 ---
 
-- [x] make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file
-
-```sh
-fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelain | grep -v "TODO.md")" ]; then git add TODO.md && git commit -m 'todo++'; fi; done
-```
-
-- [x] put it somewhere useful
-
-- [x] create a shell oneliner that watches for changes and then clears the screen, prints the current branch name, upstream branch name, and the git status
 
 ---
 
@@ -101,7 +92,7 @@ https://jsr.io/@subtlegradient/reframe/publish
 
 ---
 
-<details><summary>shell JXA stuff</summary>
+<details><summary>ARCHIVED STUFF</summary>
 
 using JXA via shell, read an environment variable
 
@@ -115,11 +106,8 @@ using JXA via shell, prompt the user for some text
 ```sh
 osascript -l JavaScript -e 'const app = Application.currentApplication(); app.includeStandardAdditions = true; const text = app.displayDialog("Enter some text:", { defaultAnswer: "" }).textReturned; console.log(text)'
 ```
-</details>
 
 ---
-
-<details><summary>tool dependencies and expectations</summary>
 
 - [x] create a nix-shell config that includes the tools I need to work on this project:
 bun, ollama, git
@@ -151,5 +139,17 @@ use different error/return codes for an unrecoverable error and a recoverable er
 let me specify the tools I need in a config file that is shared between both sh.sh and shell.nix, maybe include them in the package.json file somewhere idiomatic?
 
 I want to store environment dependencies and expectations in my monorepo package.json files. What's the least unexpected and most supported way of doing that?
+
+---
+
+- [x] make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file
+
+```sh
+fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelain | grep -v "TODO.md")" ]; then git add TODO.md && git commit -m 'todo++'; fi; done
+```
+
+- [x] put it somewhere useful
+
+- [x] create a shell oneliner that watches for changes and then clears the screen, prints the current branch name, upstream branch name, and the git status
 
 </details>
