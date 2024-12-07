@@ -8,6 +8,8 @@ Decisions
 
 let's get a basic Expo Go app running
 
+npx create-expo-stack@latest
+
 
 ---
 
