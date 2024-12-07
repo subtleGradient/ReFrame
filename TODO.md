@@ -65,7 +65,6 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
 <details><summary>Brain dump of random stuff I want to do</summary>
 
-- [ ] hide the postinstall message when running `bun install` unless it fails
 
 
 - [ ] setup self-hosted Github action runner
@@ -182,5 +181,6 @@ fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelai
 ---
 
 - [x] modularize todo auto-commit workflow
+- [x] hide the postinstall message when running `bun install` unless it fails
 
 </details>

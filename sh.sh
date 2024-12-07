@@ -1,86 +1,109 @@
 #!/usr/bin/env bash
 
-# Set strict error handling
 set -euo pipefail
 
 # Exit codes
 readonly EXIT_OK=0
-readonly EXIT_WARN=1      # Recoverable error
-readonly EXIT_ERROR=2     # Unrecoverable error
+readonly EXIT_WARN=1
+readonly EXIT_ERROR=2
 
-# Global error handler
+# Global flag for quiet mode
+QUIET=false
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --quiet)
+            QUIET=true
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
+
+# Log function that respects quiet mode
+log() {
+    local level=$1
+    local message=$2
+
+    if [ "$QUIET" = "true" ]; then
+        # Only show errors and warnings in quiet mode
+        if [ "$level" = "ERROR" ] || [ "$level" = "WARN" ]; then
+            echo "$message" >&2
+        fi
+    else
+        echo "$message"
+    fi
+}
+
+# Modified error handler
 error_handler() {
     local error_code=$?
     local line_number=$1
-    echo "🚫 Error occurred in line ${line_number} with exit code ${error_code}"
-    echo "🥺 Script doesn't know how to continue"
+    log "ERROR" "🚫 Error occurred in line ${line_number} with exit code ${error_code}"
+    log "ERROR" "🥺 Script doesn't know how to continue"
     exit $EXIT_ERROR
 }
 
-# Set up error handling
 trap 'error_handler ${LINENO}' ERR
 
-# Load tool requirements from package.json
 load_requirements() {
     if [ ! -f package.json ]; then
-        echo "🚫 package.json not found"
-        echo "🥺 Script doesn't know how to continue"
+        log "ERROR" "🚫 package.json not found"
+        log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     fi
 
-    # Requires jq to be installed
     if ! command -v jq >/dev/null 2>&1; then
-        echo "🚫 jq is required to parse package.json"
-        echo "🥺 Script doesn't know how to continue"
+        log "ERROR" "🚫 jq is required to parse package.json"
+        log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     fi
 
-    # Read tools configuration into variables
     TOOLS=$(jq -r '.config.tools.required' package.json)
 }
 
-# Function to get tool property
 get_tool_prop() {
     local tool=$1
     local prop=$2
     echo "$TOOLS" | jq -r ".[\"$tool\"][\"$prop\"]"
 }
 
-# Check function with different status levels
 check() {
     local description=$1
     local command=$2
-    local is_critical=${3:-true}  # Default to critical
+    local is_critical=${3:-true}
 
-    echo "🔍 ${description} ..."
+    log "INFO" "🔍 ${description} ..."
 
     if eval "${command}" >/dev/null 2>&1; then
-        echo "✅ ${description}"
+        log "INFO" "✅ ${description}"
         return $EXIT_OK
     elif [ "${is_critical}" = "true" ]; then
-        echo "🚫 ${description}"
-        echo "🥺 Script doesn't know how to continue"
+        log "ERROR" "🚫 ${description}"
+        log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     else
-        echo "⚠️ ${description} (some features may not work as expected)"
+        log "WARN" "⚠️ ${description} (some features may not work as expected)"
         return $EXIT_WARN
     fi
 }
 
-# Function to check if a command exists and meets version requirements
 check_tool() {
     local tool=$1
     local min_version=$2
-    local is_critical=${3:-true}  # Default to critical
+    local is_critical=${3:-true}
 
-    echo "🔍 checking for ${tool} ..."
+    log "INFO" "🔍 checking for ${tool} ..."
 
     if ! command -v "$tool" >/dev/null 2>&1; then
         if [ "${is_critical}" = "true" ]; then
-            echo "🚫 ${tool} is not installed"
+            log "ERROR" "🚫 ${tool} is not installed"
             return $EXIT_ERROR
         else
-            echo "⚠️ ${tool} is not installed (some features may not work as expected)"
+            log "WARN" "⚠️ ${tool} is not installed (some features may not work as expected)"
             return $EXIT_WARN
         fi
     fi
@@ -92,36 +115,35 @@ check_tool() {
             ;;
     esac
 
-    echo "✅ found ${tool} version ${version}"
+    log "INFO" "✅ found ${tool} version ${version}"
     return $EXIT_OK
 }
 
-# Function to try using nix-shell
 try_nix() {
-    echo "🔍 checking for Nix ..."
+    log "INFO" "🔍 checking for Nix ..."
 
     if ! command -v nix-shell >/dev/null 2>&1; then
-        echo "🚫 Nix is not installed. You can either:"
-        echo "   1. Install Nix from https://nixos.org/download.html"
-        echo "   2. Manually install these tools:"
+        log "ERROR" "🚫 Nix is not installed. You can either:"
+        log "ERROR" "   1. Install Nix from https://nixos.org/download.html"
+        log "ERROR" "   2. Manually install these tools:"
         for tool in "${missing_tools[@]}"; do
-            echo "      - ${tool}: $(get_tool_prop "$tool" "url")"
+            log "ERROR" "      - ${tool}: $(get_tool_prop "$tool" "url")"
         done
-        echo "🥺 Script doesn't know how to continue"
+        log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     fi
 
-    echo "✅ found Nix"
+    log "INFO" "✅ found Nix"
 
-    echo "🔍 checking for Nix configuration files ..."
+    log "INFO" "🔍 checking for Nix configuration files ..."
     if [ ! -f shell.nix ] && [ ! -f default.nix ]; then
-        echo "🚫 No shell.nix or default.nix found"
-        echo "🥺 Script doesn't know how to continue"
+        log "ERROR" "🚫 No shell.nix or default.nix found"
+        log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     fi
 
-    echo "✅ found Nix configuration files"
-    echo "🔍 starting Nix shell ..."
+    log "INFO" "✅ found Nix configuration files"
+    log "INFO" "🔍 starting Nix shell ..."
 
     if [ -f shell.nix ]; then
         exec nix-shell shell.nix
@@ -133,13 +155,10 @@ try_nix() {
 main() {
     local exit_status=$EXIT_OK
 
-    # Load requirements from package.json
     load_requirements
 
-    # Step 1: Verify we're in a git repository
     check "in a git repository" "git rev-parse --is-inside-work-tree" || exit_status=$EXIT_ERROR
 
-    # Step 2: Check for required tools
     missing_tools=()
 
     for tool in $(echo "$TOOLS" | jq -r 'keys[]'); do
@@ -156,13 +175,11 @@ main() {
         fi
     done
 
-    # If there are missing tools, try using nix
     if [ ${#missing_tools[@]} -ne 0 ]; then
-        echo "🔍 attempting to provide missing tools: ${missing_tools[*]} ..."
+        log "INFO" "🔍 attempting to provide missing tools: ${missing_tools[*]} ..."
         try_nix
 
-        # Check tools again after nix-shell
-        echo "🔍 checking tools again ..."
+        log "INFO" "🔍 checking tools again ..."
         still_missing=()
         for tool in "${missing_tools[@]}"; do
             if ! check_tool "$tool" "$(get_tool_prop "$tool" "version")" "$(get_tool_prop "$tool" "critical")"; then
@@ -172,19 +189,18 @@ main() {
         done
 
         if [ ${#still_missing[@]} -ne 0 ]; then
-            echo "🚫 Still missing tools: ${still_missing[*]}"
-            echo "Please install the missing tools manually:"
+            log "ERROR" "🚫 Still missing tools: ${still_missing[*]}"
+            log "ERROR" "Please install the missing tools manually:"
             for tool in "${still_missing[@]}"; do
-                echo "   - ${tool}: $(get_tool_prop "$tool" "url")"
+                log "ERROR" "   - ${tool}: $(get_tool_prop "$tool" "url")"
             done
-            echo "🥺 Script doesn't know how to continue"
+            log "ERROR" "🥺 Script doesn't know how to continue"
             exit $EXIT_ERROR
         fi
     fi
 
-    echo "✅ all required tools are available"
+    log "INFO" "✅ all required tools are available"
     exit $exit_status
 }
 
-# Execute main function
 main
