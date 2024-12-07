@@ -8,7 +8,12 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "./sh.sh",
-    "todo": "fswatch -0 TODO.md | while read -d '' event; do if [ -z \"$(git status --porcelain | grep -v 'TODO.md')\" ]; then git add TODO.md && git commit -m 'todo++'; else git status; fi; done"
+    "todo:watch": "clear; fswatch -0 TODO.md",
+    "todo:check": "git status --porcelain | grep -v 'TODO.md'",
+    "todo:commit": "git add TODO.md && git commit -m 'todo++'",
+    "todo:commit:no": "git status",
+    "todo:onchange": "clear; if [ -z \"$(bun run todo:check)\" ]; then bun run todo:commit; else bun run todo:commit:no; fi",
+    "todo": "bun run todo:onchange; bun run todo:watch | while read -d '' event; do bun run todo:onchange; done"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
