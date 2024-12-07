@@ -3,6 +3,11 @@ Stuff that I plan to do
 
 # Work in progress
 
+make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file, using ollama llama3.2:latest to write the commit message
+
+---
+
+
 - [ ] "close the loop"
   - [ ] make `bun dev` do something
 
