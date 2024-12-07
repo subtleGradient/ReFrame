@@ -16,7 +16,7 @@ Stuff that I plan to do
 fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelain | grep -v "TODO.md")" ]; then git add TODO.md && git commit -m 'todo++'; fi; done
 ```
 
-- [ ] put it somewhere useful
+- [x] put it somewhere useful
 
 create a shell oneliner that watches for changes and then clears the screen, prints the current branch name, upstream branch name, and the git status
 
