@@ -6,7 +6,8 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "postinstall": "./sh.sh"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
@@ -16,7 +17,7 @@
   "engines": {
     "bun": ">=1.1"
   },
-  "packageManager": "bun@1.1.34",
+  "packageManager": "bun@1.1.38",
   "workspaces": [
     "apps/*",
     "demos/*",
@@ -32,7 +33,7 @@
           "channel": "stable"
         },
         "bun": {
-          "version": "1.1.34",
+          "version": "1.1.38",
           "critical": true,
           "url": "https://bun.sh",
           "channel": "unstable"
