@@ -2,13 +2,11 @@ Decisions
 
 - nix is recommended for development, but not required
 
-Stuff that I plan to do
-
 
 # Work in progress
-
-
 ---
+
+
 
 
 ---
@@ -37,9 +35,6 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
 # Done
 
-- [x] publish to [GitHub](https://github.com/subtleGradient/ReFrame?tab=readme-ov-file)
-- [x] configure git to use zed for commit messages
-- [x] configure git to use opendiff as merge tool
 
 ---
 
@@ -93,6 +88,12 @@ https://jsr.io/@subtlegradient/reframe/publish
 ---
 
 <details><summary>ARCHIVED STUFF</summary>
+
+- [x] publish to [GitHub](https://github.com/subtleGradient/ReFrame?tab=readme-ov-file)
+- [x] configure git to use zed for commit messages
+- [x] configure git to use opendiff as merge tool
+
+---
 
 using JXA via shell, read an environment variable
 
