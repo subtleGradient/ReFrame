@@ -15,7 +15,7 @@ let's get a basic Expo Go app running
 
 Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
 
-maybe a problem with the React version?
+maybe a problem with the React version? nope, it's 18
 
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
