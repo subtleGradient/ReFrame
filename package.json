@@ -26,6 +26,11 @@
   "config": {
     "tools": {
       "required": {
+        "fswatch": {
+          "version": "1.17.1",
+          "critical": false,
+          "channel": "stable"
+        },
         "git": {
           "version": "2.0.0",
           "critical": false,
