@@ -164,4 +164,8 @@ fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelai
 
 - [x] create a shell oneliner that watches for changes and then clears the screen, prints the current branch name, upstream branch name, and the git status
 
+---
+
+- [x] modularize todo auto-commit workflow
+
 </details>
