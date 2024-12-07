@@ -20,6 +20,32 @@ error_handler() {
 # Set up error handling
 trap 'error_handler ${LINENO}' ERR
 
+# Load tool requirements from package.json
+load_requirements() {
+    if [ ! -f package.json ]; then
+        echo "🚫 package.json not found"
+        echo "🥺 Script doesn't know how to continue"
+        exit $EXIT_ERROR
+    fi
+
+    # Requires jq to be installed
+    if ! command -v jq >/dev/null 2>&1; then
+        echo "🚫 jq is required to parse package.json"
+        echo "🥺 Script doesn't know how to continue"
+        exit $EXIT_ERROR
+    fi
+
+    # Read tools configuration into variables
+    TOOLS=$(jq -r '.config.tools.required' package.json)
+}
+
+# Function to get tool property
+get_tool_prop() {
+    local tool=$1
+    local prop=$2
+    echo "$TOOLS" | jq -r ".[\"$tool\"][\"$prop\"]"
+}
+
 # Check function with different status levels
 check() {
     local description=$1
@@ -61,14 +87,8 @@ check_tool() {
 
     local version
     case $tool in
-        "bun")
-            version=$(bun --version)
-            ;;
-        "ollama")
-            version=$(ollama --version)
-            ;;
-        "git")
-            version=$(git --version | cut -d' ' -f3)
+        *)
+            version=$(${tool} --version 2>&1 | head -n1)
             ;;
     esac
 
@@ -84,9 +104,9 @@ try_nix() {
         echo "🚫 Nix is not installed. You can either:"
         echo "   1. Install Nix from https://nixos.org/download.html"
         echo "   2. Manually install these tools:"
-        [[ "${missing_tools[*]}" =~ "bun" ]] && echo "      - bun: https://bun.sh"
-        [[ "${missing_tools[*]}" =~ "ollama" ]] && echo "      - ollama: https://ollama.ai"
-        [[ "${missing_tools[*]}" =~ "git" ]] && echo "      - git: https://git-scm.com"
+        for tool in "${missing_tools[@]}"; do
+            echo "      - ${tool}: $(get_tool_prop "$tool" "url")"
+        done
         echo "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
     fi
@@ -113,26 +133,28 @@ try_nix() {
 main() {
     local exit_status=$EXIT_OK
 
+    # Load requirements from package.json
+    load_requirements
+
     # Step 1: Verify we're in a git repository
     check "in a git repository" "git rev-parse --is-inside-work-tree" || exit_status=$EXIT_ERROR
 
     # Step 2: Check for required tools
     missing_tools=()
 
-    if ! check_tool "bun" "1.0.0" false; then
-        missing_tools+=("bun")
-        [ $exit_status -eq $EXIT_OK ] && exit_status=$EXIT_WARN
-    fi
+    for tool in $(echo "$TOOLS" | jq -r 'keys[]'); do
+        local version=$(get_tool_prop "$tool" "version")
+        local critical=$(get_tool_prop "$tool" "critical")
 
-    if ! check_tool "ollama" "0.1.0" false; then
-        missing_tools+=("ollama")
-        [ $exit_status -eq $EXIT_OK ] && exit_status=$EXIT_WARN
-    fi
-
-    if ! check_tool "git" "2.0.0" true; then
-        missing_tools+=("git")
-        exit_status=$EXIT_ERROR
-    fi
+        if ! check_tool "$tool" "$version" "$critical"; then
+            missing_tools+=("$tool")
+            if [ "$critical" = "true" ]; then
+                exit_status=$EXIT_ERROR
+            elif [ $exit_status -eq $EXIT_OK ]; then
+                exit_status=$EXIT_WARN
+            fi
+        fi
+    done
 
     # If there are missing tools, try using nix
     if [ ${#missing_tools[@]} -ne 0 ]; then
@@ -143,7 +165,7 @@ main() {
         echo "🔍 checking tools again ..."
         still_missing=()
         for tool in "${missing_tools[@]}"; do
-            if ! check_tool "$tool" "0.0.0" true; then
+            if ! check_tool "$tool" "$(get_tool_prop "$tool" "version")" "$(get_tool_prop "$tool" "critical")"; then
                 still_missing+=("$tool")
                 exit_status=$EXIT_ERROR
             fi
@@ -153,17 +175,7 @@ main() {
             echo "🚫 Still missing tools: ${still_missing[*]}"
             echo "Please install the missing tools manually:"
             for tool in "${still_missing[@]}"; do
-                case $tool in
-                    "bun")
-                        echo "   - bun: https://bun.sh"
-                        ;;
-                    "ollama")
-                        echo "   - ollama: https://ollama.ai"
-                        ;;
-                    "git")
-                        echo "   - git: https://git-scm.com"
-                        ;;
-                esac
+                echo "   - ${tool}: $(get_tool_prop "$tool" "url")"
             done
             echo "🥺 Script doesn't know how to continue"
             exit $EXIT_ERROR
