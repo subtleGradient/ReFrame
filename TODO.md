@@ -37,6 +37,8 @@ use different error/return codes for an unrecoverable error and a recoverable er
 
 let me specify the tools I need in a config file that is shared between both sh.sh and shell.nix, maybe include them in the package.json file somewhere idiomatic?
 
+I want to store environment dependencies and expectations in my monorepo package.json files. What's the least unexpected and most supported way of doing that?
+
 ---
 
 make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file, using ollama llama3.2:latest to write the commit message
