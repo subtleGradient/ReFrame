@@ -3,7 +3,7 @@ Stuff that I plan to do
 
 # Work in progress
 
-create a nix-shell config that includes the tools I need to work on this project:
+- [x] create a nix-shell config that includes the tools I need to work on this project:
 bun, ollama, git
 
 create a shell oneliner that starts a nix shell using the config in my monorepo root directory, use the invariant pattern to verify all assumptions before proceeding to each step. have a single global error handler that logs all the errors and informs the user what they need to do to fix the problem. e.g. install and configure nix for this project
