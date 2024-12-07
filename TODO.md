@@ -16,7 +16,9 @@ bun, ollama, git
 
 create a shell script that starts a nix shell using the config in my monorepo root directory, use the invariant pattern to verify all assumptions before proceeding to each step. have a single global error handler that logs all the errors and informs the user what they need to do to fix the problem. e.g. install and configure nix for this project
 
+change the sh.sh script to not require nix to be installed. first, check for each required tool and verify that the version is correct. if any tool is missing, THEN try using nix-shell to make them available. then check again. if any tool is still missing, inform the user what they need to do to fix the problem by either installing nix or manually install the missing tool
 
+---
 
 make a shell oneliner that watches for changes to the TODO.md file and if git status is otherwise clean, commit the changes to the TODO.md file, using ollama llama3.2:latest to write the commit message
 
