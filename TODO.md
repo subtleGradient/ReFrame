@@ -12,6 +12,10 @@ let's get a basic Expo Go app running
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [x] configure prettier for the monorepo
 - [ ] get reframe-expo-demo-0 running in web
+
+Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
+
+
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
 - [ ] repo root `bun demo` script
