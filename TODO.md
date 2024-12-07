@@ -12,10 +12,12 @@ let's get a basic Expo Go app running
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [x] configure prettier for the monorepo
 - [ ] get reframe-expo-demo-0 running in web
+maybe a problem with the React version? nope, it's 18
 
 Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
 
-maybe a problem with the React version? nope, it's 18
+> 1 | import { ScrollViewStyleReset } from "expo-router/html"
+
 
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
