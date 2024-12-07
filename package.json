@@ -21,6 +21,7 @@
     "turbo": "^2.3.3",
     "typescript": "5.5.4"
   },
+  "packageManager": "yarn@4.5.3",
   "engines": {
     "bun": ">=1.1"
   },
@@ -43,10 +44,10 @@
           "url": "https://git-scm.com",
           "channel": "stable"
         },
-        "pnpm": {
-          "version": "9.0.0",
+        "corepack": {
+          "version": "20.18.1",
           "critical": true,
-          "url": "https://pnpm.io",
+          "url": "https://yarnpkg.com/corepack",
           "channel": "stable"
         },
         "bun": {
