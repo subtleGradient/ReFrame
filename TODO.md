@@ -3,10 +3,21 @@ Stuff that I plan to do
 
 # Work in progress
 
+- [ ] "close the loop"
+  - [ ] make `bun dev` do something
+
+- [ ]
 
 ---
 
 # NEXT
+
+GOAL: Make something work in Expo Go and Next.js 15 simultaneously
+
+
+
+
+---
 
 - [ ] react-client build for React 18
   - [ ] React 18 Expo 52 demo
