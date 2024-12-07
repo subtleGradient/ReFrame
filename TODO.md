@@ -11,15 +11,17 @@ let's get a basic Expo Go app running
 - [x] add a /demos directory to the monorepo config
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [x] configure prettier for the monorepo
+bunx expo-doctor
+bunx expo install --check
+
 - [ ] get reframe-expo-demo-0 running in web
-      maybe a problem with the React version? nope, it's 18
+
 
 Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
 
-> 1 | import { ScrollViewStyleReset } from "expo-router/html"
+it's a problem with the React version
+need to fix the resolution of the React version in this demo
 
-bunx expo-doctor
-bunx expo install --check
 
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
@@ -62,6 +64,9 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 # Brain dump
 
 <details><summary>Brain dump of random stuff I want to do</summary>
+
+- [ ] hide the postinstall message when running `bun install` unless it fails
+
 
 - [ ] setup self-hosted Github action runner
 - [ ] customize your repository’s social media preview

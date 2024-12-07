@@ -10,6 +10,11 @@
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web"
   },
+  "resolutions": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.3"
+  },
   "dependencies": {
     "@expo/vector-icons": "^14.0.4",
     "@react-navigation/bottom-tabs": "^7.1.3",
