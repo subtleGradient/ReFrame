@@ -6,7 +6,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\" | grep -v 'unchanged' || true",
+    "format": "prettier --write \"**/*.{js,ts,tsx,md}\" | grep -v 'unchanged' || true",
     "postinstall": "./sh.sh",
     "todo:watch": "clear; fswatch -0 TODO.md",
     "todo:check": "git status --porcelain | grep -v 'TODO.md'",
