@@ -3,18 +3,6 @@ Stuff that I plan to do
 
 # Work in progress
 
-using JXA via shell, read an environment variable
-
-```sh
-SOME_RANDOM_VAR="`date`" osascript -l JavaScript -e '$.NSProcessInfo.processInfo.environment.objectForKey("SOME_RANDOM_VAR").js'
-osascript -l JavaScript -e 'let env = $.NSProcessInfo.processInfo.environment.js; for (let k in env) console.log(k, "=", env[k].js)'
-```
-
-using JXA via shell, prompt the user for some text
-
-```sh
-osascript -l JavaScript -e 'const app = Application.currentApplication(); app.includeStandardAdditions = true; const text = app.displayDialog("Enter some text:", { defaultAnswer: "" }).textReturned; console.log(text)'
-```
 
 ---
 
@@ -28,6 +16,8 @@ osascript -l JavaScript -e 'const app = Application.currentApplication(); app.in
 # Done
 
 - [x] publish to [GitHub](https://github.com/subtleGradient/ReFrame?tab=readme-ov-file)
+- [x] configure git to use zed for commit messages
+- [x] configure git to use opendiff as merge tool
 
 ---
 
@@ -67,4 +57,21 @@ https://jsr.io/@subtlegradient/reframe/publish
   "license": "MIT",
   "exports": {}
 }
+```
+
+---
+
+# Random stuff that I forget why I wanted it
+
+using JXA via shell, read an environment variable
+
+```sh
+SOME_RANDOM_VAR="`date`" osascript -l JavaScript -e '$.NSProcessInfo.processInfo.environment.objectForKey("SOME_RANDOM_VAR").js'
+osascript -l JavaScript -e 'let env = $.NSProcessInfo.processInfo.environment.js; for (let k in env) console.log(k, "=", env[k].js)'
+```
+
+using JXA via shell, prompt the user for some text
+
+```sh
+osascript -l JavaScript -e 'const app = Application.currentApplication(); app.includeStandardAdditions = true; const text = app.displayDialog("Enter some text:", { defaultAnswer: "" }).textReturned; console.log(text)'
 ```
