@@ -6,7 +6,7 @@ Decisions
 # Work in progress
 ---
 
-
+let's get a basic Expo Go app running
 
 
 ---
