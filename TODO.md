@@ -1,6 +1,11 @@
 # Stuff that I plan to do
 
 - [ ] publish to GitHub
+- [ ] react-client build for React 18
+  - [ ] React 18 Expo 52 demo
+
+
+
 
 ---
 

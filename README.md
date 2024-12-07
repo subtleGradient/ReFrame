@@ -1,4 +1,4 @@
-# ReFrame
+# @subtleGradient/ReFrame
 
 It's kinda like iframes crossed with server side includes, but for React.
 Render React Server Component streams in your React Native or React web app.
@@ -6,6 +6,26 @@ Render React Server Component streams in your React Native or React web app.
 - React Native
 - React (web)
 - SOON: react-three-fiber
+
+---
+
+## How to use
+
+### Install
+
+TODO: add instructions
+
+---
+
+## What's the status of the project?
+
+TODO: add status
+
+## What's the plan for the project?
+
+See [TODO.md](TODO.md)
+
+---
 
 ## How it works
 
