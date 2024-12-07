@@ -24,7 +24,6 @@
   "engines": {
     "bun": ">=1.1"
   },
-  "packageManager": "bun@1.1.38",
   "workspaces": [
     "apps/*",
     "demos/*",
@@ -42,6 +41,12 @@
           "version": "2.0.0",
           "critical": false,
           "url": "https://git-scm.com",
+          "channel": "stable"
+        },
+        "pnpm": {
+          "version": "9.0.0",
+          "critical": true,
+          "url": "https://pnpm.io",
           "channel": "stable"
         },
         "bun": {
