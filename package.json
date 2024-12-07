@@ -7,7 +7,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "postinstall": "./sh.sh"
+    "postinstall": "./sh.sh",
+    "todo": "fswatch -0 TODO.md | while read -d '' event; do if [ -z \"$(git status --porcelain | grep -v 'TODO.md')\" ]; then git add TODO.md && git commit -m 'todo++'; else git status; fi; done"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
