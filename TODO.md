@@ -10,8 +10,9 @@ let's get a basic Expo Go app running
 
 - [x] add a /demos directory to the monorepo config
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
-- [ ] get reframe-expo-demo-0 running in Expo Go
 - [x] configure prettier for the monorepo
+- [ ] get reframe-expo-demo-0 running in web
+- [ ] get reframe-expo-demo-0 running in Expo Go
 
 - [ ] repo root `bun demo` script
 
