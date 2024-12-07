@@ -10,6 +10,8 @@ let's get a basic Expo Go app running
 
 npx create-expo-stack@latest
 
+- [ ] add a /demos directory to the monorepo config
+
 - [ ] ReFramed ui libs
   - [ ] ReFramed Tamagui
   - [ ] ReFramed NativeWindUI
