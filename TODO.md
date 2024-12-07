@@ -2,8 +2,8 @@ Decisions
 
 - nix is recommended for development, but not required
 
-
 # Work in progress
+
 ---
 
 let's get a basic Expo Go app running
@@ -16,6 +16,7 @@ let's get a basic Expo Go app running
 - [ ] repo root `bun demo` script
 
 - [ ] ReFramed ui libs
+
   - [ ] ReFramed Tamagui
   - [ ] ReFramed NativeWindUI
   - [ ] ReFramed Restyle
@@ -23,11 +24,10 @@ let's get a basic Expo Go app running
 
 - [ ] ReFramed NativeWind / Tailwind
 
-
 ---
 
-
 - [ ] "close the loop"
+
   - [ ] make `bun dev` do something
 
 - [ ] ...
@@ -38,9 +38,6 @@ let's get a basic Expo Go app running
 
 GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
-
-
-
 ---
 
 - [ ] react-client build for React 18
@@ -50,17 +47,16 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
 # Done
 
-
 ---
 
 # Brain dump
 
 <details><summary>Brain dump of random stuff I want to do</summary>
 
-
 - [ ] setup self-hosted Github action runner
 - [ ] customize your repository’s social media preview
 - [ ] RN ReFrame Browser app
+
   - [ ] expose wacky native APIs with permissions?
 
 - [ ] custom client component bundle versioning
@@ -126,7 +122,7 @@ osascript -l JavaScript -e 'const app = Application.currentApplication(); app.in
 ---
 
 - [x] create a nix-shell config that includes the tools I need to work on this project:
-bun, ollama, git
+      bun, ollama, git
 - [x] install nix
 - [x] sh.sh
 - [x] shell.nix
