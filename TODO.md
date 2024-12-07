@@ -18,6 +18,7 @@ Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatche
 
 > 1 | import { ScrollViewStyleReset } from "expo-router/html"
 
+bunx expo-doctor
 
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
