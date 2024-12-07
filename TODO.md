@@ -12,6 +12,8 @@ let's get a basic Expo Go app running
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [ ] get reframe-expo-demo-0 running in Expo Go
 
+- [ ] repo root `bun demo` script
+
 - [ ] ReFramed ui libs
   - [ ] ReFramed Tamagui
   - [ ] ReFramed NativeWindUI
