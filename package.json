@@ -14,7 +14,6 @@
     "typescript": "5.5.4"
   },
   "engines": {
-    "node": ">=18",
     "bun": ">=1.1"
   },
   "packageManager": "bun@1.1.34",
@@ -22,5 +21,29 @@
     "apps/*",
     "demos/*",
     "packages/*"
-  ]
+  ],
+  "config": {
+    "tools": {
+      "required": {
+        "git": {
+          "version": "2.0.0",
+          "critical": false,
+          "url": "https://git-scm.com",
+          "channel": "stable"
+        },
+        "bun": {
+          "version": "1.1.34",
+          "critical": true,
+          "url": "https://bun.sh",
+          "channel": "unstable"
+        },
+        "ollama": {
+          "version": "0.5.0",
+          "critical": false,
+          "url": "https://ollama.ai",
+          "channel": "unstable"
+        }
+      }
+    }
+  }
 }
