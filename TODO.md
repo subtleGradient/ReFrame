@@ -10,6 +10,7 @@ let's get a basic Expo Go app running
 
 - [x] add a /demos directory to the monorepo config
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
+- [ ] get reframe-expo-demo-0 running in Expo Go
 
 - [ ] ReFramed ui libs
   - [ ] ReFramed Tamagui
