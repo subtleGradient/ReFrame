@@ -4,6 +4,8 @@ Decisions
 
 # Work in progress
 
+bun -> yarn
+
 ---
 
 let's get a basic Expo Go app running
