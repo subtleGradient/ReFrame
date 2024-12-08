@@ -4,7 +4,7 @@ Decisions
 
 # Work in progress
 
-nothing right now
+- [ ] package exports for reframe-bridge
 
 ---
 
