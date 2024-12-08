@@ -51,6 +51,12 @@
           "url": "https://yarnpkg.com/corepack",
           "channel": "stable"
         },
+        "deno": {
+          "version": "2.1.2",
+          "critical": false,
+          "url": "https://deno.land",
+          "channel": "unstable"
+        },
         "bun": {
           "version": "1.1.38",
           "critical": true,
