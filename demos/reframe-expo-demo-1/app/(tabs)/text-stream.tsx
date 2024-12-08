@@ -38,5 +38,7 @@ const renderChunked = {
       yield <Text>{chunk}</Text>
       await new Promise((resolve) => setTimeout(resolve, 111 * Math.random()))
     }
+
+    yield <Text>{"\n\n"}Done</Text>
   },
 }
