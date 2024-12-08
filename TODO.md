@@ -7,7 +7,6 @@ Decisions
 verify the demo works in ios
 
 - [ ] missing `key` warning
-- [x] signal.throwIfAborted is not a function
 
 ---
 
@@ -224,5 +223,6 @@ end-to-end streaming text demo
 - [x] add another streaming fragment to the demo app that reads from the deno server
 - [x] fix dark mode
 - [x] [Reanimated] Mismatch between JavaScript code version and Reanimated Babel plugin version (3.16.3 vs. 3.16.2).
+- [x] signal.throwIfAborted is not a function
 
 </details>
