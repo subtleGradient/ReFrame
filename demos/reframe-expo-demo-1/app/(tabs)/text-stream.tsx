@@ -1,10 +1,22 @@
 import { ThemedText } from "@/components/ThemedText"
+import { ThemedView } from "@/components/ThemedView"
 import { useIsFocused } from "@react-navigation/native"
 import { StreamingFragment } from "@sublegradient/reframe-bridge/StreamingFragment"
+import { ErrorBoundaryProps } from "expo-router"
+import { Try } from "expo-router/build/views/Try"
 import { fetch } from "expo/fetch"
 import React from "react"
-import { Freeze } from "react-freeze"
-import { ScrollView } from "react-native"
+import { Button, ScrollView } from "react-native"
+
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return (
+    <ThemedView style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ThemedText>Something went wrong: {error?.message ?? "unknown error"}</ThemedText>
+      <Button title="Try Again" onPress={retry} />
+      <ThemedText>{new Date().toLocaleString()}</ThemedText>
+    </ThemedView>
+  )
+}
 
 export default function HomeScreen() {
   const isFocused = useIsFocused()
@@ -13,9 +25,14 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 24 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText>
-        <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
-          {isFocused && renderChunkedTimestamps}
-        </StreamingFragment>
+        <Try catch={ErrorBoundary}>
+          <StreamingFragment
+            initial={<ThemedText>(connecting)</ThemedText>}
+            final={<ThemedText>(disconnected)</ThemedText>}
+          >
+            {isFocused && renderChunkedTimestamps}
+          </StreamingFragment>
+        </Try>
       </ThemedText>
 
       <ThemedText style={{ fontSize: 24 }}>Streaming text demo (append)</ThemedText>
