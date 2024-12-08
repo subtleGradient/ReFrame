@@ -6,7 +6,7 @@ Decisions
 
 ---
 
-- [ ] get reframe-expo-demo-1 running in Expo Go
+- [x] get reframe-expo-demo-1 running
 
 - [ ] repo root `bun demo` script
 
