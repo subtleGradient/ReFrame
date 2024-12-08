@@ -3,6 +3,7 @@
   "name": "@subtlegradient/reframe-repo",
   "private": true,
   "scripts": {
+    "sh": "command -v nix-shell >/dev/null 2>&1 && nix-shell --command './sh.sh; exec $SHELL' || ./sh.sh",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
