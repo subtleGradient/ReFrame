@@ -41,7 +41,7 @@ function useStreamingChildren(
       mounted.signal,
     ).then(
       function onDone() {
-        if (finalRef.current) setChildren(() => [finalRef.current])
+        if (finalRef.current) setChildren(finalRef.current)
       },
       function onError(error) {
         if (mounted.signal.aborted) return
