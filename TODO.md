@@ -10,9 +10,7 @@ pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing
 
 ---
 
-
-
-- [ ] get reframe-expo-demo-0 running in Expo Go
+- [ ] get reframe-expo-demo-1 running in Expo Go
 
 - [ ] repo root `bun demo` script
 
