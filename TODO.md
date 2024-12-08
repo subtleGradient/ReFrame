@@ -23,6 +23,7 @@ end-to-end streaming text demo
 > cd demos/reframe-expo-demo-1
 > yarn web
 > browser window should open
+> nav to http://localhost:8081/text-stream
 > should see the streaming text in the app
 
 - [ ] make `bun dev` do something
