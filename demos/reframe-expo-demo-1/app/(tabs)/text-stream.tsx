@@ -81,7 +81,7 @@ const renderChunkedTimestamps = {
               fontVariant: ["tabular-nums"],
             }}
           >
-            {new TextDecoder().decode(chunk)}
+            {new TextDecoder().decode(chunk).trim()}
           </ThemedText>
         ),
       }
