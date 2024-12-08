@@ -10,19 +10,17 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 24 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText>
-        <StreamingFragment
-          initialChildren={<ThemedText>loading...</ThemedText>}
-          children={renderChunkedTimestamps}
-        />
+        <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
+          {renderChunkedTimestamps}
+        </StreamingFragment>
       </ThemedText>
 
       <ThemedText style={{ fontSize: 24 }}>Streaming text demo (append)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>fake streaming, but real chunked rendering</ThemedText>
       <ThemedText>
-        <StreamingFragment
-          initialChildren={<ThemedText>loading...</ThemedText>}
-          children={renderChunked}
-        />
+        <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
+          {renderChunked}
+        </StreamingFragment>
       </ThemedText>
     </ScrollView>
   )

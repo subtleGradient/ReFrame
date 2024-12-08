@@ -1,22 +1,23 @@
 "use client"
 
-import React, { ReactElement, ReactNode } from "react"
+import React, { Children, ReactElement, ReactNode } from "react"
 import { useDeferredValue, useEffect, useState } from "react"
-import { AsyncIterable$forEach } from "./AsyncIterable$forEach"
+import { AsyncIterable$forEach_old } from "./AsyncIterable$forEach"
 
 interface StreamingFragmentProps {
-  initialChildren?: ReactElement
+  initial?: ReactElement
   children: AsyncIterable<ReactElement | { replace: ReactNode }>
 }
 
-export function StreamingFragment({ initialChildren, children: stream }: StreamingFragmentProps) {
+export function StreamingFragment(props: StreamingFragmentProps) {
+  const stream = Children.only(props.children)
   const [children, setChildren] = useState<ReactNode[]>([])
 
-  useEffect(() => setChildren([initialChildren]), [initialChildren])
+  useEffect(() => setChildren([props.initial]), [props.initial])
 
   useEffect(() => {
     const control = new AbortController()
-    AsyncIterable$forEach(stream, control.signal, (child) => {
+    AsyncIterable$forEach_old(stream, control.signal, (child) => {
       if (control.signal.aborted) return
       if ("replace" in child) return setChildren([child.replace])
       setChildren((children) => [...children, child])
