@@ -4,8 +4,7 @@ Decisions
 
 # Work in progress
 
-- [x] package exports for StreamingFragment
-- [x] StreamingFragment client/server files & types
+- [ ] publish StreamingFragment client to jsr
 
 ---
 
@@ -227,5 +226,7 @@ end-to-end streaming text demo
 - [x] disconnect / stop iteration when navigating away from a screen
 - [x] error boundary for the streaming text component demo
 - [x] missing `key` warning with StreamingFragment
+- [x] package exports for StreamingFragment
+- [x] StreamingFragment client/server files & types
 
 </details>
