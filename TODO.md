@@ -17,6 +17,7 @@ let's get a basic Expo Go app running
 - [x] configure prettier for the monorepo
 yarn dlx expo-doctor
 yarn dlx expo install --check
+yarn dlx expo install @expo/metro-runtime
 
 - [ ] get reframe-expo-demo-0 running in web
 
