@@ -5,7 +5,6 @@ Decisions
 # Work in progress
 
 
-- [ ] missing `key` warning
 
 ---
 
@@ -226,5 +225,6 @@ end-to-end streaming text demo
 - [x] verify the demo works in ios
 - [x] disconnect / stop iteration when navigating away from a screen
 - [x] error boundary for the streaming text component demo
+- [x] missing `key` warning with StreamingFragment
 
 </details>
