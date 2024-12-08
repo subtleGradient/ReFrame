@@ -8,28 +8,8 @@ end-to-end streaming text demo
 
 - [ ] create a server that streams text to the client
 - [ ] render the streaming text in the demo app
+- [ ] make `bun dev` do something
 
----
-
-
-- [ ] repo root `bun demo` script
-
-- [ ] ReFramed ui libs
-
-  - [ ] ReFramed Tamagui
-  - [ ] ReFramed NativeWindUI
-  - [ ] ReFramed Restyle
-  - [ ] ReFramed Unistyle
-
-- [ ] ReFramed NativeWind / Tailwind
-
----
-
-- [ ] "close the loop"
-
-  - [ ] make `bun dev` do something
-
-- [ ] ...
 
 ---
 
@@ -52,7 +32,20 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
 <details><summary>Brain dump of random stuff I want to do</summary>
 
+- [ ] repo root `bun demo` script
 
+- [ ] ReFramed ui libs
+
+  - [ ] ReFramed Tamagui
+  - [ ] ReFramed NativeWindUI
+  - [ ] ReFramed Restyle
+  - [ ] ReFramed Unistyle
+
+- [ ] ReFramed NativeWind / Tailwind
+
+---
+
+- [ ] "close the loop"
 
 - [ ] setup self-hosted Github action runner
 - [ ] customize your repository’s social media preview
