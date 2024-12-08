@@ -11,7 +11,7 @@ nothing right now
 
 # NEXT
 
-GOAL: Make something work in Expo Go and Next.js 15 simultaneously
+GOAL: end-to-end RSC streaming demo
 
 ---
 
