@@ -8,6 +8,9 @@ end-to-end streaming text demo
 
 - [x] install deno
 - [ ] create a server that streams text to the client using deno
+
+deno init demos/reframe-server-demo-deno-0
+
 - [ ] render the streaming text in the demo app
 - [ ] make `bun dev` do something
 
