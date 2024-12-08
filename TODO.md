@@ -30,7 +30,7 @@ end-to-end streaming text demo
 > nav to http://localhost:8081/text-stream
 > should see the streaming text in the app
 
-- [ ] add another streaming fragment to the demo app that reads from the deno server
+- [x] add another streaming fragment to the demo app that reads from the deno server
 
 
 - [ ] make `bun dev` do something

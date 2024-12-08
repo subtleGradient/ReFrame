@@ -9,7 +9,17 @@ should see a stream of time updates come in every second
 
 */
 
-function handler(_req: Request): Response {
+function handler(req: Request): Response {
+  if (req.method === "OPTIONS") {
+    return new Response(null, {
+      headers: {
+        "access-control-allow-origin": "*",
+        "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "access-control-allow-headers": "*",
+      },
+    })
+  }
+
   let timer: ReturnType<typeof setInterval> | undefined
   const body = new ReadableStream({
     start(controller) {
@@ -26,8 +36,11 @@ function handler(_req: Request): Response {
   })
   return new Response(body, {
     headers: {
-      "content-type": "text/plain",
+      "Content-Type": "text/plain",
       "x-content-type-options": "nosniff",
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "access-control-allow-headers": "*",
     },
   })
 }
