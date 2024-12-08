@@ -2942,6 +2942,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sublegradient/reframe-bridge@workspace:^, @sublegradient/reframe-bridge@workspace:packages/reframe-bridge":
+  version: 0.0.0-use.local
+  resolution: "@sublegradient/reframe-bridge@workspace:packages/reframe-bridge"
+  dependencies:
+    "@repo/eslint-config": "npm:*"
+    "@repo/typescript-config": "npm:*"
+    typescript: "npm:5.5.4"
+  peerDependencies:
+    "@types/react": "*"
+    "@types/react-dom": "*"
+    react: "*"
+    react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
 "@subtlegradient/reframe-repo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@subtlegradient/reframe-repo@workspace:."
@@ -11677,6 +11692,7 @@ __metadata:
     "@expo/vector-icons": "npm:^14.0.2"
     "@react-navigation/bottom-tabs": "npm:^7.0.0"
     "@react-navigation/native": "npm:^7.0.0"
+    "@sublegradient/reframe-bridge": "workspace:^"
     "@types/jest": "npm:^29.5.12"
     "@types/react": "npm:~18.3.12"
     "@types/react-test-renderer": "npm:^18.3.0"

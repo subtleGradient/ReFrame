@@ -16,7 +16,11 @@ end-to-end streaming text demo
 > open http://0.0.0.0:8000/
 > should see a stream of time updates come in every second
 
-- [ ] render the streaming text in the demo app
+- [x] render the streaming text in the demo app
+- [x] create @sublegradient/reframe-bridge
+- [x] create StreamingFragment
+- [ ] document StreamingFragment
+- [x] yarn workspace reframe-expo-demo-1 add @sublegradient/reframe-bridge
 
 > from the repo root
 > bun sh
