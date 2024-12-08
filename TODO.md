@@ -4,7 +4,7 @@ Decisions
 
 # Work in progress
 
-nothing right now
+verify the demo works in ios
 
 
 ---
