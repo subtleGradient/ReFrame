@@ -4,9 +4,13 @@ Decisions
 
 # Work in progress
 
+end-to-end streaming text demo
+
+- [ ] create a server that streams text to the client
+- [ ] render the streaming text in the demo app
+
 ---
 
-- [x] get reframe-expo-demo-1 running
 
 - [ ] repo root `bun demo` script
 
@@ -193,5 +197,6 @@ but reframe-expo-demo-0 still doesn't work, so I just created a new demo using `
 - [x] bun -> yarn because of the react 18 & react 19 conflict
 - ~~bun doesn't support overrides or resolutions properly~~
 - ~~pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing. yarn 4 seems to work fine.~~
+- [x] get reframe-expo-demo-1 running
 
 </details>
