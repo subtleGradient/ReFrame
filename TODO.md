@@ -15,8 +15,8 @@ let's get a basic Expo Go app running
 - [x] add a /demos directory to the monorepo config
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [x] configure prettier for the monorepo
-bunx expo-doctor
-bunx expo install --check
+yarn dlx expo-doctor
+yarn dlx expo install --check
 
 - [ ] get reframe-expo-demo-0 running in web
 
