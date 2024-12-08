@@ -2843,6 +2843,19 @@ const RAW_RUNTIME_STATE =
           "react-native"\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:4.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/@expo-metro-runtime-virtual-06851cd1e2/4/.yarn/berry/cache/@expo-metro-runtime-npm-4.0.0-73c966dd3d-10c0.zip/node_modules/@expo/metro-runtime/",\
+        "packageDependencies": [\
+          ["@expo/metro-runtime", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:4.0.0"],\
+          ["@types/react-native", null],\
+          ["react-native", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:0.76.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-native",\
+          "react-native"\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@expo/osascript", [\
@@ -8659,7 +8672,7 @@ const RAW_RUNTIME_STATE =
           ["@expo/dom-webview", null],\
           ["@expo/fingerprint", "npm:0.11.3"],\
           ["@expo/metro-config", "npm:0.19.6"],\
-          ["@expo/metro-runtime", null],\
+          ["@expo/metro-runtime", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:4.0.0"],\
           ["@expo/vector-icons", "npm:14.0.4"],\
           ["@types/expo__dom-webview", null],\
           ["@types/expo__metro-runtime", null],\
@@ -13815,6 +13828,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["reframe-expo-demo-0", "workspace:demos/reframe-expo-demo-0"],\
           ["@babel/core", "npm:7.26.0"],\
+          ["@expo/metro-runtime", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:4.0.0"],\
           ["@expo/vector-icons", "npm:14.0.4"],\
           ["@react-navigation/bottom-tabs", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:7.1.3"],\
           ["@react-navigation/drawer", "virtual:24e50931a3865b77bb63caa62965c6500826fca2384250cb0d8beea1204252116215563ba7299e8792cc9d5de27dccd6538d39b6b25fc00fa662ad56ce52ffcf#npm:7.0.19"],\
