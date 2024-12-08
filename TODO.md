@@ -10,26 +10,6 @@ pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing
 
 ---
 
-let's get a basic Expo Go app running
-
-- [x] add a /demos directory to the monorepo config
-- [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
-- [x] configure prettier for the monorepo
-yarn dlx expo-doctor
-yarn dlx expo install --check
-yarn dlx expo install @expo/metro-runtime
-
-- [x] create demos/reframe-expo-demo-1; get it to run in web
-
-conclusion: create-expo-stack is bad and should feel bad
-
-- [ ] get reframe-expo-demo-0 running in web
-
-
-Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
-
-it's a problem with the React version
-need to fix the resolution of the React version in this demo
 
 
 - [ ] get reframe-expo-demo-0 running in Expo Go
@@ -191,5 +171,30 @@ fswatch -0 TODO.md | while read -d "" event; do if [ -z "$(git status --porcelai
 
 - [x] modularize todo auto-commit workflow
 - [x] hide the postinstall message when running `bun install` unless it fails
+
+---
+
+let's get a basic Expo Go app running
+
+- [x] add a /demos directory to the monorepo config
+- [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
+- [x] configure prettier for the monorepo
+yarn dlx expo-doctor
+yarn dlx expo install --check
+yarn dlx expo install @expo/metro-runtime
+
+- [x] create demos/reframe-expo-demo-1; get it to run in web
+
+conclusion: create-expo-stack is bad and should feel bad
+
+- [ ] ~~get reframe-expo-demo-0 running in web~~
+
+Metro error: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')
+
+it's a problem with the React version
+need to fix the resolution of the React version in this demo
+fixed the react version conflict by switching to yarn
+but reframe-expo-demo-0 still doesn't work, so I just created a new demo using `yarn create expo demos/reframe-expo-demo-1` and it worked immediately
+
 
 </details>
