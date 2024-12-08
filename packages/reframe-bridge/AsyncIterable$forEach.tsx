@@ -1,22 +1,12 @@
-import { MaybePromise } from "./types"
+import { MaybePromise, YieldValue } from "./types"
 
-/** @deprecated -- @see AsyncIterable$forEach */
-export async function AsyncIterable$forEach_old<T>(
-  it: AsyncIterable<T>,
-  signal: AbortSignal,
-  drain: (item: T, index: number, items: typeof it) => MaybePromise<unknown>,
-) {
-  let index = -1
-  for await (const item of it) {
-    index++
-    if (signal.aborted) return
-    await drain(item, index, it)
-  }
+interface AsyncForEach<I extends AsyncIterable<any>> {
+  (item: YieldValue<I>, index: number, items: I): MaybePromise<unknown>
 }
 
-export async function AsyncIterable$forEach<T>(
-  them: AsyncIterable<T>,
-  forEach: (item: T, index: number, items: typeof them) => MaybePromise<unknown>,
+export async function AsyncIterable$forEach<I extends AsyncIterable<any>>(
+  them: I,
+  forEach: AsyncForEach<I>,
   signal?: AbortSignal,
 ) {
   let index = -1
