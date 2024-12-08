@@ -7,6 +7,7 @@ Decisions
 verify the demo works in ios
 
 - [x] [Reanimated] Mismatch between JavaScript code version and Reanimated Babel plugin version (3.16.3 vs. 3.16.2).
+- [ ] missing `key` warning
 
 ---
 
