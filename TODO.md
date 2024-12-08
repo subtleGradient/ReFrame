@@ -4,7 +4,8 @@ Decisions
 
 # Work in progress
 
-- [ ] package exports for reframe-bridge
+- [x] package exports for StreamingFragment
+- [x] StreamingFragment client/server files & types
 
 ---
 
