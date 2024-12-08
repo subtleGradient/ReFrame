@@ -11,13 +11,22 @@ export async function AsyncIterable$forEach<I extends AsyncIterable<any>>(
 ) {
   let index = -1
   try {
-    signal?.throwIfAborted()
+    if (signal) throwIfAborted(signal)
     for await (const item of them) {
-      signal?.throwIfAborted()
+      if (signal) throwIfAborted(signal)
       await forEach(item, index++, them)
     }
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") return
     throw error
   }
+}
+
+class AbortError extends Error {
+  name = "AbortError"
+}
+
+function throwIfAborted(signal: AbortSignal) {
+  if (signal?.throwIfAborted) signal.throwIfAborted()
+  else if (signal.aborted) throw new AbortError("Aborted")
 }

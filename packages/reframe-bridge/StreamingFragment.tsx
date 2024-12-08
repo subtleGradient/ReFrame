@@ -22,12 +22,14 @@ function useStreamingChildren(
 
   useEffect(() => {
     const mounted = new AbortController()
-    void AsyncIterable$forEach(stream, (child) => {
-      mounted.signal.throwIfAborted()
-      if (mounted.signal.aborted) return
-      if ("replace" in child) return setChildren([child.replace])
-      setChildren((children) => [...children, child])
-    }).then(
+    void AsyncIterable$forEach(
+      stream,
+      (child) => {
+        if ("replace" in child) return setChildren([child.replace])
+        setChildren((children) => [...children, child])
+      },
+      mounted.signal,
+    ).then(
       function onDone() {
         if (finalRef.current) setChildren(() => [finalRef.current])
       },
