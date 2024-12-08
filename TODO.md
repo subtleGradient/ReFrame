@@ -7,9 +7,14 @@ Decisions
 end-to-end streaming text demo
 
 - [x] install deno
-- [ ] create a server that streams text to the client using deno
+- [x] create a server that streams text to the client using deno
 
-deno init demos/reframe-server-demo-deno-0
+> from the repo root
+> bun sh
+> cd demos/reframe-server-demo-deno-0
+> deno run --allow-net main.ts
+> open http://0.0.0.0:8000/
+> should see a stream of time updates come in every second
 
 - [ ] render the streaming text in the demo app
 - [ ] make `bun dev` do something
