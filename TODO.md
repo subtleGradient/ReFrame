@@ -17,6 +17,14 @@ end-to-end streaming text demo
 > should see a stream of time updates come in every second
 
 - [ ] render the streaming text in the demo app
+
+> from the repo root
+> bun sh
+> cd demos/reframe-expo-demo-1
+> yarn web
+> browser window should open
+> should see the streaming text in the app
+
 - [ ] make `bun dev` do something
 
 
