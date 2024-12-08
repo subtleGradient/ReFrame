@@ -4,36 +4,7 @@ Decisions
 
 # Work in progress
 
-end-to-end streaming text demo
-
-- [x] install deno
-- [x] create a server that streams text to the client using deno
-
-> from the repo root
-> bun sh
-> cd demos/reframe-server-demo-deno-0
-> deno run --allow-net main.ts
-> open http://0.0.0.0:8000/
-> should see a stream of time updates come in every second
-
-- [x] render the streaming text in the demo app
-- [x] create @sublegradient/reframe-bridge
-- [x] create StreamingFragment
-- [ ] document StreamingFragment
-- [x] yarn workspace reframe-expo-demo-1 add @sublegradient/reframe-bridge
-
-> from the repo root
-> bun sh
-> cd demos/reframe-expo-demo-1
-> yarn web
-> browser window should open
-> nav to http://localhost:8081/text-stream
-> should see the streaming text in the app
-
-- [x] add another streaming fragment to the demo app that reads from the deno server
-- [x] fix dark mode
-
-- [ ] make `bun dev` do something
+nothing right now
 
 
 ---
@@ -57,6 +28,9 @@ GOAL: Make something work in Expo Go and Next.js 15 simultaneously
 
 <details><summary>Brain dump of random stuff I want to do</summary>
 
+- [ ] document StreamingFragment
+
+- [ ] make `bun dev` do something
 - [ ] repo root `bun demo` script
 
 - [ ] ReFramed ui libs
@@ -216,5 +190,36 @@ but reframe-expo-demo-0 still doesn't work, so I just created a new demo using `
 - ~~bun doesn't support overrides or resolutions properly~~
 - ~~pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing. yarn 4 seems to work fine.~~
 - [x] get reframe-expo-demo-1 running
+
+---
+
+end-to-end streaming text demo
+
+- [x] install deno
+- [x] create a server that streams text to the client using deno
+
+> from the repo root
+> bun sh
+> cd demos/reframe-server-demo-deno-0
+> deno run --allow-net main.ts
+> open http://0.0.0.0:8000/
+> should see a stream of time updates come in every second
+
+
+- [x] render the streaming text in the demo app
+- [x] create @sublegradient/reframe-bridge
+- [x] create StreamingFragment
+- [x] yarn workspace reframe-expo-demo-1 add @sublegradient/reframe-bridge
+
+> from the repo root
+> bun sh
+> cd demos/reframe-expo-demo-1
+> yarn web
+> browser window should open
+> nav to http://localhost:8081/text-stream
+> should see the streaming text in the app
+
+- [x] add another streaming fragment to the demo app that reads from the deno server
+- [x] fix dark mode
 
 </details>
