@@ -6,27 +6,37 @@ import invariant from "invariant"
 interface StreamingFragmentProps {
   initial?: ReactElement
   final?: ReactElement
-  children: AsyncIterable<ReactElement | { replace: ReactNode }>
+  children: boolean | null | undefined | AsyncIterable<ReactElement | { replace: ReactNode }>
 }
 
-const INITIAL = <Fragment key="INITIAL" />
-
 function useStreamingChildren(
-  stream: AsyncIterable<ReactElement | { replace: ReactNode }>,
+  stream: StreamingFragmentProps["children"],
   initial?: ReactElement,
   final?: ReactElement,
 ) {
-  const [children, setChildren] = useState<ReactNode[]>([INITIAL])
+  const [children, setChildren] = useState<ReactNode>(initial)
   const finalRef = useRef(final)
   finalRef.current = final
 
   useEffect(() => {
+    if (!stream || stream === true) return
+    invariant(
+      stream && typeof stream === "object" && Symbol.asyncIterator in stream,
+      "StreamingFragment children must be an async iterable",
+    )
     const mounted = new AbortController()
     void AsyncIterable$forEach(
       stream,
       (child) => {
-        if ("replace" in child) return setChildren([child.replace])
-        setChildren((children) => [...children, child])
+        if ("replace" in child) return setChildren(child.replace)
+        setChildren((children) =>
+          [
+            children,
+            child.key ? child : (
+              <Fragment key={Array.isArray(children) ? children.length : 1}>{child}</Fragment>
+            ),
+          ].flat(),
+        )
       },
       mounted.signal,
     ).then(
@@ -44,16 +54,10 @@ function useStreamingChildren(
     return () => mounted.abort()
   }, [stream])
 
-  return !initial ? children : children.map((item) => (item === INITIAL ? initial : item))
+  return children
 }
 
 export function StreamingFragment(props: StreamingFragmentProps) {
-  invariant(
-    props.children && typeof props.children === "object" && Symbol.asyncIterator in props.children,
-    "StreamingFragment children must be an async iterable",
-  )
-
   const children = useStreamingChildren(props.children, props.initial, props.final)
-
-  return <>{useDeferredValue(children)}</>
+  return useDeferredValue(children)
 }

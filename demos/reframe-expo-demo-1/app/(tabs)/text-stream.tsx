@@ -1,17 +1,20 @@
 import { ThemedText } from "@/components/ThemedText"
+import { useIsFocused } from "@react-navigation/native"
 import { StreamingFragment } from "@sublegradient/reframe-bridge/StreamingFragment"
 import { fetch } from "expo/fetch"
 import React from "react"
+import { Freeze } from "react-freeze"
 import { ScrollView } from "react-native"
 
 export default function HomeScreen() {
+  const isFocused = useIsFocused()
   return (
     <ScrollView style={{ padding: 16 }}>
       <ThemedText style={{ fontSize: 24 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText>
         <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
-          {renderChunkedTimestamps}
+          {isFocused && renderChunkedTimestamps}
         </StreamingFragment>
       </ThemedText>
 
@@ -19,7 +22,7 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 14 }}>fake streaming, but real chunked rendering</ThemedText>
       <ThemedText>
         <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
-          {renderChunked}
+          {isFocused && renderChunked}
         </StreamingFragment>
       </ThemedText>
     </ScrollView>

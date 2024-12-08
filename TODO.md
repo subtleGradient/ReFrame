@@ -4,8 +4,8 @@ Decisions
 
 # Work in progress
 
-verify the demo works in ios
 
+- [x] disconnect / stop iteration when navigating away from a screen
 - [ ] missing `key` warning
 
 ---
@@ -224,5 +224,6 @@ end-to-end streaming text demo
 - [x] fix dark mode
 - [x] [Reanimated] Mismatch between JavaScript code version and Reanimated Babel plugin version (3.16.3 vs. 3.16.2).
 - [x] signal.throwIfAborted is not a function
+- [x] verify the demo works in ios
 
 </details>
