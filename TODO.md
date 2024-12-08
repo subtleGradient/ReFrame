@@ -19,6 +19,10 @@ yarn dlx expo-doctor
 yarn dlx expo install --check
 yarn dlx expo install @expo/metro-runtime
 
+- [x] create demos/reframe-expo-demo-1; get it to run in web
+
+conclusion: create-expo-stack is bad and should feel bad
+
 - [ ] get reframe-expo-demo-0 running in web
 
 
