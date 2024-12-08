@@ -191,7 +191,7 @@ fixed the react version conflict by switching to yarn
 but reframe-expo-demo-0 still doesn't work, so I just created a new demo using `yarn create expo demos/reframe-expo-demo-1` and it worked immediately
 
 - [x] bun -> yarn because of the react 18 & react 19 conflict
-~~bun doesn't support overrides or resolutions properly~~
-~~pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing. yarn 4 seems to work fine.~~
+- ~~bun doesn't support overrides or resolutions properly~~
+- ~~pnpm doesn't support workspaces? I don't care. I don't want to learn a new thing. yarn 4 seems to work fine.~~
 
 </details>
