@@ -31,7 +31,7 @@ end-to-end streaming text demo
 > should see the streaming text in the app
 
 - [x] add another streaming fragment to the demo app that reads from the deno server
-
+- [x] fix dark mode
 
 - [ ] make `bun dev` do something
 
