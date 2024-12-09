@@ -2324,7 +2324,7 @@
         version: rendererVersion,
         rendererPackageName: rendererPackageName,
         currentDispatcherRef: ReactSharedInternals,
-        reconcilerVersion: "19.0.0-rc-7283a213-20241206",
+        reconcilerVersion: "19.0.0",
         getCurrentComponentInfo: getCurrentOwnerInDEV
       };
       if ("undefined" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__)
