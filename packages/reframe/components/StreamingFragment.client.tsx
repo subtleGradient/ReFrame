@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { AsyncIterable$forEach } from "./AsyncIterable$forEach"
+import { AsyncIterable$forEach } from "../random/AsyncIterable$forEach"
 
 interface StreamingFragmentProps {
   initial?: ReactElement

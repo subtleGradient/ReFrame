@@ -212,9 +212,9 @@ end-to-end streaming text demo
 
 
 - [x] render the streaming text in the demo app
-- [x] create @sublegradient/reframe-bridge
+- [x] create @double-observer/reframe
 - [x] create StreamingFragment
-- [x] yarn workspace reframe-expo-demo-1 add @sublegradient/reframe-bridge
+- [x] yarn workspace reframe-expo-demo-1 add @double-observer/reframe
 
 > from the repo root
 > bun sh

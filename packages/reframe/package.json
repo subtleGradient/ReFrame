@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "@double-observer/reframe",
+  "version": "2024.12.7",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "demo": "bun run --conditions=react-server ./demo/server-render-demo.tsx"
+  },
+  "exports": {
+    ".": {
+      "react-server": "./react-server.tsx",
+      "default": "./index.tsx"
+    }
+  },
+  "dependencies": {
+    "invariant": "^2.2.4",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/bun": "^1.1.14",
+    "@types/invariant": "^2.2.37"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.2.0 || ^19.0.0",
+    "react": "^18.2.0 || ^19.0.0",
+    "typescript": "*"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
+  }
+}
