@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "@types/react-server-dom-webpack",
+  "types": "./types.d.ts",
+  "peerDependencies": {
+    "react-server-dom-webpack": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-server-dom-webpack": {
+      "optional": true
+    }
+  }
+}

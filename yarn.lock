@@ -54,7 +54,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9, @babel/core@npm:^7.25.2":
+"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.16, @babel/core@npm:^7.20.0, @babel/core@npm:^7.23.9, @babel/core@npm:^7.25.2, @babel/core@npm:^7.26.0":
   version: 7.26.0
   resolution: "@babel/core@npm:7.26.0"
   dependencies:
@@ -1187,7 +1187,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@double-observer/react-client@workspace:packages/react-client":
+"@double-observer/react-client@workspace:^, @double-observer/react-client@workspace:packages/react-client":
   version: 0.0.0-use.local
   resolution: "@double-observer/react-client@workspace:packages/react-client"
   peerDependencies:
@@ -1199,11 +1199,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@double-observer/reframe@workspace:packages/reframe"
   dependencies:
+    "@double-observer/react-client": "workspace:^"
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@types/bun": "npm:^1.1.14"
     "@types/invariant": "npm:^2.2.37"
+    "@types/react-server-dom-webpack": "workspace:^"
     invariant: "npm:^2.2.4"
+    react-server-dom-webpack: "npm:^19.0.0"
     server-only: "npm:^0.0.1"
   peerDependencies:
     "@types/react": ^18.2.0 || ^19.0.0
@@ -1683,7 +1686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/vector-icons@npm:^14.0.0, @expo/vector-icons@npm:^14.0.2":
+"@expo/vector-icons@npm:^14.0.0, @expo/vector-icons@npm:^14.0.4":
   version: 14.0.4
   resolution: "@expo/vector-icons@npm:14.0.4"
   dependencies:
@@ -2277,7 +2280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/eslint-plugin-next@npm:^15":
+"@next/eslint-plugin-next@npm:^15.0.4":
   version: 15.0.4
   resolution: "@next/eslint-plugin-next@npm:15.0.4"
   dependencies:
@@ -2628,7 +2631,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/bottom-tabs@npm:^7.0.0":
+"@react-navigation/bottom-tabs@npm:^7.0.0, @react-navigation/bottom-tabs@npm:^7.1.3":
   version: 7.1.3
   resolution: "@react-navigation/bottom-tabs@npm:7.1.3"
   dependencies:
@@ -2695,7 +2698,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/native@npm:^7.0.0":
+"@react-navigation/native@npm:^7.0.0, @react-navigation/native@npm:^7.0.13":
   version: 7.0.13
   resolution: "@react-navigation/native@npm:7.0.13"
   dependencies:
@@ -2824,18 +2827,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/eslint-config@workspace:packages/eslint-config"
   dependencies:
-    "@next/eslint-plugin-next": "npm:^15"
-    "@typescript-eslint/eslint-plugin": "npm:^8.15.0"
-    "@typescript-eslint/parser": "npm:^8.15.0"
-    eslint: "npm:^9.15.0"
+    "@next/eslint-plugin-next": "npm:^15.0.4"
+    "@typescript-eslint/eslint-plugin": "npm:^8.17.0"
+    "@typescript-eslint/parser": "npm:^8.17.0"
+    eslint: "npm:^9.16.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-only-warn: "npm:^1.1.0"
     eslint-plugin-react: "npm:^7.37.2"
-    eslint-plugin-react-hooks: "npm:^5.0.0"
-    eslint-plugin-turbo: "npm:^2.3.0"
-    globals: "npm:^15.12.0"
-    typescript: "npm:^5.3.3"
-    typescript-eslint: "npm:^8.15.0"
+    eslint-plugin-react-hooks: "npm:^5.1.0"
+    eslint-plugin-turbo: "npm:^2.3.3"
+    globals: "npm:^15.13.0"
+    typescript: "npm:^5.7.2"
+    typescript-eslint: "npm:^8.17.0"
   languageName: unknown
   linkType: soft
 
@@ -2851,13 +2854,13 @@ __metadata:
   dependencies:
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
-    "@turbo/gen": "npm:^1.12.4"
-    "@types/node": "npm:^20.11.24"
-    "@types/react": "npm:18.3.0"
-    "@types/react-dom": "npm:18.3.1"
+    "@turbo/gen": "npm:^1.13.4"
+    "@types/node": "npm:^20.17.9"
+    "@types/react": "npm:18.3.14"
+    "@types/react-dom": "npm:18.3.2"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    typescript: "npm:5.5.4"
+    typescript: "npm:5.7.2"
   languageName: unknown
   linkType: soft
 
@@ -2900,9 +2903,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@subtlegradient/reframe-repo@workspace:."
   dependencies:
-    prettier: "npm:^3.2.5"
+    prettier: "npm:^3.4.2"
     turbo: "npm:^2.3.3"
-    typescript: "npm:5.5.4"
+    typescript: "npm:5.7.2"
   languageName: unknown
   linkType: soft
 
@@ -2964,7 +2967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@turbo/gen@npm:^1.12.4":
+"@turbo/gen@npm:^1.13.4":
   version: 1.13.4
   resolution: "@turbo/gen@npm:1.13.4"
   dependencies:
@@ -3139,7 +3142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^29.5.12":
+"@types/jest@npm:^29.5.14":
   version: 29.5.14
   resolution: "@types/jest@npm:29.5.14"
   dependencies:
@@ -3192,7 +3195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20, @types/node@npm:^20.11.24":
+"@types/node@npm:^20.17.9":
   version: 20.17.9
   resolution: "@types/node@npm:20.17.9"
   dependencies:
@@ -3217,25 +3220,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.3.0":
-  version: 18.3.0
-  resolution: "@types/react-dom@npm:18.3.0"
+"@types/react-dom@npm:18.3.2":
+  version: 18.3.2
+  resolution: "@types/react-dom@npm:18.3.2"
   dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/6c90d2ed72c5a0e440d2c75d99287e4b5df3e7b011838cdc03ae5cd518ab52164d86990e73246b9d812eaf02ec351d74e3b4f5bd325bf341e13bf980392fd53b
+    "@types/react": "npm:^18"
+  checksum: 10c0/22510231af67044a9542633b5b52ec16a8d71fa1da177f82428b8120d36619fd874c3b975b2eda6895baa53667f9fe8cba3acea1232a0244dffe8b11f6b32284
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.3.1":
-  version: 18.3.1
-  resolution: "@types/react-dom@npm:18.3.1"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/8b416551c60bb6bd8ec10e198c957910cfb271bc3922463040b0d57cf4739cdcd24b13224f8d68f10318926e1ec3cd69af0af79f0291b599a992f8c80d47f1eb
-  languageName: node
-  linkType: hard
+"@types/react-server-dom-webpack@workspace:^, @types/react-server-dom-webpack@workspace:packages/@types_react-server-dom-webpack":
+  version: 0.0.0-use.local
+  resolution: "@types/react-server-dom-webpack@workspace:packages/@types_react-server-dom-webpack"
+  peerDependencies:
+    react-server-dom-webpack: ^19.0.0
+  peerDependenciesMeta:
+    react-server-dom-webpack:
+      optional: true
+  languageName: unknown
+  linkType: soft
 
-"@types/react-test-renderer@npm:^18.3.0":
+"@types/react-test-renderer@npm:^18.3.1":
   version: 18.3.1
   resolution: "@types/react-test-renderer@npm:18.3.1"
   dependencies:
@@ -3244,42 +3249,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19.0.1":
-  version: 19.0.1
-  resolution: "@types/react@npm:19.0.1"
-  dependencies:
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/25eb69114abb9a6d5fc4414ee584388275bbc9ac32976449cf58b95fe9880efe6b3f936c3842be9bed8c571546a9752e8d3e2095288381e9c809269f5f574f2e
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.3.0":
-  version: 18.3.0
-  resolution: "@types/react@npm:18.3.0"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/6405f805700daf096a507a191bc4f8814ebed49120f156926b0a5b7b6f41424214320cea3dbb6df85f476b220f0554ef7e587baa88f59375e64bdbab525f58aa
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.3.1":
-  version: 18.3.1
-  resolution: "@types/react@npm:18.3.1"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/18d856c12a4ec93f3cda2d58ef3d77a9480818afd3af895f812896fb82cfca1f35a692ab1add4ce826a4eb58a071624c7d1c8c6c4ccfb81c100d2916dc607614
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:^18, @types/react@npm:~18.3.12":
+"@types/react@npm:18.3.14, @types/react@npm:^18, @types/react@npm:~18.3.14":
   version: 18.3.14
   resolution: "@types/react@npm:18.3.14"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10c0/d925fbfcf084238b93d1a0b5406d4cf9aeb37c4a1191559aa4ee107c2e55cc15327989140f03eddda4d471f5b935d4673fd74a86f451860edea18eae48ca44f8
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^19.0.1":
+  version: 19.0.1
+  resolution: "@types/react@npm:19.0.1"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/25eb69114abb9a6d5fc4414ee584388275bbc9ac32976449cf58b95fe9880efe6b3f936c3842be9bed8c571546a9752e8d3e2095288381e9c809269f5f574f2e
   languageName: node
   linkType: hard
 
@@ -3338,7 +3323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:8.17.0, @typescript-eslint/eslint-plugin@npm:^8.15.0":
+"@typescript-eslint/eslint-plugin@npm:8.17.0, @typescript-eslint/eslint-plugin@npm:^8.17.0":
   version: 8.17.0
   resolution: "@typescript-eslint/eslint-plugin@npm:8.17.0"
   dependencies:
@@ -3361,7 +3346,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:8.17.0, @typescript-eslint/parser@npm:^8.15.0":
+"@typescript-eslint/parser@npm:8.17.0, @typescript-eslint/parser@npm:^8.17.0":
   version: 8.17.0
   resolution: "@typescript-eslint/parser@npm:8.17.0"
   dependencies:
@@ -5329,13 +5314,13 @@ __metadata:
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@repo/ui": "npm:*"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:18.3.1"
-    "@types/react-dom": "npm:18.3.0"
-    next: "npm:^15.0.0"
+    "@types/node": "npm:^20.17.9"
+    "@types/react": "npm:18.3.14"
+    "@types/react-dom": "npm:18.3.2"
+    next: "npm:^15.0.4"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    typescript: "npm:5.5.4"
+    typescript: "npm:5.7.2"
   languageName: unknown
   linkType: soft
 
@@ -5729,7 +5714,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-react-hooks@npm:^5.0.0":
+"eslint-plugin-react-hooks@npm:^5.1.0":
   version: 5.1.0
   resolution: "eslint-plugin-react-hooks@npm:5.1.0"
   peerDependencies:
@@ -5766,7 +5751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-turbo@npm:^2.3.0":
+"eslint-plugin-turbo@npm:^2.3.3":
   version: 2.3.3
   resolution: "eslint-plugin-turbo@npm:2.3.3"
   dependencies:
@@ -5801,7 +5786,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.15.0":
+"eslint@npm:^9.16.0":
   version: 9.16.0
   resolution: "eslint@npm:9.16.0"
   dependencies:
@@ -6819,7 +6804,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^15.12.0":
+"globals@npm:^15.13.0":
   version: 15.13.0
   resolution: "globals@npm:15.13.0"
   checksum: 10c0/640365115ca5f81d91e6a7667f4935021705e61a1a5a76a6ec5c3a5cdf6e53f165af7f9db59b7deb65cf2e1f83d03ac8d6660d0b14c569c831a9b6483eeef585
@@ -8366,7 +8351,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest@npm:^29.2.1":
+"jest@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest@npm:29.7.0"
   dependencies:
@@ -9579,7 +9564,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^15.0.0":
+"next@npm:^15.0.4":
   version: 15.0.4
   resolution: "next@npm:15.0.4"
   dependencies:
@@ -10409,7 +10394,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:^3.2.5":
+"prettier@npm:^3.4.2":
   version: 3.4.2
   resolution: "prettier@npm:3.4.2"
   bin:
@@ -10904,6 +10889,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-server-dom-webpack@npm:^19.0.0":
+  version: 19.0.0
+  resolution: "react-server-dom-webpack@npm:19.0.0"
+  dependencies:
+    acorn-loose: "npm:^8.3.0"
+    neo-async: "npm:^2.6.1"
+    webpack-sources: "npm:^3.2.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    webpack: ^5.59.0
+  checksum: 10c0/08f15b5c21f4ec46ebf7578c1c6e8e080270274e81e969dea958d33938970d56dedbc7d598a9588bbc76ad37c1c7c0f61f8caff8ac8fb6725c94de0a9dc488fd
+  languageName: node
+  linkType: hard
+
 "react-shallow-renderer@npm:^16.15.0":
   version: 16.15.0
   resolution: "react-shallow-renderer@npm:16.15.0"
@@ -11010,14 +11010,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reframe-expo-demo-1@workspace:demos/reframe-expo-demo-1"
   dependencies:
-    "@babel/core": "npm:^7.25.2"
+    "@babel/core": "npm:^7.26.0"
     "@double-observer/reframe": "workspace:^"
-    "@expo/vector-icons": "npm:^14.0.2"
-    "@react-navigation/bottom-tabs": "npm:^7.0.0"
-    "@react-navigation/native": "npm:^7.0.0"
-    "@types/jest": "npm:^29.5.12"
-    "@types/react": "npm:~18.3.12"
-    "@types/react-test-renderer": "npm:^18.3.0"
+    "@expo/vector-icons": "npm:^14.0.4"
+    "@react-navigation/bottom-tabs": "npm:^7.1.3"
+    "@react-navigation/native": "npm:^7.0.13"
+    "@types/jest": "npm:^29.5.14"
+    "@types/react": "npm:~18.3.14"
+    "@types/react-test-renderer": "npm:^18.3.1"
     expo: "npm:~52.0.17"
     expo-blur: "npm:~14.0.1"
     expo-constants: "npm:~17.0.3"
@@ -11030,7 +11030,7 @@ __metadata:
     expo-symbols: "npm:~0.2.0"
     expo-system-ui: "npm:~4.0.5"
     expo-web-browser: "npm:~14.0.1"
-    jest: "npm:^29.2.1"
+    jest: "npm:^29.7.0"
     jest-expo: "npm:~52.0.2"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
@@ -11042,7 +11042,7 @@ __metadata:
     react-native-web: "npm:~0.19.13"
     react-native-webview: "npm:13.12.5"
     react-test-renderer: "npm:18.3.1"
-    typescript: "npm:^5.3.3"
+    typescript: "npm:^5.7.2"
   languageName: unknown
   linkType: soft
 
@@ -12890,7 +12890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.15.0":
+"typescript-eslint@npm:^8.17.0":
   version: 8.17.0
   resolution: "typescript-eslint@npm:8.17.0"
   dependencies:
@@ -12906,17 +12906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:5.5.4":
-  version: 5.5.4
-  resolution: "typescript@npm:5.5.4"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/422be60f89e661eab29ac488c974b6cc0a660fb2228003b297c3d10c32c90f3bcffc1009b43876a082515a3c376b1eefcce823d6e78982e6878408b9a923199c
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^5.3.3":
+"typescript@npm:5.7.2, typescript@npm:^5.7.2":
   version: 5.7.2
   resolution: "typescript@npm:5.7.2"
   bin:
@@ -12926,17 +12916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>":
-  version: 5.5.4
-  resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/73409d7b9196a5a1217b3aaad929bf76294d3ce7d6e9766dd880ece296ee91cf7d7db6b16c6c6c630ee5096eccde726c0ef17c7dfa52b01a243e57ae1f09ef07
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^5.3.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>":
   version: 5.7.2
   resolution: "typescript@patch:typescript@npm%3A5.7.2#optional!builtin<compat/typescript>::version=5.7.2&hash=5786d5"
   bin:
@@ -13337,13 +13317,13 @@ __metadata:
     "@repo/eslint-config": "npm:*"
     "@repo/typescript-config": "npm:*"
     "@repo/ui": "npm:*"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:18.3.1"
-    "@types/react-dom": "npm:18.3.0"
-    next: "npm:^15.0.0"
+    "@types/node": "npm:^20.17.9"
+    "@types/react": "npm:18.3.14"
+    "@types/react-dom": "npm:18.3.2"
+    next: "npm:^15.0.4"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    typescript: "npm:5.5.4"
+    typescript: "npm:5.7.2"
   languageName: unknown
   linkType: soft
 
@@ -13365,6 +13345,13 @@ __metadata:
   version: 7.0.0
   resolution: "webidl-conversions@npm:7.0.0"
   checksum: 10c0/228d8cb6d270c23b0720cb2d95c579202db3aaf8f633b4e9dd94ec2000a04e7e6e43b76a94509cdb30479bd00ae253ab2371a2da9f81446cc313f89a4213a2c4
+  languageName: node
+  linkType: hard
+
+"webpack-sources@npm:^3.2.0":
+  version: 3.2.3
+  resolution: "webpack-sources@npm:3.2.3"
+  checksum: 10c0/2ef63d77c4fad39de4a6db17323d75eb92897b32674e97d76f0a1e87c003882fc038571266ad0ef581ac734cbe20952912aaa26155f1905e96ce251adbb1eb4e
   languageName: node
   linkType: hard
 

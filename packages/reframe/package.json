@@ -16,7 +16,10 @@
     }
   },
   "dependencies": {
+    "@double-observer/react-client": "workspace:^",
+    "@types/react-server-dom-webpack": "workspace:^",
     "invariant": "^2.2.4",
+    "react-server-dom-webpack": "^19.0.0",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
