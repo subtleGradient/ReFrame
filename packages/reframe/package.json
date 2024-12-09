@@ -5,6 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "test": "bun test",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "demo": "bun run --conditions=react-server ./demo/server-render-demo.tsx"
