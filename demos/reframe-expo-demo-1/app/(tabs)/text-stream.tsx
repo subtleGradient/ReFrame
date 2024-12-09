@@ -21,8 +21,8 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 export default function HomeScreen() {
   const isFocused = useIsFocused()
   return (
-    <ScrollView style={{ padding: 16 }}>
-      <ThemedText style={{ fontSize: 24 }}>Streaming text demo (replace)</ThemedText>
+    <ScrollView style={{ padding: 16, marginBottom: 32 }}>
+      <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText>
         <Try catch={ErrorBoundary}>
@@ -35,7 +35,7 @@ export default function HomeScreen() {
         </Try>
       </ThemedText>
 
-      <ThemedText style={{ fontSize: 24 }}>Streaming text demo (append)</ThemedText>
+      <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (append)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>fake streaming, but real chunked rendering</ThemedText>
       <ThemedText>
         <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
