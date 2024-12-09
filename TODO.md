@@ -4,7 +4,6 @@ Decisions
 
 # Work in progress
 
-- [ ] publish StreamingFragment client to jsr
 
 ---
 
@@ -14,6 +13,7 @@ GOAL: end-to-end RSC streaming demo
 
 ---
 
+- [ ] publish StreamingFragment client to jsr
 - [ ] react-client build for React 18
   - [ ] React 18 Expo 52 demo
 
