@@ -1,8 +1,10 @@
 {
-  "name": "react-client",
+  "name": "@double-observer/react-client",
   "description": "React package for consuming streaming models.",
   "version": "0.0.0-7283a213-20241206",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "react"
   ],
@@ -14,6 +16,7 @@
     "LICENSE",
     "README.md",
     "flight.js",
+    "flight.d.ts",
     "cjs/"
   ],
   "repository": {
