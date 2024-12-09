@@ -6,10 +6,16 @@ Decisions
 
 - [x] react-client build for React 18
 - [x] bunp react-client build for React 19 (without breaking support for React 18)
-  - [ ] React 18 Expo 52 demo
 - [x] publish @double-observer/react-client to npm https://www.npmjs.com/package/@double-observer/react-client
 - [x] add local RNBundle server
 - [x] add local RNBundle client with ClientActions handler
+- [x] add ReFrameReactFlightClientConfig
+
+- [x] Chunk$forEach
+- [ ] React 18 Expo 52 demo
+- [ ] dynamically generate the ReFrameReactFlightClientConfig from each app
+- [ ] create multiple client implementations of the same spec
+
 
 ---
 
