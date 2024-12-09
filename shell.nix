@@ -12,21 +12,32 @@ let
 
   # Helper function to get package from appropriate channel
   getPackage = name:
-    let tool = requiredTools.${name};
-    in if tool.channel == "unstable"
-       then unstable.${name}
-       else stable.${name};
+    let
+      tool = requiredTools.${name};
+      pkgSet = if tool.channel == "unstable" then unstable else stable;
+      nixName = if builtins.hasAttr "nixPackage" tool then tool.nixPackage else name;
+    in pkgSet.${nixName};
 
   # Convert tool names to packages
   packages = builtins.map getPackage (builtins.attrNames requiredTools);
+
+  # Helper function to generate version check command
+  makeVersionCheck = name:
+    let
+      tool = requiredTools.${name};
+      commands = if builtins.hasAttr "command" tool then
+        (if builtins.isList tool.command then tool.command else [tool.command])
+      else
+        [name];
+    in builtins.concatStringsSep "\n" (map (cmd:
+      "echo \"${name} (${cmd}) version: $(${cmd} --version 2>/dev/null || ${cmd} -v 2>/dev/null || echo 'version not available')\"")
+      commands);
 in
 unstable.mkShell {
   buildInputs = packages;
 
   shellHook = ''
     echo "Development environment loaded!"
-    ${builtins.concatStringsSep "\n" (builtins.map (tool:
-      "echo \"${tool} version: $(${tool} --version)\""
-    ) (builtins.attrNames requiredTools))}
+    ${builtins.concatStringsSep "\n" (builtins.map makeVersionCheck (builtins.attrNames requiredTools))}
   '';
 }

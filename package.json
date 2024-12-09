@@ -3,7 +3,7 @@
   "name": "@subtlegradient/reframe-repo",
   "private": true,
   "scripts": {
-    "sh": "command -v nix-shell >/dev/null 2>&1 && nix-shell --command './sh.sh; exec $SHELL' || ./sh.sh",
+    "sh": "nix-shell",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
@@ -24,7 +24,8 @@
   },
   "packageManager": "yarn@4.5.3",
   "engines": {
-    "bun": ">=1.1"
+    "bun": ">=1.1",
+    "node": ">=22"
   },
   "workspaces": [
     "apps/*",
@@ -34,6 +35,18 @@
   "config": {
     "tools": {
       "required": {
+        "nodejs": {
+          "nixPackage": "nodejs_22",
+          "command": [
+            "node",
+            "npm",
+            "corepack"
+          ],
+          "version": "22.0.0",
+          "critical": true,
+          "url": "https://nodejs.org",
+          "channel": "unstable"
+        },
         "fswatch": {
           "version": "1.17.1",
           "critical": false,
@@ -43,12 +56,6 @@
           "version": "2.0.0",
           "critical": false,
           "url": "https://git-scm.com",
-          "channel": "stable"
-        },
-        "corepack": {
-          "version": "20.18.1",
-          "critical": true,
-          "url": "https://yarnpkg.com/corepack",
           "channel": "stable"
         },
         "deno": {

@@ -68,55 +68,68 @@ load_requirements() {
 get_tool_prop() {
     local tool=$1
     local prop=$2
-    echo "$TOOLS" | jq -r ".[\"$tool\"][\"$prop\"]"
-}
-
-check() {
-    local description=$1
-    local command=$2
-    local is_critical=${3:-true}
-
-    log "INFO" "🔍 ${description} ..."
-
-    if eval "${command}" >/dev/null 2>&1; then
-        log "INFO" "✅ ${description}"
-        return $EXIT_OK
-    elif [ "${is_critical}" = "true" ]; then
-        log "ERROR" "🚫 ${description}"
-        log "ERROR" "🥺 Script doesn't know how to continue"
-        exit $EXIT_ERROR
+    local default=${3:-null}
+    local value
+    value=$(echo "$TOOLS" | jq -r ".[\"$tool\"][\"$prop\"] // \"$default\"")
+    if [ "$value" = "null" ]; then
+        echo "$default"
     else
-        log "WARN" "⚠️ ${description} (some features may not work as expected)"
-        return $EXIT_WARN
+        echo "$value"
     fi
 }
 
-check_tool() {
+get_tool_commands() {
     local tool=$1
-    local min_version=$2
+    local commands
+    commands=$(echo "$TOOLS" | jq -r ".[\"$tool\"].command | if type == \"array\" then .[] else . // \"$tool\" end")
+    if [ -z "$commands" ]; then
+        echo "$tool"
+    else
+        echo "$commands"
+    fi
+}
+
+check_command() {
+    local tool=$1
+    local command=$2
     local is_critical=${3:-true}
 
-    log "INFO" "🔍 checking for ${tool} ..."
+    log "INFO" "🔍 checking for ${tool} (${command}) ..."
 
-    if ! command -v "$tool" >/dev/null 2>&1; then
+    if ! command -v "$command" >/dev/null 2>&1; then
         if [ "${is_critical}" = "true" ]; then
-            log "ERROR" "🚫 ${tool} is not installed"
+            log "ERROR" "🚫 ${command} is not installed"
             return $EXIT_ERROR
         else
-            log "WARN" "⚠️ ${tool} is not installed (some features may not work as expected)"
+            log "WARN" "⚠️ ${command} is not installed (some features may not work as expected)"
             return $EXIT_WARN
         fi
     fi
 
     local version
-    case $tool in
-        *)
-            version=$(${tool} --version 2>&1 | head -n1)
-            ;;
-    esac
+    version=$(${command} --version 2>&1 || ${command} -v 2>&1 || echo "version not available")
+    version=$(echo "$version" | head -n1)
 
-    log "INFO" "✅ found ${tool} version ${version}"
+    log "INFO" "✅ found ${command} version ${version}"
     return $EXIT_OK
+}
+
+check_tool() {
+    local tool=$1
+    local is_critical=$(get_tool_prop "$tool" "critical" "false")
+    local exit_status=$EXIT_OK
+
+    while IFS= read -r command; do
+        if ! check_command "$tool" "$command" "$is_critical"; then
+            if [ "$is_critical" = "true" ]; then
+                return $EXIT_ERROR
+            else
+                exit_status=$EXIT_WARN
+            fi
+        fi
+    done < <(get_tool_commands "$tool")
+
+    return $exit_status
 }
 
 try_nix() {
@@ -127,7 +140,9 @@ try_nix() {
         log "ERROR" "   1. Install Nix from https://nixos.org/download.html"
         log "ERROR" "   2. Manually install these tools:"
         for tool in "${missing_tools[@]}"; do
-            log "ERROR" "      - ${tool}: $(get_tool_prop "$tool" "url")"
+            local url
+            url=$(get_tool_prop "$tool" "url" "")
+            [ -n "$url" ] && log "ERROR" "      - ${tool}: ${url}"
         done
         log "ERROR" "🥺 Script doesn't know how to continue"
         exit $EXIT_ERROR
@@ -161,19 +176,16 @@ main() {
 
     missing_tools=()
 
-    for tool in $(echo "$TOOLS" | jq -r 'keys[]'); do
-        local version=$(get_tool_prop "$tool" "version")
-        local critical=$(get_tool_prop "$tool" "critical")
-
-        if ! check_tool "$tool" "$version" "$critical"; then
+    while IFS= read -r tool; do
+        if ! check_tool "$tool"; then
             missing_tools+=("$tool")
-            if [ "$critical" = "true" ]; then
+            if [ "$(get_tool_prop "$tool" "critical" "false")" = "true" ]; then
                 exit_status=$EXIT_ERROR
             elif [ $exit_status -eq $EXIT_OK ]; then
                 exit_status=$EXIT_WARN
             fi
         fi
-    done
+    done < <(echo "$TOOLS" | jq -r 'keys[]')
 
     if [ ${#missing_tools[@]} -ne 0 ]; then
         log "INFO" "🔍 attempting to provide missing tools: ${missing_tools[*]} ..."
@@ -182,7 +194,7 @@ main() {
         log "INFO" "🔍 checking tools again ..."
         still_missing=()
         for tool in "${missing_tools[@]}"; do
-            if ! check_tool "$tool" "$(get_tool_prop "$tool" "version")" "$(get_tool_prop "$tool" "critical")"; then
+            if ! check_tool "$tool"; then
                 still_missing+=("$tool")
                 exit_status=$EXIT_ERROR
             fi
@@ -192,7 +204,9 @@ main() {
             log "ERROR" "🚫 Still missing tools: ${still_missing[*]}"
             log "ERROR" "Please install the missing tools manually:"
             for tool in "${still_missing[@]}"; do
-                log "ERROR" "   - ${tool}: $(get_tool_prop "$tool" "url")"
+                local url
+                url=$(get_tool_prop "$tool" "url" "")
+                [ -n "$url" ] && log "ERROR" "   - ${tool}: ${url}"
             done
             log "ERROR" "🥺 Script doesn't know how to continue"
             exit $EXIT_ERROR
