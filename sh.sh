@@ -49,6 +49,43 @@ error_handler() {
 
 trap 'error_handler ${LINENO}' ERR
 
+# Version comparison function
+version_compare() {
+    local version1=$1
+    local version2=$2
+
+    # Extract only numbers and dots, removing any other characters
+    version1=$(echo "$version1" | grep -o '[0-9.]*' | head -1)
+    version2=$(echo "$version2" | grep -o '[0-9.]*' | head -1)
+
+    if [[ "$version1" == "$version2" ]]; then
+        return 0
+    fi
+
+    local IFS=.
+    local i ver1=($version1) ver2=($version2)
+
+    # Fill empty positions in ver1 with zeros
+    for ((i=${#ver1[@]}; i<${#ver2[@]}; i++)); do
+        ver1[i]=0
+    done
+    # Fill empty positions in ver2 with zeros
+    for ((i=${#ver2[@]}; i<${#ver1[@]}; i++)); do
+        ver2[i]=0
+    done
+
+    # Return 0 if version1 >= version2
+    for ((i=0; i<${#ver1[@]}; i++)); do
+        if ((10#${ver1[i]} > 10#${ver2[i]})); then
+            return 0
+        fi
+        if ((10#${ver1[i]} < 10#${ver2[i]})); then
+            return 1
+        fi
+    done
+    return 0
+}
+
 load_requirements() {
     if [ ! -f package.json ]; then
         log "ERROR" "🚫 package.json not found"
@@ -89,10 +126,16 @@ get_tool_commands() {
     fi
 }
 
+extract_version() {
+    local version_string=$1
+    echo "$version_string" | grep -o '[0-9][0-9.]*' | head -1
+}
+
 check_command() {
     local tool=$1
     local command=$2
     local is_critical=${3:-true}
+    local required_version=$(get_tool_prop "$tool" "version")
 
     log "INFO" "🔍 checking for ${tool} (${command}) ..."
 
@@ -106,11 +149,23 @@ check_command() {
         fi
     fi
 
-    local version
-    version=$(${command} --version 2>&1 || ${command} -v 2>&1 || echo "version not available")
-    version=$(echo "$version" | head -n1)
+    local version_output
+    version_output=$(${command} --version 2>&1 || ${command} -v 2>&1 || echo "version not available")
+    local installed_version=$(extract_version "$version_output")
 
-    log "INFO" "✅ found ${command} version ${version}"
+    if [ -n "$required_version" ] && [ -n "$installed_version" ]; then
+        if ! version_compare "$installed_version" "$required_version"; then
+            if [ "${is_critical}" = "true" ]; then
+                log "ERROR" "🚫 ${command} version ${installed_version} is older than required version ${required_version}"
+                return $EXIT_ERROR
+            else
+                log "WARN" "⚠️ ${command} version ${installed_version} is older than required version ${required_version}"
+                return $EXIT_WARN
+            fi
+        fi
+    fi
+
+    log "INFO" "✅ found ${command} version ${version_output}"
     return $EXIT_OK
 }
 
@@ -130,6 +185,14 @@ check_tool() {
     done < <(get_tool_commands "$tool")
 
     return $exit_status
+}
+
+check_git() {
+    if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        log "ERROR" "🚫 Not in a git repository"
+        return $EXIT_ERROR
+    fi
+    return $EXIT_OK
 }
 
 try_nix() {
@@ -172,7 +235,7 @@ main() {
 
     load_requirements
 
-    check "in a git repository" "git rev-parse --is-inside-work-tree" || exit_status=$EXIT_ERROR
+    check_git || exit_status=$EXIT_ERROR
 
     missing_tools=()
 

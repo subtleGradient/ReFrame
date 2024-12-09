@@ -36,13 +36,13 @@
     "tools": {
       "required": {
         "nodejs": {
-          "nixPackage": "nodejs_22",
+          "nixPackage": "nodejs_23",
           "command": [
             "node",
             "npm",
             "corepack"
           ],
-          "version": "22.0.0",
+          "version": "23.0.0",
           "critical": true,
           "url": "https://nodejs.org",
           "channel": "unstable"
