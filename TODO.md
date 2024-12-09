@@ -4,7 +4,7 @@ Decisions
 
 # Work in progress
 
-- [ ] react-client build for React 18
+- [x] react-client build for React 18
   - [ ] React 18 Expo 52 demo
 
 
