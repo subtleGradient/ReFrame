@@ -1551,7 +1551,7 @@ module.exports = function ($$$config) {
       version: rendererVersion,
       rendererPackageName: rendererPackageName,
       currentDispatcherRef: ReactSharedInternals,
-      reconcilerVersion: "19.0.0-rc-afb21feb-20241121",
+      reconcilerVersion: "19.0.0-rc-7283a213-20241206",
       getCurrentComponentInfo: getCurrentOwnerInDEV
     };
     if ("undefined" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__)

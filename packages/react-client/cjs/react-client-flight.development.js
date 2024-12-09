@@ -532,7 +532,7 @@
           ) {
             if (void 0 === temporaryReferences)
               throw Error(
-                "Only plain objects, and a few built-ins, can be passed to Server Actions. Classes or null prototypes are not supported." +
+                "Only plain objects, and a few built-ins, can be passed to Server Functions. Classes or null prototypes are not supported." +
                   describeObjectForErrorMessage(this, key)
               );
             return "$T";
@@ -2324,7 +2324,7 @@
         version: rendererVersion,
         rendererPackageName: rendererPackageName,
         currentDispatcherRef: ReactSharedInternals,
-        reconcilerVersion: "19.0.0-rc-afb21feb-20241121",
+        reconcilerVersion: "19.0.0-rc-7283a213-20241206",
         getCurrentComponentInfo: getCurrentOwnerInDEV
       };
       if ("undefined" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__)
