@@ -17,6 +17,7 @@ GOAL: end-to-end RSC streaming demo
 
 ---
 
+- [ ] publish @subtlegradient/react-client to jsr
 - [ ] publish StreamingFragment client to jsr
 
 ---
