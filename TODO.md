@@ -7,6 +7,7 @@ Decisions
 - [x] react-client build for React 18
 - [x] bunp react-client build for React 19 (without breaking support for React 18)
   - [ ] React 18 Expo 52 demo
+- [ ] publish @subtlegradient/react-client to jsr
 
 
 ---
@@ -17,7 +18,6 @@ GOAL: end-to-end RSC streaming demo
 
 ---
 
-- [ ] publish @subtlegradient/react-client to jsr
 - [ ] publish StreamingFragment client to jsr
 
 ---
