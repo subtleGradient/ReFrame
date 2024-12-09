@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "reframe-server-demo-node-1",
+  "version": "2024.12.8",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "demo": "PORT=8000 node --experimental-transform-types --conditions=react-server ./main.ts"
+  },
+  "engines": {
+    "node": ">=23"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
+}
