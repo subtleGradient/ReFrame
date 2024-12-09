@@ -1,7 +1,7 @@
 import { expect, test } from "bun:test"
 
-import { ChunkSource$forEach } from "./Chunk$forEach"
 import { Chunk } from "./types"
+import { ChunkSource$forEach } from "./ChunkSource$forEach"
 
 test("handles string chunks", async () => {
   const chunks: Chunk[] = []
