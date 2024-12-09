@@ -5,6 +5,7 @@ Decisions
 # Work in progress
 
 - [x] react-client build for React 18
+- [x] bunp react-client build for React 19 (without breaking support for React 18)
   - [ ] React 18 Expo 52 demo
 
 
