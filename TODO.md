@@ -13,7 +13,7 @@ Decisions
 
 - [x] Chunk$forEach
 - [ ] React 18 Expo 52 demo
-- [ ] dynamically generate the ReFrameReactFlightClientConfig from each app
+- [x] dynamically generate the ReFrameReactFlightClientConfig from each app
 - [ ] create multiple client implementations of the same spec
 
 
