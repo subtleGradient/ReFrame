@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import { useIsFocused } from "@react-navigation/native"
-import { StreamingFragment } from "@sublegradient/reframe-bridge/StreamingFragment"
+import { StreamingFragment } from "@sublegradient/reframe-bridge"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
 import { fetch } from "expo/fetch"

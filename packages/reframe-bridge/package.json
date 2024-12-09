@@ -9,10 +9,9 @@
     "check-types": "tsc --noEmit"
   },
   "exports": {
-    "StreamingFragment": {
+    "./StreamingFragment": {
       "react-server": "./StreamingFragment.server.tsx",
-      "react-native": "./StreamingFragment.client.tsx",
-      "default": "./StreamingFragment.client.tsx"
+      "default": "./StreamingFragment.tsx"
     }
   },
   "devDependencies": {
@@ -28,6 +27,7 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "invariant": "^2.2.4"
+    "invariant": "^2.2.4",
+    "server-only": "^0.0.1"
   }
 }

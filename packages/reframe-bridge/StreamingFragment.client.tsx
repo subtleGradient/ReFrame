@@ -1,7 +1,14 @@
-import React, { Fragment, ReactElement, ReactNode, useRef } from "react"
-import { useDeferredValue, useEffect, useState } from "react"
-import { AsyncIterable$forEach } from "./AsyncIterable$forEach"
 import invariant from "invariant"
+import React, {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+} from "react"
+import { AsyncIterable$forEach } from "./AsyncIterable$forEach"
 
 interface StreamingFragmentProps {
   initial?: ReactElement
