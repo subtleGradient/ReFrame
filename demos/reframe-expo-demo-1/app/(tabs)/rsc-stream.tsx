@@ -5,8 +5,9 @@ import { RSCSource } from "@double-observer/reframe/random/types"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
 import React, { ReactNode, Suspense } from "react"
-import { Button, ScrollView } from "react-native"
+import { Button, ScrollView, Text } from "react-native"
 import pkg from "../../package.json"
+import { ClientReferenceMetadata } from "@double-observer/react-client/src/ReactFlightClientConfig"
 
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   return (
@@ -19,14 +20,29 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 }
 
 const reframe = ReFrameClient.create({
+  responseProps: {
+    environmentName: "Fake Server",
+    replayConsole: true,
+    bundlerConfig: {
+      "abc": ["", [], ""] satisfies ClientReferenceMetadata,
+    },
+  },
   config: {
     rendererPackageName: pkg.name,
     rendererVersion: pkg.version,
+    resolveClientReference(bundlerConfig, [mod, deps, name]) {
+      return `${mod}#${name}`
+    },
     requireModule(clientReference) {
-      console.log("requireModule", { clientReference })
-      return () => <ThemedText>{clientReference}</ThemedText>
+      console.log("ReFrameClient", "requireModule", { clientReference })
+      return (props: object) => (
+        <ThemedText>
+          {clientReference} {JSON.stringify(props)}
+        </ThemedText>
+      )
     },
   },
+  debug: console.debug.bind(console, "ReFrameClient"),
   modules: {
     lulz: {
       Lulz: () => {
@@ -36,7 +52,8 @@ const reframe = ReFrameClient.create({
   },
 })
 
-function ReFrameDynamic({ fallback, rsc }: { fallback?: ReactNode; rsc: RSCSource }) {
+/** render RSC without suspense (ideal for React 18) */
+function ReFrameFrom({ fallback, rsc }: { fallback?: ReactNode; rsc: RSCSource }) {
   const [node, setNode] = React.useState<ReactNode>(null)
   React.useEffect(() => {
     setNode(null)
@@ -56,8 +73,6 @@ function ReFrameDynamic({ fallback, rsc }: { fallback?: ReactNode; rsc: RSCSourc
 }
 
 export default function HomeScreen() {
-  const fakeRSC = Array.from(renderDynamicClientModule(<ThemedText>loaded</ThemedText>)).join("")
-
   return (
     <ScrollView style={{ padding: 16, marginBottom: 32 }}>
       <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (replace)</ThemedText>
@@ -67,8 +82,18 @@ export default function HomeScreen() {
         <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
           <Use>{reframe.from(fakeRSC)}</Use>
         </Suspense>
-        <ReFrameDynamic rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
+
+        <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
       </Try>
     </ScrollView>
   )
 }
+
+// fake RSC server
+const fakeRSC = Array.from(
+  renderDynamicClientModule(<Text>{new Date().toLocaleString()}</Text>, {
+    id: "Bundle",
+    dependencies: [0, "ThemedText"],
+    name: "",
+  }),
+).join("")
