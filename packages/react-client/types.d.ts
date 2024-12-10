@@ -130,27 +130,32 @@ declare module "@double-observer/react-client/src/ReactFlightClientConfig" {
 }
 
 declare module "@double-observer/react-client/src/ReactFlightReplyClient" {
+  type AnyFunction = (...args: any[]) => any
   import type { ReactCustomFormAction } from "shared/ReactTypes"
 
-  export type CallServerCallback = <A, T>(id: ServerReferenceId, args: A) => Promise<T>
-
-  export type EncodeFormActionCallback = <A>(
-    id: ServerReferenceId,
-    args: Promise<A>,
-  ) => ReactCustomFormAction
-
   export type ServerReferenceId = number
+  export type ServerCallbackMap = { [id: ServerReferenceId]: (...args: any[]) => Promise<any> }
+
+  export type CallServerCallback<
+    F extends AnyFunction, //
+    K extends ServerReferenceId,
+  > = (id: K, args: Parameters<F>) => Promise<unknown> & ReturnType<F>
+
+  export type EncodeFormActionCallback<
+    F extends AnyFunction, //
+    K extends ServerReferenceId,
+  > = (id: K, args: Parameters<F>) => ReactCustomFormAction
 
   export function registerServerReference(
     proxy: any,
     reference: { id: ServerReferenceId; bound: null | Promise<Array<any>> },
-    encodeFormAction: EncodeFormActionCallback | void,
+    encodeFormAction: EncodeFormActionCallback<any, any> | void,
   ): void
 
   export function createServerReference<A extends Iterable<any>, T>(
     id: ServerReferenceId,
-    callServer: CallServerCallback,
-    encodeFormAction?: EncodeFormActionCallback,
+    callServer: CallServerCallback<any, any>,
+    encodeFormAction?: EncodeFormActionCallback<any, any>,
   ): (...args: A & Partial<Array<T>>) => Promise<T>
 }
 
