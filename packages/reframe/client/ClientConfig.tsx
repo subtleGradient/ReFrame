@@ -17,10 +17,10 @@ type Config = Prettify<
     Pick<ReactFlightClientConfig, "rendererPackageName" | "rendererVersion">
 >
 
-export function createClientConfig<C extends Config>(props: {
-  modules: ModuleMap
-  debug?: typeof console.debug | null
+export function createClientConfig<C extends Config, M extends ModuleMap>(props: {
+  modules: M
   config: C
+  debug?: typeof console.debug | null
 }): Readonly<ReactFlightClientConfig & C> {
   const decoderOptions = { stream: true }
 
@@ -47,23 +47,23 @@ export function createClientConfig<C extends Config>(props: {
           keyof ModuleMap,
           keyof ModuleMap[keyof ModuleMap],
         ]
-        return props.modules[id][name] as T
+        return (props.modules[id] ?? props.modules["ReFrameDynamic"])[name] as T
       } catch (error) {
         console.warn("requireModule error", { clientReference, error })
-        return props.modules.ReFrameDynamic.MissingView as T
+        return props.modules["ReFrameDynamic"]?.MissingView as T
       }
     },
 
-    resolveClientReference(bundlerConfig, [moduleId, chunks, name]) {
-      props.debug?.("resolveClientReference", { bundlerConfig, moduleId, chunks, name })
+    resolveClientReference(bundlerConfig, [moduleId, deps, name]) {
+      props.debug?.("resolveClientReference", { bundlerConfig, moduleId, deps, name })
       if (moduleId in props.modules) {
         const selectedModule = props.modules[moduleId]
         if (name in selectedModule) {
-          return `${moduleId}#${name}` as ReactReference$$id
+          return `${moduleId}#${name}` satisfies ReactReference$$id
         }
       }
-      console.warn("resolveClientReference", "ref not found", { moduleId, chunks, name })
-      return `ReFrameDynamic#MissingView`
+      console.warn("resolveClientReference", "ref not found", { moduleId, deps, name })
+      return `${"ReFrameDynamic"}#${"MissingView"}` as ReactReference$$id
     },
 
     resolveServerReference(bundlerConfig, id) {
@@ -72,7 +72,7 @@ export function createClientConfig<C extends Config>(props: {
     },
 
     prepareDestinationForModule(moduleLoading, nonce, metadata) {
-      console.warn("prepareDestinationForModule", { moduleLoading, nonce, metadata })
+      props.debug?.("prepareDestinationForModule", { moduleLoading, nonce, metadata })
     },
 
     bindToConsole(methodName, args, env) {

@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
+import { ClientReferenceMetadata } from "@double-observer/react-client/src/ReactFlightClientConfig"
 import { ReFrameClient, renderDynamicClientModule, Use } from "@double-observer/reframe"
 import { RSCSource } from "@double-observer/reframe/random/types"
 import { ErrorBoundaryProps } from "expo-router"
@@ -7,7 +8,6 @@ import { Try } from "expo-router/build/views/Try"
 import React, { ReactNode, Suspense } from "react"
 import { Button, ScrollView, Text } from "react-native"
 import pkg from "../../package.json"
-import { ClientReferenceMetadata } from "@double-observer/react-client/src/ReactFlightClientConfig"
 
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   return (
@@ -20,21 +20,45 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
 }
 
 const reframe = ReFrameClient.create({
-  responseProps: {
+  modules: {
+    ReFrameDynamic: {
+      MissingView: (props: object) => <ThemedText>MissingView {JSON.stringify(props)}</ThemedText>,
+    },
+  },
+  remoteConfig: {
     environmentName: "Fake Server",
     replayConsole: true,
     bundlerConfig: {
-      "abc": ["", [], ""] satisfies ClientReferenceMetadata,
+      [`${"ReFrameDynamic"}#${"MissingView"}`]: [
+        "ReFrameDynamic",
+        [...([0, "file:///missing"] as const)],
+        "MissingView",
+      ],
     },
   },
   config: {
     rendererPackageName: pkg.name,
     rendererVersion: pkg.version,
-    resolveClientReference(bundlerConfig, [mod, deps, name]) {
-      return `${mod}#${name}`
-    },
+
+    // prepareDestinationForModule(moduleLoading, nonce, metadata) {},
+    // resolveServerReference(bundlerConfig, id) {
+    //   const [mod, deps, name] =
+    //     bundlerConfig[id] ?? (["unknown", [], "unknown"] satisfies ClientReferenceMetadata)
+    //   return `${mod}#${name}`
+    // },
+    // resolveClientReference(bundlerConfig, [mod, deps, name]) {
+    //   return `${mod}#${name}`
+    // },
+    // async preloadModule(clientReference) {},
+
     requireModule(clientReference) {
       console.log("ReFrameClient", "requireModule", { clientReference })
+      const [modId, name] = clientReference.split("#")
+
+      // modId in reframe.props.modules
+      // const mod = reframe.props.modules[modId]
+      // return mod[name] || mod.MissingView
+
       return (props: object) => (
         <ThemedText>
           {clientReference} {JSON.stringify(props)}
@@ -43,13 +67,6 @@ const reframe = ReFrameClient.create({
     },
   },
   debug: console.debug.bind(console, "ReFrameClient"),
-  modules: {
-    lulz: {
-      Lulz: () => {
-        return <ThemedText>lulz</ThemedText>
-      },
-    },
-  },
 })
 
 /** render RSC without suspense (ideal for React 18) */
@@ -79,9 +96,9 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText style={{ backgroundColor: "rebeccapurple" }}>{fakeRSC}</ThemedText>
       <Try catch={ErrorBoundary}>
-        <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
+        {/* <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
           <Use>{reframe.from(fakeRSC)}</Use>
-        </Suspense>
+        </Suspense> */}
 
         <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
       </Try>

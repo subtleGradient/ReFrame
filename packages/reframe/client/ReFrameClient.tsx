@@ -1,10 +1,9 @@
 import ReactFlightClient from "@double-observer/react-client/flight"
-import { ReactFlightClientConfig } from "@double-observer/react-client/src/ReactFlightClientConfig"
 import { ChunkSource$forEach } from "../random/ChunkSource$forEach"
 import { Promise_fromThenable } from "../random/Promise_fromThenable"
 import { FlightResponseProps, RSCSource } from "../random/types"
-import { createFlightResponse } from "./createFlightResponse"
 import { createClientConfig } from "./ClientConfig"
+import { createFlightResponse } from "./createFlightResponse"
 
 const IGNORE_ERROR = "IGNORE_ERROR"
 
@@ -12,32 +11,27 @@ interface FromProps {
   onClose?(): void
   onError?(error: Error): typeof IGNORE_ERROR | void
   signal?: AbortSignal
-  responseProps?: Partial<FlightResponseProps>
+  remoteConfig?: Partial<FlightResponseProps>
 }
 
 type CreateClientConfigProps = Parameters<typeof createClientConfig>[0]
 
 interface ReFrameClientProps extends CreateClientConfigProps {
-  responseProps?: Partial<FlightResponseProps>
+  remoteConfig?: Partial<FlightResponseProps>
 }
 
 export default class ReFrameClient {
-  static create<T>({ responseProps, ...props }: ReFrameClientProps) {
-    const reframe = new ReFrameClient(createClientConfig(props))
-    reframe.responseProps = responseProps
-    return reframe
+  static create<P extends ReFrameClientProps>(props: P) {
+    return new ReFrameClient(props) as ReFrameClient & { props: P }
   }
 
-  private responseProps?: Partial<FlightResponseProps>
-
-  constructor(public readonly config: ReactFlightClientConfig) {
-    const flight = new ReactFlightClient(this.config) // satisfies IReactFlightClient
-    this.flight = flight
+  constructor(public readonly props: ReFrameClientProps) {
+    this.flight = new ReactFlightClient(createClientConfig(props)) // satisfies IReactFlightClient
   }
 
   private readonly flight: ReactFlightClient
-  get name() { return this.config.rendererPackageName } // prettier-ignore
-  get version() { return this.config.rendererVersion } // prettier-ignore
+  get name() { return this.props.config.rendererPackageName } // prettier-ignore
+  get version() { return this.props.config.rendererVersion } // prettier-ignore
 
   from<T>(rsc: RSCSource, props?: FromProps): Promise<T> {
     const response = createFlightResponse(this.flight, {
@@ -49,8 +43,8 @@ export default class ReFrameClient {
           console.warn("moduleLoading.load called unexpectedly", "url", url, "nonce", nonce)
         },
       },
-      ...this.responseProps,
-      ...props?.responseProps,
+      ...this.props.remoteConfig,
+      ...props?.remoteConfig,
     })
 
     void ChunkSource$forEach(

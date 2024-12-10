@@ -1,18 +1,21 @@
 import { FlightResponseProps, IReactFlightClient } from "../random/types"
 
-export function createFlightResponse(flight: IReactFlightClient, props: FlightResponseProps) {
+export function createFlightResponse(
+  flight: IReactFlightClient,
+  remoteConfig: FlightResponseProps,
+) {
   if ((global as any).__DEV__) flight.injectIntoDevTools()
 
   return flight.createResponse(
-    props.bundlerConfig,
-    props.serverReferenceConfig,
-    props.moduleLoading,
-    props.callServer,
-    props.encodeFormAction,
-    props.nonce,
-    props.temporaryReferences,
-    props.findSourceMapURL,
-    props.replayConsole,
-    props.environmentName,
+    remoteConfig.bundlerConfig,
+    remoteConfig.serverReferenceConfig,
+    remoteConfig.moduleLoading,
+    remoteConfig.callServer,
+    remoteConfig.encodeFormAction,
+    remoteConfig.nonce,
+    remoteConfig.temporaryReferences,
+    remoteConfig.findSourceMapURL,
+    remoteConfig.replayConsole,
+    remoteConfig.environmentName,
   )
 }
