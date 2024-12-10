@@ -4,28 +4,28 @@ import {
   ClientReferenceMetadata,
   DependencyChunks,
   ModuleID,
+  ReactClientManifestRecord,
 } from "@double-observer/react-client/src/ReactFlightClientConfig"
 import invariant from "invariant"
 
 export function* renderDynamicClientModule(
   element: React.ReactElement & { type: string | { name: string; displayName?: string } },
+  { id: moduleId = "ReFrameDynamic", dependencies, name } = {} as ReactClientManifestRecord,
 ) {
   invariant(
     !element.props?.children || typeof element.props?.children === "string",
     "children not supported in renderDynamicClientModule yet",
   )
 
-  const moduleId: ModuleID = "ReFrameDynamic"
-  const deps: DependencyChunks = []
-  const name: ClientModuleExportName =
+  const displayName: ClientModuleExportName =
     typeof element.type === "string" ?
       element.type
-    : (element.type?.displayName ?? element.type?.name ?? element.type)
+    : (element.type?.displayName ?? element.type?.name ?? element.type ?? name)
 
-  invariant(name, "renderDynamicClientModule: element must have a name")
+  invariant(displayName, "renderDynamicClientModule: element must have a name")
 
   const id: number = 1
-  yield stringified`${id}:I${[moduleId, deps, name] satisfies ClientReferenceMetadata}\n`
+  yield stringified`${id}:I${[moduleId, dependencies, displayName] satisfies ClientReferenceMetadata}\n`
   yield stringified`0:${["$", `$L${id}`, element.key, element.props, null]}\n`
 }
 
