@@ -26,14 +26,14 @@ declare module "@double-observer/react-client/src/ReactFlightClientConfig" {
   /** $$id attribute of a Client Reference or Server Reference */
   type ReactReference$$id = `${ModuleID}#${ClientModuleExportName}`
 
-  type ReactClientManifestRecord = {
+  export type ReactClientManifestRecord = {
     id: ModuleID
-    chunks: DependencyChunks
+    dependencies: DependencyChunks
     name: ClientModuleExportName
   }
   type ReactClientManifestTuple = [
     id: ModuleID,
-    chunks: DependencyChunks,
+    dependencies: DependencyChunks,
     name: ClientModuleExportName,
   ]
 
@@ -94,41 +94,38 @@ declare module "@double-observer/react-client/src/ReactFlightClientConfig" {
   export type ServerManifest = { [key: string]: Array<string> }
   export type ServerReferenceId = number
   export type ClientReferenceMetadata = ReactClientManifestTuple
-  export type ClientReference<T> = string & { __T?: T }
+  export type ClientRefKey = ReactReference$$id
 
   export interface ReactFlightClientConfig {
-    resolveClientReference: <T>(
+    rendererPackageName: string
+    rendererVersion: string
+
+    resolveClientReference(
       bundlerConfig: SSRModuleMap,
       metadata: ClientReferenceMetadata,
-    ) => ClientReference<T>
+    ): ClientRefKey
 
-    resolveServerReference: (
-      bundlerConfig: SSRModuleMap,
-      id: ServerReferenceId,
-    ) => ClientReference<unknown>
+    resolveServerReference(bundlerConfig: SSRModuleMap, id: ServerReferenceId): ClientRefKey
 
-    preloadModule: <T>(clientReference: ClientReference<T>) => Promise<void> | null
-    requireModule: <T>(clientReference: ClientReference<T>) => T
-    dispatchHint: (code: string, model: unknown) => void
+    preloadModule(clientReference: ClientRefKey): Promise<void> | null
+    requireModule(clientReference: ClientRefKey): T
+    dispatchHint(code: string, model: unknown): void
 
-    prepareDestinationForModule: (
+    prepareDestinationForModule(
       moduleLoading: ModuleLoading,
       nonce: string | undefined,
       metadata: ClientReferenceMetadata,
-    ) => void
+    ): void
 
-    createStringDecoder: () => TextDecoder
-    readPartialStringChunk: (decoder: TextDecoder, buffer: Uint8Array) => string
-    readFinalStringChunk: (decoder: TextDecoder, buffer: Uint8Array) => string
+    createStringDecoder(): TextDecoder
+    readPartialStringChunk(decoder: TextDecoder, buffer: Uint8Array): string
+    readFinalStringChunk(decoder: TextDecoder, buffer: Uint8Array): string
 
-    bindToConsole: (
+    bindToConsole(
       methodName: keyof typeof console | string,
       args: Array<any>,
       env: "Server" | "Client" | string,
-    ) => () => void
-
-    rendererPackageName: string
-    rendererVersion: string
+    ): () => void
   }
 }
 
