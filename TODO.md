@@ -12,9 +12,10 @@ Decisions
 - [x] add ReFrameReactFlightClientConfig
 
 - [x] Chunk$forEach
-- [x] React 18 Expo 52 demo of client components
-- [ ] React 18 Expo 52 demo of server rendering
 - [x] dynamically generate the ReFrameReactFlightClientConfig from each app
+- [x] React 18 Expo 52 demo of client components
+
+- [ ] React 18 Expo 52 demo of server rendering
 - [ ] create multiple client implementations of the same spec
 
 
