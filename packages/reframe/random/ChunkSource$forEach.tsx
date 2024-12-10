@@ -1,11 +1,11 @@
 import invariant from "invariant"
-import type { MaybePromise, Chunk, ChunkSource, YieldValue } from "./types"
+import type { MaybePromise, Chunk, RSCSource, YieldValue } from "./types"
 
-interface ChunkForEach<S extends ChunkSource> {
+interface ChunkForEach<S extends RSCSource> {
   (chunk: Chunk, index: number, source: S): MaybePromise<unknown>
 }
 
-export async function ChunkSource$forEach<S extends ChunkSource>(
+export async function ChunkSource$forEach<S extends RSCSource>(
   source: S,
   forEach: ChunkForEach<S>,
   signal?: AbortSignal,

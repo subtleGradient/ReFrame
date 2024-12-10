@@ -1,15 +1,19 @@
-import invariant from "invariant"
+import "@double-observer/react-client/flight"
 import {
   ClientModuleExportName,
   ClientReferenceMetadata,
   DependencyChunks,
   ModuleID,
-} from "react-client/src/ReactFlightClientConfig"
+} from "@double-observer/react-client/src/ReactFlightClientConfig"
+import invariant from "invariant"
 
 export function* renderDynamicClientModule(
   element: React.ReactElement & { type: string | { name: string; displayName?: string } },
 ) {
-  invariant(!element.props?.children, "children not supported in renderDynamicClientModule yet")
+  invariant(
+    !element.props?.children || typeof element.props?.children === "string",
+    "children not supported in renderDynamicClientModule yet",
+  )
 
   const moduleId: ModuleID = "ReFrameDynamic"
   const deps: DependencyChunks = []

@@ -1,16 +1,17 @@
-import "@double-observer/react-client"
+import type * as flight from "@double-observer/react-client/flight"
 
-import ReactFlightClient, { FindSourceMapURLCallback } from "react-client/flight"
+export type IReactFlightClient = flight.default
+
 import type {
   ModuleLoading,
   ServerManifest,
   SSRModuleMap,
-} from "react-client/src/ReactFlightClientConfig"
+} from "@double-observer/react-client/src/ReactFlightClientConfig"
 import {
   CallServerCallback,
   EncodeFormActionCallback,
-} from "react-client/src/ReactFlightReplyClient"
-import { TemporaryReferenceSet } from "react-client/src/ReactFlightTemporaryReferences"
+} from "@double-observer/react-client/src/ReactFlightReplyClient"
+import { TemporaryReferenceSet } from "@double-observer/react-client/src/ReactFlightTemporaryReferences"
 
 export type MaybePromise<T> = T | Promise<T>
 
@@ -18,7 +19,7 @@ export type YieldValue<T> = T extends AsyncIterable<infer U> ? U : never
 
 export type Chunk = Uint8Array | string
 
-export type ChunkSource =
+export type RSCSource =
   | Chunk
   //
   | Iterable<Chunk>
@@ -43,9 +44,7 @@ export interface FlightResponseProps {
   encodeFormAction?: EncodeFormActionCallback | void
   nonce?: string | void
   temporaryReferences?: TemporaryReferenceSet | void
-  findSourceMapURL?: FindSourceMapURLCallback | void
+  findSourceMapURL?: flight.FindSourceMapURLCallback | void
   replayConsole?: boolean
   environmentName?: string
 }
-
-export type IReactFlightClient = ReturnType<typeof ReactFlightClient>

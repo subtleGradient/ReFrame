@@ -1,26 +1,35 @@
-import invariant from "invariant"
-import ReactFlightClient from "react-client/flight"
-import type { ReactFlightClientConfig } from "react-client/src/ReactFlightClientConfig"
+import ReactFlightClient from "@double-observer/react-client/flight"
+import { ReactFlightClientConfig } from "@double-observer/react-client/src/ReactFlightClientConfig"
 import { ChunkSource$forEach } from "../random/ChunkSource$forEach"
-import { ChunkSource, IReactFlightClient } from "../random/types"
+import { Promise_fromThenable } from "../random/Promise_fromThenable"
+import { RSCSource } from "../random/types"
 import { createFlightResponse } from "./createFlightResponse"
-import { Promise_fromThenable } from "./Promise_fromThenable"
+import { createClientConfig } from "./ClientConfig"
+
+const IGNORE_ERROR = "IGNORE_ERROR"
 
 interface FromProps {
   onClose?(): void
-  onError?(error: Error): false | void
+  onError?(error: Error): typeof IGNORE_ERROR | void
+  signal?: AbortSignal
 }
 
-export class ReFrameClient {
-  constructor(public readonly config: ReactFlightClientConfig) {
-    this.flight = ReactFlightClient(this.config)
+export default class ReFrameClient {
+  static create<T>(...args: Parameters<typeof createClientConfig>) {
+    return new ReFrameClient(createClientConfig(...args))
   }
 
-  private readonly flight: IReactFlightClient
+  constructor(public readonly config: ReactFlightClientConfig) {
+    const flight = new ReactFlightClient(this.config) // satisfies IReactFlightClient
+    flight
+    this.flight = flight
+  }
+
+  private readonly flight: ReactFlightClient
   get name() { return this.config.rendererPackageName } // prettier-ignore
   get version() { return this.config.rendererVersion } // prettier-ignore
 
-  from<T>(rsc: ChunkSource, props?: FromProps): Promise<T> {
+  from<T>(rsc: RSCSource, props?: FromProps): Promise<T> {
     const response = createFlightResponse(this.flight, {
       bundlerConfig: null,
       serverReferenceConfig: null,
@@ -32,16 +41,21 @@ export class ReFrameClient {
       },
     })
 
-    void ChunkSource$forEach(rsc, (chunk) => {
-      if (typeof chunk === "string") {
-        this.flight.processStringChunk(response, chunk)
-      } else {
-        this.flight.processBinaryChunk(response, chunk)
-      }
-    })
+    void ChunkSource$forEach(
+      rsc,
+      (chunk) => {
+        if (typeof chunk === "string") {
+          this.flight.processStringChunk(response, chunk)
+        } else {
+          this.flight.processBinaryChunk(response, chunk)
+        }
+      },
+      props?.signal,
+    )
       .catch((error) => {
-        const ignore = props?.onError?.(error)
-        console.error("from error", error)
+        const ignore = props?.onError?.(error) === IGNORE_ERROR
+        if (ignore) return null
+        console.warn("from error", error)
         this.flight.reportGlobalError(response, error)
       })
       .finally(() => {

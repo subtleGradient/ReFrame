@@ -1,11 +1,11 @@
-import "@double-observer/react-client"
+import "@double-observer/react-client/flight"
 
-import { ComponentType } from "react"
 import type {
   ClientReference,
   ReactFlightClientConfig,
   ReactReference$$id,
-} from "react-client/src/ReactFlightClientConfig"
+} from "@double-observer/react-client/src/ReactFlightClientConfig"
+import { ComponentType } from "react"
 
 type AnyFunction = (...args: any[]) => any
 type Prettify<T> = { [K in keyof T]: T[K] } & {}
@@ -13,7 +13,7 @@ type Prettify<T> = { [K in keyof T]: T[K] } & {}
 export type ModuleMap = Record<string, Record<string, ComponentType>>
 
 type Config = Prettify<
-  Partial<ReactFlightClientConfig> &
+  Omit<Partial<ReactFlightClientConfig>, "rendererPackageName" | "rendererVersion"> &
     Pick<ReactFlightClientConfig, "rendererPackageName" | "rendererVersion">
 >
 
@@ -25,14 +25,6 @@ export function createClientConfig<C extends Config>(props: {
   const decoderOptions = { stream: true }
 
   return {
-    get rendererPackageName() {
-      return props.config.rendererPackageName!
-    },
-
-    get rendererVersion() {
-      return props.config.rendererVersion!
-    },
-
     dispatchHint(code: any, model: any) {
       props.debug?.("dispatchHint", { code, model })
     },

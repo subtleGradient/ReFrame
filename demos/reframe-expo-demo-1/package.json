@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/package",
   "name": "reframe-expo-demo-1",
   "main": "expo-router/entry",
   "version": "1.0.0",
@@ -13,6 +14,9 @@
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "imports": {
+    "#package": "./package.json"
   },
   "dependencies": {
     "@double-observer/reframe": "workspace:^",
