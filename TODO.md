@@ -27,10 +27,6 @@ Decisions
   - [x] react-server/index.d.ts
   - [ ] double check that everything is typed
 
-
-ReactServerStreamConfig
-
-
 - [ ] generate types for @double-observer/react-server-dom-esm
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
