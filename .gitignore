@@ -43,3 +43,6 @@ yarn-error.log*
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# dev
+demos/reframe-server-demo-rsc/server-render-demo.tsx.*
