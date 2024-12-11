@@ -32,9 +32,11 @@ export function jsxs([type, ...args]: Parameters<typeof jsxsReal>): ReturnType<t
   return jsxsReal(type, ...args)
 }
 
-function convertIntrinsicToProxy<T>(
-  type: ElementType<any, keyof JSX.IntrinsicElements>,
-): Exclude<typeof type, string> {
+function convertIntrinsicToProxy<T>(type: ElementType): Exclude<typeof type, string> {
   if (typeof type !== "string") return type
-  return registerClientReference(genClientProxy(type), "clientBundleId", "exportName")
+  return registerClientReference<React.FunctionComponent>(
+    genClientProxy(type),
+    "clientBundleId",
+    "exportName",
+  )
 }
