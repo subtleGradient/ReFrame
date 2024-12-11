@@ -136,26 +136,26 @@ declare module "@double-observer/react-client/src/ReactFlightReplyClient" {
   export type ServerReferenceId = number
   export type ServerCallbackMap = { [id: ServerReferenceId]: (...args: any[]) => Promise<any> }
 
-  export type CallServerCallback<
-    F extends AnyFunction, //
-    K extends ServerReferenceId,
-  > = (id: K, args: Parameters<F>) => Promise<unknown> & ReturnType<F>
+  export type CallServerCallback = (
+    id: ServerReferenceId,
+    args: any[],
+  ) => Promise<unknown> & ReturnType<F>
 
-  export type EncodeFormActionCallback<
-    F extends AnyFunction, //
-    K extends ServerReferenceId,
-  > = (id: K, args: Parameters<F>) => ReactCustomFormAction
+  export type EncodeFormActionCallback = (
+    id: ServerReferenceId,
+    args: any[],
+  ) => ReactCustomFormAction
 
   export function registerServerReference(
     proxy: any,
     reference: { id: ServerReferenceId; bound: null | Promise<Array<any>> },
-    encodeFormAction: EncodeFormActionCallback<any, any> | void,
+    encodeFormAction: EncodeFormActionCallback | void,
   ): void
 
   export function createServerReference<A extends Iterable<any>, T>(
     id: ServerReferenceId,
-    callServer: CallServerCallback<any, any>,
-    encodeFormAction?: EncodeFormActionCallback<any, any>,
+    callServer: CallServerCallback,
+    encodeFormAction?: EncodeFormActionCallback,
   ): (...args: A & Partial<Array<T>>) => Promise<T>
 }
 
