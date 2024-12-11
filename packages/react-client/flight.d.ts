@@ -36,9 +36,9 @@ export type FindSourceMapURLCallback = (fileName: string, environmentName: strin
 export default class ReactFlightClient<C extends ReactFlightClientConfig> {
   constructor(config: C)
 
-  close: (response: FlightResponse) => void
+  close: (response: FlightResponse<C>) => void
 
-  createResponse: (
+  createResponse(
     bundlerConfig: SSRModuleMap | null,
     serverReferenceConfig: ServerManifest | null,
     moduleLoading: ModuleLoading,
@@ -49,15 +49,15 @@ export default class ReactFlightClient<C extends ReactFlightClientConfig> {
     findSourceMapURL?: FindSourceMapURLCallback | void,
     replayConsole?: boolean,
     environmentName?: string,
-  ) => FlightResponse
+  ): FlightResponse<C>
 
-  getRoot: <T>(response: FlightResponse) => Thenable<T>
+  getRoot: <T>(response: FlightResponse<C>) => Thenable<T>
 
-  processBinaryChunk: (response: FlightResponse, chunk: Uint8Array) => void
+  processBinaryChunk: (response: FlightResponse<C>, chunk: Uint8Array) => void
 
-  processStringChunk: (response: FlightResponse, chunk: string) => void
+  processStringChunk: (response: FlightResponse<C>, chunk: string) => void
 
-  reportGlobalError: (response: FlightResponse, error: Error) => void
+  reportGlobalError: (response: FlightResponse<C>, error: Error) => void
 
   injectIntoDevTools: () => boolean
 }

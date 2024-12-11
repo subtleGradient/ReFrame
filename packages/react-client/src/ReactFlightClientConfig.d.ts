@@ -1,14 +1,14 @@
 /** unique id for a loadable module like a {@link ChunkId} */
-type ModuleID = (number | string) & { __moduleId__?: void }
+type ModuleID = number | string //& { __moduleId__?: void }
 
 /** unique id for a loadable dependency */
-type ChunkId = (string | number) & { __chunkId__?: void }
+type ChunkId = string | number //& { __chunkId__?: void }
 
 /** loadable URL or partial URL for a chunk */
-type ChunkFilename = string & { __chunkFilename__?: void }
+type ChunkFilename = string //& { __chunkFilename__?: void }
 
 /** name of something exported from a client module */
-type ClientModuleExportName = string & { __ClientModuleExportName__?: void }
+type ClientModuleExportName = string //& { __ClientModuleExportName__?: void }
 
 /** $$id attribute of a Client Reference or Server Reference */
 type ReactReference$$id = `${ModuleID}#${ClientModuleExportName}`
@@ -19,11 +19,7 @@ export type ReactClientManifestRecord = {
   dependencies: DependencyChunks
   name: ClientModuleExportName
 }
-type ReactClientManifestTuple = [
-  id: ModuleID,
-  dependencies: DependencyChunks,
-  name: ClientModuleExportName,
-]
+type ReactClientManifestTuple = [id: ModuleID, dependencies: DependencyChunks, name: ClientModuleExportName]
 
 type IReactClientManifest = Record<ReactReference$$id, ReactClientManifestRecord>
 
@@ -85,8 +81,8 @@ export type SSRModuleMap = Record<ServerReferenceId | ReactReference$$id, ReactC
 export interface ReactFlightClientConfig<
   in BundlerConfig extends SSRModuleMap = SSRModuleMap,
   in Metadata extends ReactClientManifestTuple = ReactClientManifestTuple,
-  in ServerRefId extends keyof BundlerConfig & ServerReferenceId = ServerReferenceId,
-  in out ClientRefKey extends keyof BundlerConfig & ReactReference$$id = keyof BundlerConfig,
+  in ServerRefId extends keyof BundlerConfig & ServerReferenceId = keyof BundlerConfig & ServerReferenceId,
+  in out ClientRefKey extends keyof BundlerConfig & ReactReference$$id = keyof BundlerConfig & ReactReference$$id,
 > {
   rendererPackageName: string
   rendererVersion: string
@@ -98,11 +94,7 @@ export interface ReactFlightClientConfig<
   requireModule(clientReference: ClientRefKey): T
   dispatchHint(code: string, model: unknown): void
 
-  prepareDestinationForModule(
-    moduleLoading: ModuleLoading,
-    nonce: string | undefined,
-    metadata: Metadata,
-  ): void
+  prepareDestinationForModule(moduleLoading: ModuleLoading, nonce: string | undefined, metadata: Metadata): void
 
   createStringDecoder(): TextDecoder
   readPartialStringChunk(decoder: TextDecoder, buffer: Uint8Array): string
