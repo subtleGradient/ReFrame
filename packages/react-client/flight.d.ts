@@ -1,19 +1,14 @@
-/// <reference path="types.d.ts" />
-
 import type {
   ModuleLoading,
   ReactFlightClientConfig,
   ServerManifest,
   SSRModuleMap,
-} from "@double-observer/react-client/src/ReactFlightClientConfig"
-import type {
-  CallServerCallback,
-  EncodeFormActionCallback,
-} from "@double-observer/react-client/src/ReactFlightReplyClient"
-import type { TemporaryReferenceSet } from "@double-observer/react-client/src/ReactFlightTemporaryReferences"
-import type { Thenable } from "shared/ReactTypes"
+} from "./src/ReactFlightClientConfig"
+import type { CallServerCallback, EncodeFormActionCallback } from "./src/ReactFlightReplyClient"
+import type { TemporaryReferenceSet } from "./src/ReactFlightTemporaryReferences"
+import type { Thenable } from "./shared/ReactTypes"
 
-export type FlightResponse = {
+export interface FlightResponse<C extends ReactFlightClientConfig> {
   _bundlerConfig: SSRModuleMap
   _serverReferenceConfig: ServerManifest | null
   _moduleLoading: ModuleLoading
@@ -38,8 +33,8 @@ export type FlightResponse = {
 
 export type FindSourceMapURLCallback = (fileName: string, environmentName: string) => string | null
 
-export default class ReactFlightClient {
-  constructor(config: ReactFlightClientConfig)
+export default class ReactFlightClient<C extends ReactFlightClientConfig> {
+  constructor(config: C)
 
   close: (response: FlightResponse) => void
 
