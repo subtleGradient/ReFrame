@@ -17,6 +17,7 @@ Decisions
 
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
+- [ ] publish @double-observer/react-server-dom-esm to npm https://www.npmjs.com/package/@double-observer/react-server-dom-esm
 
 
 - [ ] setup all the @double-observer/reframe exports and conditions
