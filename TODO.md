@@ -15,6 +15,10 @@ Decisions
 - [x] dynamically generate the ReFrameReactFlightClientConfig from each app
 - [x] React 18 Expo 52 demo of client components
 
+
+- [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
+
+
 - [ ] setup all the @double-observer/reframe exports and conditions
 
   - [x] @double-observer/reframe/client from client (react-native / expo)
