@@ -34,7 +34,7 @@ export class ReFrameServer {
  * Creates a fake client component that represents a client component that is not available on the server.
  * This lets us compose client components in a way that is compatible with the server.
  */
-function genClientProxy<N extends string, P extends object, R extends ReactNode>(name: N) {
+export function genClientProxy<N extends string, P extends object, R extends ReactNode>(name: N) {
   return Object.assign(ClientComponentProxy, { displayName: name })
   function ClientComponentProxy(props: P): R {
     throw new TypeError(`server proxy to client component "${name}" unexpectedly called on the server.
