@@ -3,7 +3,7 @@
 
 import { ReFrameServer } from "@double-observer/reframe/server"
 import Bun from "bun"
-import React, { ReactElement, ReactNode, Suspense } from "react"
+import React, { type ReactElement, type ReactNode } from "react"
 
 console.info(React.version) // allows React to not be removed when organizing dependencies
 ;(global as any).__DEV__ = true
@@ -91,27 +91,21 @@ console.info(React.version) // allows React to not be removed when organizing de
 //   )
 // }
 
-// function ErrorView(): ReactNode {
-//   throw Object.assign(new Error("This is an error"), { name: "ErrorViewError" })
-// }
+function ErrorView(): ReactNode {
+  throw Object.assign(new Error("This is an error"), { name: "ErrorViewError" })
+}
 
-// async function AsyncErrorView(): Promise<ReactElement> {
-//   await new Promise((wake) => setTimeout(wake, 123))
-//   throw Object.assign(new Error("This is an async error"), { name: "AsyncErrorViewError" })
-// }
+async function AsyncErrorView(): Promise<ReactElement> {
+  await new Promise((wake) => setTimeout(wake, 123))
+  throw Object.assign(new Error("This is an async error"), { name: "AsyncErrorViewError" })
+}
 
-async function renderToRSC(
-  ui: AsyncIterable<string>,
-  microSpiritViewFile: ReturnType<typeof Bun.file>,
-) {
+async function renderToRSC(ui: AsyncIterable<string>, microSpiritViewFile: ReturnType<typeof Bun.file>) {
   Bun.write(microSpiritViewFile, (await Array.fromAsync(ui)).join(""))
   console.info(`Wrote ${microSpiritViewFile.name}`)
 }
 
-async function renderToDevView(
-  ui: AsyncIterable<string>,
-  microSpiritViewFile: ReturnType<typeof Bun.file>,
-) {
+async function renderToDevView(ui: AsyncIterable<string>, microSpiritViewFile: ReturnType<typeof Bun.file>) {
   const chunksToWrite: string[] = []
   const chunks = generatePrerenderedRSC(ui)
   for await (const chunk of chunks) {
@@ -155,75 +149,99 @@ async function* generatePrerenderedRSC(ui: AsyncIterable<string>) {
   yield `\n`
 }
 
+function Demo() {
+  return <div>hwllo</div>
+}
+
+// function View() {
+//   return
+// }
+
+const View = "div"
+
+// const url = require("url")
+// new URL(".", url.pathToFileURL(__filename)).href
+const clientBundle = {}
+console.log(clientBundle)
+
 async function main() {
-  await renderToDevView(
-    ReFrameServer.render(() => <Demo key={Date.now()} />),
-    Bun.file(`${__filename}.Demo.ts`),
-  )
-  await renderToRSC(
-    ReFrameServer.render(() => <Demo key={Date.now()} />),
-    Bun.file(`${__filename}.Demo.ts`),
-  )
+  debugger
+  // await renderToDevView(
+  //   ReFrameServer.renderToAsyncIterable(<Demo key={Date.now()} />, clientBundle),
+  //   Bun.file(`${__filename}.Demo.ts`),
+  // )
+  // await renderToRSC(
+  //   ReFrameServer.renderToAsyncIterable(<Demo key={Date.now()} />, clientBundle),
+  //   Bun.file(`${__filename}.Demo.rsc`),
+  // )
 
-  await renderToDevView(
-    ReFrameServer.render(() => (
-      <View>
-        <ErrorView />
-        <Suspense>
-          <AsyncErrorView />
-        </Suspense>
-      </View>
-    )),
-    Bun.file(`${__filename}.ErrorView.ts`),
-  )
-  await renderToRSC(
-    ReFrameServer.render(() => (
-      <View>
-        <ErrorView />
-        <Suspense>
-          <AsyncErrorView />
-        </Suspense>
-      </View>
-    )),
-    Bun.file(`${__filename}.ErrorView.rsc`),
-  )
+  for await (const chunk of ReFrameServer.renderToAsyncIterable(<Demo key={Date.now()} />, clientBundle)) {
+    console.log(chunk)
+  }
+
+  // await renderToDevView(
+  //   ReFrameServer.renderToAsyncIterable(
+  //     <View>
+  //       <ErrorView />
+  //       <Suspense>
+  //         <AsyncErrorView />
+  //       </Suspense>
+  //     </View>,
+  //     clientBundle,
+  //   ),
+  //   Bun.file(`${__filename}.ErrorView.ts`),
+  // )
+  // await renderToRSC(
+  //   ReFrameServer.renderToAsyncIterable(
+  //     <View>
+  //       <ErrorView />
+  //       <Suspense>
+  //         <AsyncErrorView />
+  //       </Suspense>
+  //     </View>,
+  //     clientBundle,
+  //   ),
+  //   Bun.file(`${__filename}.ErrorView.rsc`),
+  // )
 }
 
-main()
+debugger
+// main()
+global.main = main
 
-const renderChunkedTimestamps = {
-  async *[Symbol.asyncIterator]() {
-    yield { replace: <Text>loading...</Text> }
+// const renderChunkedTimestamps = {
+//   async *[Symbol.asyncIterator]() {
+//     yield { replace: <Text>loading...</Text> }
 
-    const response = await fetch("http://localhost:8000")
-    yield { replace: <Text>response: {response.status}</Text> }
+//     const response = await fetch("http://localhost:8000")
+//     yield { replace: <Text>response: {response.status}</Text> }
 
-    await new Promise((resolve) => setTimeout(resolve, 333))
+//     await new Promise((resolve) => setTimeout(resolve, 333))
 
-    const { body } = response
+//     const { body } = response
 
-    if (!body) {
-      yield <Text>ERROR: no body</Text>
-      return
-    }
-    for await (const chunk of body) {
-      const random = Math.random()
-      yield {
-        replace: (
-          <Text
-            style={{
-              // random background color so it's easier to see that something changed
-              backgroundColor: `hsl(${random * 360}, 50%, 50%)`,
-              color: "white",
-              fontVariant: ["tabular-nums"],
-            }}
-          >
-            {new TextDecoder().decode(chunk).trim()}
-          </Text>
-        ),
-      }
-    }
+//     if (!body) {
+//       yield <Text>ERROR: no body</Text>
+//       return
+//     }
+//     for await (const chunk of body) {
+//       const random = Math.random()
+//       yield {
+//         replace: (
+//           <Text
+//             style={{
+//               // random background color so it's easier to see that something changed
+//               backgroundColor: `hsl(${random * 360}, 50%, 50%)`,
+//               color: "white",
+//               fontVariant: ["tabular-nums"],
+//             }}
+//           >
+//             {new TextDecoder().decode(chunk).trim()}
+//           </Text>
+//         ),
+//       }
+//     }
 
-    yield <Text>{"\n\n"}Done</Text>
-  },
-}
+//     yield <Text>{"\n\n"}Done</Text>
+//   },
+// }

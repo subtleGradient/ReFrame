@@ -1,16 +1,22 @@
 import "server-only"
+import { PassThrough } from "stream"
 export const name = "@double-observer/reframe/server"
 import type { ReactNode } from "react"
+
 // import * as ReactServerDOMServer from "react-server-dom-webpack/server"
 import { registerClientReference } from "react-server-dom-webpack/server"
 import type { ReactReference$$id } from "react-server-dom-webpack/server"
 import ReactServerDOMServer, { type BundlerConfig } from "react-server-dom-webpack/server"
+import invariant from "invariant"
+
+// import ReactFlightDOMServer, { registerClientReference } from "@double-observer/react-server-dom-esm/server"
+// import type { ReactClientValue } from "@double-observer/react-server/src/ReactFlightServer"
 
 export interface CustomServerTags {
   // flarm: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 }
 
-export { ReactServerDOMServer }
+// export { ReactFlightDOMServer, ReactFlightDOMServer as ReactServerDOMServer }
 
 export const html = new Proxy<Record<keyof JSX.IntrinsicElements, () => ReactNode>>({} as any, {
   get: (): ReactNode => {
@@ -20,10 +26,58 @@ export const html = new Proxy<Record<keyof JSX.IntrinsicElements, () => ReactNod
 
 export class ClientBundle {}
 
-export class ReFrameServer {
-  static async *renderFromServer() {
-    throw new Error("Function not implemented.")
+// type renderToPipeableStreamArgs = Parameters<typeof ReactServerDOMServer.renderToPipeableStream>
+
+function renderToPipeableStream(renderable: any, clientManifest: BundlerConfig) {
+  debugger
+  return ReactServerDOMServer.renderToPipeableStream(renderable, clientManifest, {
+    onError: (err: unknown) => console.error("ReactServerDOMServer.renderToPipeableStream onError", err),
+    onPostpone: (reason: unknown) => console.warn("ReactServerDOMServer.renderToPipeableStream onPostpone", reason),
+  })
+}
+
+export async function* renderToAsyncIterable(renderable: any, clientManifest: BundlerConfig): AsyncIterable<string> {
+  invariant(clientManifest, "clientManifest is required")
+  invariant(typeof clientManifest === "object", "clientManifest must be an object")
+
+  const pipeableStream = renderToPipeableStream(renderable, clientManifest)
+
+  const passThrough = new PassThrough()
+  pipeableStream.pipe(passThrough)
+
+  const textDecoder = new TextDecoder("utf-8")
+
+  try {
+    for await (const chunk of passThrough) {
+      yield textDecoder.decode(chunk, { stream: true })
+    }
+  } finally {
+    yield textDecoder.decode(undefined, { stream: false })
   }
+}
+
+export class ReFrameServer {
+  static renderToAsyncIterable = renderToAsyncIterable
+  // static async renderToPipeableStream(...args: renderToPipeableStreamArgs) {
+  //   return ReactServerDOMServer.renderToPipeableStream(...args)
+  // }
+
+  // static async *renderToAsyncIterable(...args: renderToPipeableStreamArgs): AsyncIterable<string> {
+  //   const pipeableStream = await ReFrameServer.renderToPipeableStream(...args)
+
+  //   const passThrough = new PassThrough()
+  //   pipeableStream.pipe(passThrough)
+
+  //   const textDecoder = new TextDecoder("utf-8")
+
+  //   try {
+  //     for await (const chunk of passThrough) {
+  //       yield textDecoder.decode(chunk, { stream: true })
+  //     }
+  //   } finally {
+  //     yield ""
+  //   }
+  // }
 
   constructor() {
     throw new Error("FIXME: not sure what calling new ReFrameServer() should do yet")
@@ -50,32 +104,26 @@ export const clientComponents = {
 }
 
 /**
- * dependency injection the {@link ReactServerDOMServer} implementation
+ * dependency injection the {@link ReactFlightDOMServer} implementation
  */
-export const clientManifest: ReactServerDOMServer.IReactClientManifest = {}
-{
-  // generate the manifest for the client components
-  // this is usually handled in a react-server compatible bundler
-  for (const [key, Component] of Object.entries(
-    clientComponents as unknown as Record<
-      "RNBundleComponentName",
-      ReturnType<typeof ReactServerDOMServer.registerClientReference>
-    >,
-  )) {
-    const [id, name] = Component.$$id.split("#")
-    if (key !== name)
-      throw new Error(
-        `Component key "${key}" must match export "${name}". Check clientComponents object`,
-      )
-    clientManifest[Component.$$id] = { id, chunks: [], name }
-  }
-}
+// export const clientManifest: ReactFlightDOMServer.IReactClientManifest = {}
+// {
+//   // generate the manifest for the client components
+//   // this is usually handled in a react-server compatible bundler
+//   for (const [key, Component] of Object.entries(
+//     clientComponents as unknown as Record<
+//       "RNBundleComponentName",
+//       ReturnType<typeof ReactFlightDOMServer.registerClientReference>
+//     >,
+//   )) {
+//     const [id, name] = Component.$$id.split("#")
+//     if (key !== name)
+//       throw new Error(`Component key "${key}" must match export "${name}". Check clientComponents object`)
+//     clientManifest[Component.$$id] = { id, chunks: [], name }
+//   }
+// }
 
-export async function Await({
-  children: promise,
-}: {
-  children: React.ReactNode | Promise<React.ReactNode>
-}) {
+export async function Await({ children: promise }: { children: React.ReactNode | Promise<React.ReactNode> }) {
   "server only"
   return await promise
 }

@@ -6,4 +6,6 @@ export type { JSX }
 import { Fragment, jsxDEV as jsxReal } from "react/jsx-dev-runtime"
 export { Fragment }
 
-export function jsxDEV() {}
+export function jsxDEV(...args: any[]) {
+  return jsxReal(...args)
+}

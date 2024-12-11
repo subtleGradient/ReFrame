@@ -8,7 +8,7 @@
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
     "demo": "bun run --conditions=react-server ./server-render-demo.tsx",
-    "dev": "bun run --watch --conditions=react-server ./server-render-demo.tsx"
+    "dev": "bun run --inspect --hot --conditions=react-server ./server-render-demo.tsx"
   },
   "dependencies": {
     "@double-observer/reframe": "workspace:^",
