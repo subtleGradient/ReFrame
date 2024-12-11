@@ -1,22 +1,13 @@
-import ReactFlightServerConfig from "./src/ReactFlightServerConfig"
+import ReactServerConfig from "./src/ReactServerConfig"
 import { ReactFormState, ReactNode } from "./shared/ReactTypes"
 import { ClientManifest, Options } from "./shared"
 
-export default class ReactFlightServer<
-  Destination,
-  Chunk,
-  PrecomputedChunk,
-  C extends ReactFlightServerConfig<Destination, Chunk, PrecomputedChunk>,
-> {
+export default class ReactServer<Destination, C extends ReactServerConfig> {
   constructor(config: C)
 
   abort(request: Request, reason: any): void
 
-  createPrerenderRequest(
-    model: ReactNode,
-    clientManifest: ClientManifest,
-    options?: Options,
-  ): Request
+  createPrerenderRequest(model: ReactNode, clientManifest: ClientManifest, options?: Options): Request
 
   createRequest(model: ReactNode, clientManifest: ClientManifest, options?: Options): Request
 

@@ -1,6 +1,6 @@
-import { HintCode, HintModel } from "./Hints"
-import ReactFlightServerConfig from "./ReactFlightServerConfig"
 import { ClientManifest } from "./shared"
+import ReactFlightServerConfig from "./src/ReactFlightServerConfig"
+import { HintCode, HintModel } from "./src/Hints"
 
 type FlightRequest = unknown
 
@@ -13,14 +13,15 @@ export type RequestOptions = {
   filterStackFrame?: (url: string, functionName: string) => boolean
 }
 
-export class FlightRequestHandler<C extends ReactFlightServerConfig> {
+export class FlightRequestHandler<
+  Destination,
+  Chunk,
+  PrecomputedChunk,
+  C extends ReactFlightServerConfig<Destination, Chunk, PrecomputedChunk>,
+> {
   constructor(config: C)
   abort(request: FlightRequest, reason: any): void
-  createPrerenderRequest(
-    model: any,
-    bundlerConfig: ClientManifest,
-    options?: RequestOptions,
-  ): FlightRequest
+  createPrerenderRequest(model: any, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
   createRequest(model: any, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
   emitHint<Code extends HintCode>(request: FlightRequest, code: Code, model: HintModel<Code>): void
   getCache(request: FlightRequest): Map<Function, unknown>

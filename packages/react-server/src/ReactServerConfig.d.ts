@@ -1,4 +1,4 @@
-export interface ReactServerConfig {
+export default interface ReactServerConfig {
   scheduleWork: unknown
   scheduleMicrotask: unknown
   beginWriting: unknown
