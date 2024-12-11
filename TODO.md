@@ -15,11 +15,22 @@ Decisions
 - [x] dynamically generate the ReFrameReactFlightClientConfig from each app
 - [x] React 18 Expo 52 demo of client components
 
+- [x] organize the react-client types
+- [x] refactor the react-client types to be correctly generic and less tied to the webpack implementation
+- [x] SSRModuleMap
+- [x] ClientRefKey
 
-- [ ] generate types for @double-observer/react-server
-  - [ ] react-server/flight.d.ts
-  - [ ] react-server/index.d.ts
-  - [ ] react-server/types.d.ts
+- [ ] ~~re-organize stuff such that I can publish the types separately from the react code itself~~
+
+- [x] generate types for @double-observer/react-server
+  - [x] react-server/flight.d.ts
+  - [x] react-server/index.d.ts
+  - [ ] double check that everything is typed
+
+
+ReactServerStreamConfig
+
+
 - [ ] generate types for @double-observer/react-server-dom-esm
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server

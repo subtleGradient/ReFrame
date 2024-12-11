@@ -1,7 +1,6 @@
 import "@double-observer/react-client/flight"
 
 import type {
-  ClientRefKey,
   ReactFlightClientConfig,
   ReactReference$$id,
 } from "@double-observer/react-client/src/ReactFlightClientConfig"
@@ -35,12 +34,12 @@ export function createClientConfig<C extends Config, M extends ModuleMap>(props:
 
     readFinalStringChunk: (decoder, buffer) => decoder.decode(buffer),
 
-    preloadModule<T>(clientReference: ClientRefKey) {
+    preloadModule<T>(clientReference: ReactReference$$id) {
       props.debug?.("preloadModule", { clientReference })
       return null
     },
 
-    requireModule<T>(clientReference: ClientRefKey): T {
+    requireModule<T>(clientReference: ReactReference$$id): T {
       props.debug?.("requireModule", { clientReference })
       try {
         const [id, name] = clientReference.split("#") as [

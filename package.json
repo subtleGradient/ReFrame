@@ -30,7 +30,9 @@
   "workspaces": [
     "apps/*",
     "demos/*",
-    "packages/*"
+    "packages/*",
+    "packages/republished/*",
+    "packages/@types/*"
   ],
   "config": {
     "tools": {
@@ -81,7 +83,7 @@
   },
   "prettier": {
     "semi": false,
-    "printWidth": 100,
+    "printWidth": 120,
     "tabWidth": 2,
     "singleQuote": false,
     "bracketSameLine": false,

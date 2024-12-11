@@ -1195,6 +1195,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@double-observer/react-server-dom-esm@workspace:packages/react-server-dom-esm":
+  version: 0.0.0-use.local
+  resolution: "@double-observer/react-server-dom-esm@workspace:packages/react-server-dom-esm"
+  dependencies:
+    acorn-loose: "npm:^8.3.0"
+    webpack-sources: "npm:^3.2.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
+"@double-observer/react-server@workspace:packages/react-server":
+  version: 0.0.0-use.local
+  resolution: "@double-observer/react-server@workspace:packages/react-server"
+  peerDependencies:
+    react: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
 "@double-observer/reframe@workspace:^, @double-observer/reframe@workspace:packages/reframe":
   version: 0.0.0-use.local
   resolution: "@double-observer/reframe@workspace:packages/reframe"
@@ -3229,9 +3249,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-server-dom-webpack@workspace:^, @types/react-server-dom-webpack@workspace:packages/@types_react-server-dom-webpack":
+"@types/react-server-dom-webpack@workspace:^, @types/react-server-dom-webpack@workspace:packages/@types/react-server-dom-webpack":
   version: 0.0.0-use.local
-  resolution: "@types/react-server-dom-webpack@workspace:packages/@types_react-server-dom-webpack"
+  resolution: "@types/react-server-dom-webpack@workspace:packages/@types/react-server-dom-webpack"
   peerDependencies:
     react-server-dom-webpack: ^19.0.0
   peerDependenciesMeta:

@@ -1,4 +1,4 @@
-import type { Thenable } from "shared/ReactTypes"
+import type { Thenable } from "@double-observer/react-client/shared/ReactTypes"
 
 export function Promise_fromThenable<T>(thenable: Thenable<T>): Promise<T> {
   if (thenable instanceof Promise) return thenable
