@@ -16,6 +16,12 @@ Decisions
 - [x] React 18 Expo 52 demo of client components
 
 
+- [ ] generate types for @double-observer/react-server
+  - [ ] react-server/flight.d.ts
+  - [ ] react-server/index.d.ts
+  - [ ] react-server/types.d.ts
+- [ ] generate types for @double-observer/react-server-dom-esm
+
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
 - [ ] publish @double-observer/react-server-dom-esm to npm https://www.npmjs.com/package/@double-observer/react-server-dom-esm
 
