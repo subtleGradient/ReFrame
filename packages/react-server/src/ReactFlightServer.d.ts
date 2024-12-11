@@ -24,19 +24,17 @@ export class ReactFlightServer<
   C extends ReactFlightServerConfig<Destination, Chunk, PrecomputedChunk>,
 > {
   constructor(config: C)
-  abort(request: FlightRequest, reason: any): void
-  createPrerenderRequest(model: any, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
-  createRequest(model: any, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
+  abort(request: FlightRequest, reason: unknown): void
+  createPrerenderRequest(model: unknown, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
+  createRequest(model: unknown, bundlerConfig: ClientManifest, options?: RequestOptions): FlightRequest
   emitHint<Code extends HintCode>(request: FlightRequest, code: Code, model: HintModel<Code>): void
   getCache(request: FlightRequest): Map<Function, unknown>
   getHints(request: FlightRequest): unknown
   resolveRequest(): FlightRequest | null
-  startFlowing(request: FlightRequest, destination: any): void
+  startFlowing(request: FlightRequest, destination: unknown): void
   startWork(request: FlightRequest): void
   stopFlowing(request: FlightRequest): void
 }
-
-// react-server/src/ReactFlightServer.js
 
 // Serializable values
 export type ReactClientValue =
@@ -79,58 +77,11 @@ export type ReactClientValue =
   // mechanism to refer to functions, symbols, elements, etc. are preserved.
   | Promise<ReactClientValue> // Thenable<ReactClientValue>
   | symbol
-  | ClientReference<any>
-  | ServerReference<any>
-  | ReactElement<string | ClientReference<any>, ReactClientValue | { [key: string]: ReactClientValue }>
+  | ClientReference<unknown>
+  | ServerReference<unknown>
+  | ReactElement<string | ClientReference<unknown>, ReactClientValue | { [key: string]: ReactClientValue }>
   | ReactComponentInfo
   | ReactAsyncInfo
-  | LazyComponent<any, any>
+  | LazyComponent<unknown, unknown>
   | AsyncIterable<ReactClientValue, ReactClientValue, void>
   | AsyncIterator<ReactClientValue, ReactClientValue, void>
-
-// interface ReactClientValueMap {
-//   [key: string]: ReactClientValue;
-// }
-
-// export type ReactClientValue =
-//   | string
-//   | boolean
-//   | number
-//   | null
-//   | void
-//   | ReadonlyArray<ReactClientValue>
-//   | ReactClientValueMap
-//   | Iterable<ReactClientValue>
-//   | Iterator<ReactClientValue>
-//   | Date
-//   | ArrayBuffer
-//   | DataView
-//   | Int8Array
-//   | Uint8Array
-//   | Uint8ClampedArray
-//   | Int16Array
-//   | Uint16Array
-//   | Int32Array
-//   | Uint32Array
-//   | BigInt64Array
-//   | BigUint64Array
-//   | Float32Array
-//   | Float64Array
-//   | RegExp
-//   | Map<ReactClientValue, ReactClientValue>
-//   | Set<ReactClientValue>
-//   | FormData
-//   | File
-//   | Blob
-//   | Error
-//   | symbol
-//   | bigint
-//   | Promise<ReactClientValue>
-//   | ClientReference<any>
-//   | ServerReference<any>
-//   | ReactElement<ReactClientValueMap, string | ClientReference<any>>
-//   | ReactComponentInfo
-//   | ReactAsyncInfo
-//   | LazyComponent<any, any>
-//   | AsyncIterable<ReactClientValue>
-//   | AsyncIterator<ReactClientValue>;

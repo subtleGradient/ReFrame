@@ -42,22 +42,27 @@ export declare function renderToPipeableStream(
   moduleBasePath: ClientManifest,
   options?: Options,
 ): PipeableStream
+
 export declare function prerenderToNodeStream(
   model: ReactClientValue,
   moduleBasePath: ClientManifest,
   options?: PrerenderOptions,
 ): Promise<StaticResult>
+
 export declare function decodeReplyFromBusboy<T>(
   busboyStream: Busboy,
   moduleBasePath: ServerManifest,
   options?: { temporaryReferences?: TemporaryReferenceSet },
 ): Thenable<T>
+
 export declare function decodeReply<T>(
   body: string | FormData,
   moduleBasePath: ServerManifest,
   options?: { temporaryReferences?: TemporaryReferenceSet },
 ): Thenable<T>
+
 export declare function decodeAction<T>(body: FormData, serverManifest: ServerManifest): null | Promise<T>
+
 export declare function decodeFormState<T, V, A extends (...args: any[]) => any>(
   actionResult: T,
   body: FormData,
