@@ -15,7 +15,8 @@
     "todo:commit": "git add TODO.md && git commit -m 'todo++'",
     "todo:commit:no": "git status",
     "todo:onchange": "clear; if [ -z \"$(bun run todo:check)\" ]; then bun run todo:commit; else bun run todo:commit:no; fi",
-    "todo": "bun run todo:onchange; bun run todo:watch | while read -d '' event; do bun run todo:onchange; done"
+    "todo:bun": "bun run todo:onchange; bun run todo:watch | while read -d '' event; do bun run todo:onchange; done",
+    "todo": "bun run todo:bun"
   },
   "devDependencies": {
     "prettier": "^3.4.2",
