@@ -7,17 +7,19 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "demo": "bun run --conditions=react-server ./server-render-demo.tsx"
+    "demo": "bun run --conditions=react-server ./server-render-demo.tsx",
+    "dev": "bun run --watch --conditions=react-server ./server-render-demo.tsx"
   },
   "dependencies": {
     "@double-observer/reframe": "workspace:^",
     "react": "^19.0.0"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.14",
+    "@types/bun": "latest",
     "@types/react": "^19.0.1"
   },
   "peerDependencies": {
     "typescript": "*"
-  }
+  },
+  "module": "index.ts"
 }

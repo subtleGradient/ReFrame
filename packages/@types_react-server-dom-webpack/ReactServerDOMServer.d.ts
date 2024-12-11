@@ -193,7 +193,13 @@ declare module "react-server-dom-webpack/server" {
     proxyImplementation: T,
     clientBundleId: number | string,
     exportName: string,
-  ): T & { $$typeof: symbol; $$id: ReactReference$$id; $$async: boolean }
+  ): ClientReferenceProxy<T>
+
+  export interface ClientReferenceProxy<T> extends T {
+    $$typeof: symbol
+    $$id: ReactReference$$id
+    $$async: boolean
+  }
 
   /**
    * Registers a server-side reference.
@@ -205,7 +211,13 @@ declare module "react-server-dom-webpack/server" {
     reference: T,
     id: string,
     exportName: string | null,
-  ): T & { $$typeof: symbol; $$id: ReactReference$$id; $$bound: null }
+  ): ServerReferenceProxy<T>
+
+  export interface ServerReferenceProxy<T> extends T {
+    $$typeof: symbol
+    $$id: ReactReference$$id
+    $$bound: null
+  }
 
   /**
    * Options for rendering to a pipeable stream.

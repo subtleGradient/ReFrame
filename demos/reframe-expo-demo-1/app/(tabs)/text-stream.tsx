@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { StreamingFragment } from "@double-observer/reframe"
+import { StreamingFragment } from "@double-observer/reframe/client"
 import { useIsFocused } from "@react-navigation/native"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"

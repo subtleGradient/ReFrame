@@ -15,9 +15,27 @@ Decisions
 - [x] dynamically generate the ReFrameReactFlightClientConfig from each app
 - [x] React 18 Expo 52 demo of client components
 
+- [ ] setup all the @double-observer/reframe exports and conditions
+
+  - [x] @double-observer/reframe/client from client (react-native / expo)
+    - [x] [demo](./demos/reframe-expo-demo-1/app/(tabs)/rsc-stream.tsx)
+
+  - [ ] @double-observer/reframe/server from server (bun)
+    - [ ] [demo](./demos/reframe-server-demo-rsc/server-render-demo.tsx)
+
+  - [ ] @double-observer/reframe/server from server (nodejs 23)
+  - [ ] @double-observer/reframe/server from server (deno)
+  - [ ] @double-observer/reframe/server from server (PHP)
+  - [ ] @double-observer/reframe/server from server (Rails 8)
+
+
+  - [ ] @double-observer/reframe/client from client (browser / next.js)
+  - [ ] @double-observer/reframe/client from client (browser / importMap / unbundled)
+  - [ ] @double-observer/reframe/client from server
+  - [ ] @double-observer/reframe/server from client
+
 - [ ] React 18 Expo 52 demo of server rendering
 - [ ] create multiple client implementations of the same spec
-
 
 ---
 
@@ -32,9 +50,6 @@ GOAL: end-to-end RSC streaming demo
 ---
 
 # Done
-
-
-
 
 ---
 
@@ -183,9 +198,9 @@ let's get a basic Expo Go app running
 - [x] add a /demos directory to the monorepo config
 - [x] npx create-expo-stack@latest reframe-expo-demo-0 --expo-router --drawer+tabs --stylesheet --bun
 - [x] configure prettier for the monorepo
-yarn dlx expo-doctor
-yarn dlx expo install --check
-yarn dlx expo install @expo/metro-runtime
+      yarn dlx expo-doctor
+      yarn dlx expo install --check
+      yarn dlx expo install @expo/metro-runtime
 
 - [x] create demos/reframe-expo-demo-1; get it to run in web
 
@@ -218,7 +233,6 @@ end-to-end streaming text demo
 > deno run --allow-net main.ts
 > open http://0.0.0.0:8000/
 > should see a stream of time updates come in every second
-
 
 - [x] render the streaming text in the demo app
 - [x] create @double-observer/reframe

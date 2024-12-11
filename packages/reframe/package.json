@@ -7,14 +7,20 @@
   "scripts": {
     "test": "bun test",
     "lint": "eslint . --max-warnings 0",
-    "check-types": "tsc --noEmit",
-    "demo": "bun run --conditions=react-server ./demo/server-render-demo.tsx"
+    "check-types": "tsc --noEmit"
   },
   "exports": {
-    ".": {
-      "react-server": "./react-server.tsx",
-      "default": "./index.tsx"
-    }
+    "./client": {
+      "react-server": "./client/from-server.tsx",
+      "default": "./client/index.tsx"
+    },
+    "./server": {
+      "react-native": "./server/from-client.tsx",
+      "browser": "./server/from-client.tsx",
+      "default": "./server/index.tsx"
+    },
+    "./server/jsx-runtime": "./server/jsx-runtime.tsx",
+    "./server/jsx-dev-runtime": "./server/jsx-dev-runtime.tsx"
   },
   "dependencies": {
     "@double-observer/react-client": "workspace:^",

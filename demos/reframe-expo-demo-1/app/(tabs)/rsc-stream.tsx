@@ -1,7 +1,10 @@
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { ClientReferenceMetadata } from "@double-observer/react-client/src/ReactFlightClientConfig"
-import { ReFrameClient, renderDynamicClientModule, Use } from "@double-observer/reframe"
+import {
+  CallServerCallback,
+  ServerCallbackMap,
+} from "@double-observer/react-client/src/ReactFlightReplyClient"
+import { ReFrameClient, renderDynamicClientModule, Use } from "@double-observer/reframe/client"
 import { RSCSource } from "@double-observer/reframe/random/types"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
@@ -19,15 +22,26 @@ export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   )
 }
 
+const allServerFunctions: ServerCallbackMap = {
+  // [0x02312312]: async (abc: 123) => "Hello, World!",
+}
+
 const reframe = ReFrameClient.create({
   modules: {
     ReFrameDynamic: {
       MissingView: (props: object) => <ThemedText>MissingView {JSON.stringify(props)}</ThemedText>,
     },
   },
+
   remoteConfig: {
     environmentName: "Fake Server",
     replayConsole: true,
+
+    callServer: ((id, args) => {
+      const callServerFunction = allServerFunctions[id]
+      return callServerFunction(...args)
+    }) satisfies CallServerCallback,
+
     bundlerConfig: {
       [`${"ReFrameDynamic"}#${"MissingView"}`]: [
         "ReFrameDynamic",
@@ -36,6 +50,7 @@ const reframe = ReFrameClient.create({
       ],
     },
   },
+
   config: {
     rendererPackageName: pkg.name,
     rendererVersion: pkg.version,
@@ -66,6 +81,7 @@ const reframe = ReFrameClient.create({
       )
     },
   },
+
   debug: console.debug.bind(console, "ReFrameClient"),
 })
 
@@ -96,9 +112,9 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText style={{ backgroundColor: "rebeccapurple" }}>{fakeRSC}</ThemedText>
       <Try catch={ErrorBoundary}>
-        {/* <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
+        <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
           <Use>{reframe.from(fakeRSC)}</Use>
-        </Suspense> */}
+        </Suspense>
 
         <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
       </Try>

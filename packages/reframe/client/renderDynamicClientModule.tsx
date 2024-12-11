@@ -17,12 +17,17 @@ export function* renderDynamicClientModule(
     "children not supported in renderDynamicClientModule yet",
   )
 
+  const isIntrinsic = typeof element.type === "string"
   const displayName: ClientModuleExportName =
     typeof element.type === "string" ?
       element.type
     : (element.type?.displayName ?? element.type?.name ?? element.type ?? name)
 
   invariant(displayName, "renderDynamicClientModule: element must have a name")
+
+  if (isIntrinsic) {
+    yield stringified`0:${["$", element.type, element.key, element.props, null]}\n`
+  }
 
   const id: number = 1
   yield stringified`${id}:I${[moduleId, dependencies, displayName] satisfies ClientReferenceMetadata}\n`

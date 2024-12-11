@@ -1,122 +1,104 @@
-#!/usr/bin/env -S bun run --conditions=react-server
+#!/usr/bin/env -S bun run --watch --conditions=react-server
+// yarn workspace reframe-server-demo-rsc run demo
 
-import {
-  AnimatedButton,
-  BlurView,
-  Button,
-  Image,
-  LinearGradient,
-  Pressable,
-  ProfileImageView,
-  ReactServerDOMServer,
-  ScrollView,
-  StreamingFragment,
-  Switch,
-  Text,
-  TextInput,
-  TouchableHighlight,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "@double-observer/reframe"
+import { ReFrameServer } from "@double-observer/reframe/server"
 import Bun from "bun"
 import React, { ReactElement, ReactNode, Suspense } from "react"
 
 console.info(React.version) // allows React to not be removed when organizing dependencies
+;(global as any).__DEV__ = true
 
-global.__DEV__ = true
+// function Demo() {
+//   return (
+//     <>
+//       <View className="overflow-hidden rounded bg-white/20">
+//         <StreamingFragment>{renderChunkedTimestamps}</StreamingFragment>
+//         <Image />
+//         <ProfileImageView />
 
-function Demo() {
-  return (
-    <>
-      <View className="overflow-hidden rounded bg-white/20">
-        <StreamingFragment>{renderChunkedTimestamps}</StreamingFragment>
-        <Image />
-        <ProfileImageView />
+//         <View>
+//           <Text>View</Text>
+//         </View>
 
-        <View>
-          <Text>View</Text>
-        </View>
+//         <LinearGradient colors={["#f00", "#00f"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+//           <Text>LinearGradient</Text>
+//         </LinearGradient>
 
-        <LinearGradient colors={["#f00", "#00f"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
-          <Text>LinearGradient</Text>
-        </LinearGradient>
+//         <ScrollView horizontal style={{ maxHeight: 123 }}>
+//           <Text>ScrollView</Text>
+//         </ScrollView>
 
-        <ScrollView horizontal style={{ maxHeight: 123 }}>
-          <Text>ScrollView</Text>
-        </ScrollView>
+//         <Text>Text</Text>
 
-        <Text>Text</Text>
+//         <Switch>
+//           <Text>Switch</Text>
+//         </Switch>
 
-        <Switch>
-          <Text>Switch</Text>
-        </Switch>
+//         <Pressable>
+//           <Text>Pressable</Text>
+//         </Pressable>
 
-        <Pressable>
-          <Text>Pressable</Text>
-        </Pressable>
+//         <TextInput>
+//           <Text>TextInput</Text>
+//         </TextInput>
 
-        <TextInput>
-          <Text>TextInput</Text>
-        </TextInput>
+//         <Button
+//           title="Button"
+//           onPress={{ isClientAction: true, action: "Alert2", title: "Button" }}
+//         />
 
-        <Button
-          title="Button"
-          onPress={{ isClientAction: true, action: "Alert2", title: "Button" }}
-        />
+//         <AnimatedButton
+//           onPress={{ isClientAction: true, action: "Alert2", title: "AnimatedButton" }}
+//         >
+//           <Text>AnimatedButton</Text>
+//         </AnimatedButton>
 
-        <AnimatedButton
-          onPress={{ isClientAction: true, action: "Alert2", title: "AnimatedButton" }}
-        >
-          <Text>AnimatedButton</Text>
-        </AnimatedButton>
+//         <TouchableHighlight
+//           onPress={{ isClientAction: true, action: "Alert2", title: "TouchableHighlight" }}
+//           activeOpacity={0.5}
+//           underlayColor="#FF0000"
+//         >
+//           <Text>TouchableHighlight</Text>
+//         </TouchableHighlight>
 
-        <TouchableHighlight
-          onPress={{ isClientAction: true, action: "Alert2", title: "TouchableHighlight" }}
-          activeOpacity={0.5}
-          underlayColor="#FF0000"
-        >
-          <Text>TouchableHighlight</Text>
-        </TouchableHighlight>
+//         <TouchableOpacity
+//           onPress={{
+//             isClientAction: true,
+//             actions: [
+//               { action: "Haptics", haptic: "hapticSuccess" },
+//               { action: "Alert2", title: "TouchableWithoutFeedback" },
+//             ],
+//           }}
+//         >
+//           <Text>TouchableOpacity</Text>
+//         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={{
-            isClientAction: true,
-            actions: [
-              { action: "Haptics", haptic: "hapticSuccess" },
-              { action: "Alert2", title: "TouchableWithoutFeedback" },
-            ],
-          }}
-        >
-          <Text>TouchableOpacity</Text>
-        </TouchableOpacity>
+//         <TouchableWithoutFeedback
+//           onPress={{ isClientAction: true, action: "Alert2", title: "TouchableWithoutFeedback" }}
+//         >
+//           <Text>TouchableWithoutFeedback</Text>
+//         </TouchableWithoutFeedback>
 
-        <TouchableWithoutFeedback
-          onPress={{ isClientAction: true, action: "Alert2", title: "TouchableWithoutFeedback" }}
-        >
-          <Text>TouchableWithoutFeedback</Text>
-        </TouchableWithoutFeedback>
+//         <BlurView
+//           tint="dark"
+//           intensity={12.5}
+//           className="pointer-events-none absolute bottom-3 left-1/4 right-3 top-3 z-10"
+//         >
+//           <Text>BlurView</Text>
+//         </BlurView>
+//       </View>
+//     </>
+//   )
+// }
 
-        <BlurView
-          tint="dark"
-          intensity={12.5}
-          className="pointer-events-none absolute bottom-3 left-1/4 right-3 top-3 z-10"
-        >
-          <Text>BlurView</Text>
-        </BlurView>
-      </View>
-    </>
-  )
-}
+// function ErrorView(): ReactNode {
+//   throw Object.assign(new Error("This is an error"), { name: "ErrorViewError" })
+// }
 
-function ErrorView(): ReactNode {
-  throw Object.assign(new Error("This is an error"), { name: "ErrorViewError" })
-}
-
-async function AsyncErrorView(): Promise<ReactElement> {
-  await new Promise((wake) => setTimeout(wake, 123))
-  throw Object.assign(new Error("This is an async error"), { name: "AsyncErrorViewError" })
-}
+// async function AsyncErrorView(): Promise<ReactElement> {
+//   await new Promise((wake) => setTimeout(wake, 123))
+//   throw Object.assign(new Error("This is an async error"), { name: "AsyncErrorViewError" })
+// }
 
 async function renderToRSC(
   ui: AsyncIterable<string>,
@@ -175,16 +157,16 @@ async function* generatePrerenderedRSC(ui: AsyncIterable<string>) {
 
 async function main() {
   await renderToDevView(
-    ReactServerDOMServer.render(() => <Demo key={Date.now()} />),
+    ReFrameServer.render(() => <Demo key={Date.now()} />),
     Bun.file(`${__filename}.Demo.ts`),
   )
   await renderToRSC(
-    ReactServerDOMServer.render(() => <Demo key={Date.now()} />),
+    ReFrameServer.render(() => <Demo key={Date.now()} />),
     Bun.file(`${__filename}.Demo.ts`),
   )
 
   await renderToDevView(
-    ReactServerDOMServer.render(() => (
+    ReFrameServer.render(() => (
       <View>
         <ErrorView />
         <Suspense>
@@ -195,7 +177,7 @@ async function main() {
     Bun.file(`${__filename}.ErrorView.ts`),
   )
   await renderToRSC(
-    ReactServerDOMServer.render(() => (
+    ReFrameServer.render(() => (
       <View>
         <ErrorView />
         <Suspense>
