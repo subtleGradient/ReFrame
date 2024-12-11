@@ -28,6 +28,11 @@ Decisions
   - [ ] double check that everything is typed
 
 - [ ] generate types for @double-observer/react-server-dom-esm
+  - [x] ReactClientValue
+  - [x] ReactServerValue
+
+createTemporaryReferenceSet
+
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
 - [ ] publish @double-observer/react-server-dom-esm to npm https://www.npmjs.com/package/@double-observer/react-server-dom-esm

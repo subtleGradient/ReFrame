@@ -65,11 +65,7 @@ declare module "react-server-dom-webpack/server" {
     chunks: DependencyChunks
     name: ClientModuleExportName
   }
-  type ReactClientManifestTuple = [
-    id: ModuleID,
-    chunks: DependencyChunks,
-    name: ClientModuleExportName,
-  ]
+  type ReactClientManifestTuple = [id: ModuleID, chunks: DependencyChunks, name: ClientModuleExportName]
 
   type IReactClientManifest = Record<ReactReference$$id, ReactClientManifestRecord>
 
@@ -172,10 +168,7 @@ declare module "react-server-dom-webpack/server" {
    * @param body The body of the form.
    * @param webpackMap The webpack map for module resolution.
    */
-  export function decodeReply(
-    body: FormDataBody,
-    webpackMap: BundlerConfig,
-  ): Promise<ServerComponentResponse>
+  export function decodeReply(body: FormDataBody, webpackMap: BundlerConfig): Promise<ServerComponentResponse>
 
   /**
    * Creates a proxy for a client module.
@@ -193,12 +186,17 @@ declare module "react-server-dom-webpack/server" {
     proxyImplementation: T,
     clientBundleId: number | string,
     exportName: string,
-  ): ClientReferenceProxy<T>
+  ): ClientReference<T>
 
-  export interface ClientReferenceProxy<T> extends T {
+  export type ClientReference<T> = T & {
     $$typeof: symbol
     $$id: ReactReference$$id
     $$async: boolean
+  }
+  export type ServerReference<T> = T & {
+    $$typeof: symbol
+    $$id: ReactReference$$id
+    $$bound: null
   }
 
   /**
@@ -211,13 +209,7 @@ declare module "react-server-dom-webpack/server" {
     reference: T,
     id: string,
     exportName: string | null,
-  ): ServerReferenceProxy<T>
-
-  export interface ServerReferenceProxy<T> extends T {
-    $$typeof: symbol
-    $$id: ReactReference$$id
-    $$bound: null
-  }
+  ): ServerReference<T>
 
   /**
    * Options for rendering to a pipeable stream.

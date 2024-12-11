@@ -13,7 +13,7 @@ export type ClientReferenceKey = ReactReference$$id
 
 export type FlightRequest = unknown
 
-export type ClientReference<T> = {
+export type ClientReference<T> = T & {
   $$typeof: Symbol | number
   $$id: string
   $$async: boolean
