@@ -1,8 +1,10 @@
 {
-  "name": "react-server",
+  "name": "@double-observer/react-server",
   "description": "React package for creating custom streaming server renderers.",
   "version": "0.0.0-7283a213-20241206",
-  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "react"
   ],
