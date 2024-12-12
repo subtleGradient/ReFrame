@@ -1,15 +1,19 @@
+import type { ReactNode } from "react"
 import "server-only"
 import { PassThrough } from "stream"
 export const name = "@double-observer/reframe/server"
-import type { ReactNode } from "react"
 
 // import * as ReactServerDOMServer from "react-server-dom-webpack/server"
-import { registerClientReference } from "react-server-dom-webpack/server"
-import type { ReactReference$$id } from "react-server-dom-webpack/server"
-import ReactServerDOMServer, { type BundlerConfig } from "react-server-dom-webpack/server"
-import invariant from "invariant"
+// import { registerClientReference } from "react-server-dom-webpack/server"
+// import type { ReactReference$$id } from "react-server-dom-webpack/server"
+// import ReactServerDOMServer, { type BundlerConfig } from "react-server-dom-webpack/server"
 
-// import ReactFlightDOMServer, { registerClientReference } from "@double-observer/react-server-dom-esm/server"
+import ReactServerDOMServer, {
+  registerClientReference,
+  registerServerReference,
+} from "@double-observer/react-server-dom-esm/server"
+import type { ServerReference } from "@double-observer/react-server/shared"
+export { registerClientReference, registerServerReference }
 // import type { ReactClientValue } from "@double-observer/react-server/src/ReactFlightServer"
 
 export interface CustomServerTags {
@@ -26,72 +30,75 @@ export const html = new Proxy<Record<keyof JSX.IntrinsicElements, () => ReactNod
 
 export class ClientBundle {}
 
-// type renderToPipeableStreamArgs = Parameters<typeof ReactServerDOMServer.renderToPipeableStream>
+type renderToPipeableStreamArgs = Parameters<typeof ReactServerDOMServer.renderToPipeableStream>
 
-function renderToPipeableStream(renderable: any, clientManifest: BundlerConfig) {
-  debugger
-  return ReactServerDOMServer.renderToPipeableStream(renderable, clientManifest, {
-    onError: (err: unknown) => console.error("ReactServerDOMServer.renderToPipeableStream onError", err),
-    onPostpone: (reason: unknown) => console.warn("ReactServerDOMServer.renderToPipeableStream onPostpone", reason),
-  })
-}
+// function renderToPipeableStream(renderable: any, clientManifest: BundlerConfig) {
+//   debugger
+//   return ReactServerDOMServer.renderToPipeableStream(renderable, clientManifest, {
+//     onError: (err: unknown) => console.error("ReactServerDOMServer.renderToPipeableStream onError", err),
+//     onPostpone: (reason: unknown) => console.warn("ReactServerDOMServer.renderToPipeableStream onPostpone", reason),
+//   })
+// }
 
-export async function* renderToAsyncIterable(renderable: any, clientManifest: BundlerConfig): AsyncIterable<string> {
-  invariant(clientManifest, "clientManifest is required")
-  invariant(typeof clientManifest === "object", "clientManifest must be an object")
+// export async function* renderToAsyncIterable(renderable: any, clientManifest: BundlerConfig): AsyncIterable<string> {
+//   invariant(clientManifest, "clientManifest is required")
+//   invariant(typeof clientManifest === "object", "clientManifest must be an object")
 
-  const pipeableStream = renderToPipeableStream(renderable, clientManifest)
+//   const pipeableStream = renderToPipeableStream(renderable, clientManifest)
 
-  const passThrough = new PassThrough()
-  pipeableStream.pipe(passThrough)
+//   const passThrough = new PassThrough()
+//   pipeableStream.pipe(passThrough)
 
-  const textDecoder = new TextDecoder("utf-8")
+//   const textDecoder = new TextDecoder("utf-8")
 
-  try {
-    for await (const chunk of passThrough) {
-      yield textDecoder.decode(chunk, { stream: true })
-    }
-  } finally {
-    yield textDecoder.decode(undefined, { stream: false })
-  }
-}
+//   try {
+//     for await (const chunk of passThrough) {
+//       yield textDecoder.decode(chunk, { stream: true })
+//     }
+//   } finally {
+//     yield textDecoder.decode(undefined, { stream: false })
+//   }
+// }
 
 export class ReFrameServer {
-  static renderToAsyncIterable = renderToAsyncIterable
-  // static async renderToPipeableStream(...args: renderToPipeableStreamArgs) {
-  //   return ReactServerDOMServer.renderToPipeableStream(...args)
-  // }
+  // static renderToAsyncIterable = renderToAsyncIterable
+  static async renderToPipeableStream(...args: renderToPipeableStreamArgs) {
+    return ReactServerDOMServer.renderToPipeableStream(...args)
+  }
 
-  // static async *renderToAsyncIterable(...args: renderToPipeableStreamArgs): AsyncIterable<string> {
-  //   const pipeableStream = await ReFrameServer.renderToPipeableStream(...args)
+  static async *renderToAsyncIterable(...args: renderToPipeableStreamArgs): AsyncIterable<string> {
+    const pipeableStream = await ReFrameServer.renderToPipeableStream(...args)
 
-  //   const passThrough = new PassThrough()
-  //   pipeableStream.pipe(passThrough)
+    const passThrough = new PassThrough()
+    pipeableStream.pipe(passThrough)
 
-  //   const textDecoder = new TextDecoder("utf-8")
+    const textDecoder = new TextDecoder("utf-8")
 
-  //   try {
-  //     for await (const chunk of passThrough) {
-  //       yield textDecoder.decode(chunk, { stream: true })
-  //     }
-  //   } finally {
-  //     yield ""
-  //   }
-  // }
+    try {
+      for await (const chunk of passThrough) {
+        yield textDecoder.decode(chunk, { stream: true })
+      }
+    } finally {
+      yield ""
+    }
+  }
 
   constructor() {
     throw new Error("FIXME: not sure what calling new ReFrameServer() should do yet")
   }
 }
 
+// wrap all function props with ServerReference<T>
+type ClientProps<P> = { [K in keyof P]: P[K] extends (...args: any) => any ? ServerReference<P[K]> : P[K] }
+
 /**
  * Creates a fake client component that represents a client component that is not available on the server.
  * This lets us compose client components in a way that is compatible with the server.
  */
-export function genClientProxy<N extends string, P extends object, R extends ReactNode>(name: N) {
-  return Object.assign(ClientComponentProxy, { displayName: name })
-  function ClientComponentProxy(props: P): R {
-    throw new TypeError(`server proxy to client component "${name}" unexpectedly called on the server.
+export function genClientProxy<P extends object, R extends ReactNode = ReactNode>(displayName: string) {
+  return Object.assign(ClientComponentProxy, { displayName })
+  function ClientComponentProxy(props: ClientProps<P>): R {
+    throw new TypeError(`server proxy to client component "${displayName}" unexpectedly called on the server.
       Missing --conditions=react-server?`)
   }
 }

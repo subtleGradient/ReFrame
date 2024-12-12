@@ -21,7 +21,7 @@ export type ClientReference<T> = T & {
   value?: T
 }
 
-export type ServerReference<T> = {
+export type ServerReference<T> = T & {
   $$typeof: Symbol | number
   $$id: string
   $$bound: null | Thenable<Array<any>>

@@ -1,7 +1,12 @@
 #!/usr/bin/env -S bun run --watch --conditions=react-server
 // yarn workspace reframe-server-demo-rsc run demo
 
-import { ReFrameServer } from "@double-observer/reframe/server"
+import {
+  genClientProxy,
+  ReFrameServer,
+  registerClientReference,
+  registerServerReference,
+} from "@double-observer/reframe/server"
 import Bun from "bun"
 import React, { type ReactElement, type ReactNode } from "react"
 
@@ -149,8 +154,28 @@ async function* generatePrerenderedRSC(ui: AsyncIterable<string>) {
   yield `\n`
 }
 
+const ClientComponent = registerClientReference(
+  genClientProxy<{ onPress: (abc: 123) => Promise<void> }>("ClientComponent"),
+  "clientBundleId",
+  "ClientComponent",
+)
+
 function Demo() {
-  return <div>hwllo</div>
+  return (
+    <div>
+      hwllo
+      <ClientComponent
+        onPress={registerServerReference(
+          async (abc: 123) => {
+            "use server"
+            console.log("hello", abc)
+          },
+          "serverBundleId",
+          "onPress",
+        )}
+      />
+    </div>
+  )
 }
 
 // function View() {
@@ -160,12 +185,11 @@ function Demo() {
 const View = "div"
 
 // const url = require("url")
-// new URL(".", url.pathToFileURL(__filename)).href
-const clientBundle = {}
-console.log(clientBundle)
+const clientBundle = ""
+// const clientBundle = {}
+// console.log(clientBundle)
 
 async function main() {
-  debugger
   // await renderToDevView(
   //   ReFrameServer.renderToAsyncIterable(<Demo key={Date.now()} />, clientBundle),
   //   Bun.file(`${__filename}.Demo.ts`),
@@ -205,8 +229,7 @@ async function main() {
   // )
 }
 
-debugger
-// main()
+main()
 global.main = main
 
 // const renderChunkedTimestamps = {
