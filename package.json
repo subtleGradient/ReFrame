@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "demo-expo": "cd demos/18/expo; bun web",
-    "postinstall": "watchman watch-del \"$PWD\"; ./sh.sh --quiet; cd demos/18; bun i",
+    "postinstall": "watchman watch-del \"$PWD\"; ./sh/sh.sh --quiet; cd demos/18; bun i",
     "sh": "nix-shell",
     "build": "turbo build",
     "dev": "turbo dev",
