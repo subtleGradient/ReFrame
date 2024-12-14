@@ -41,11 +41,13 @@ Decisions
 - use overrides at the root of the demos workspace to link to the local packages of the main workspace
 
 - [ReFrame workspace](./package.json)
-  - [Next.js 15 App demo](./19-demos/next15-app-demo-1/package.json)
+  - [Next.js 15 App demo](./19-demos/next15-app-demo/package.json)
+  - [Expo Demo](./19-demos/expo-demo/package.json) -- blank until RN supports react 19
+  - [one Demo](./19-demos/one-demo/package.json) -- blank until RN supports react 19
 - [React 18 Demos workspace](./18-demos/package.json)
-  - [Next.js 14 Pages demo](./18-demos/next14-pages-demo-1/package.json)
-  - [Expo 52 Demo](./18-demos/expo52-demo-1/package.json)
-  - [one v1.1 Demo](./18-demos/one1.1-demo-1/package.json)
+  - [Next.js 14 Pages demo](./18-demos/next14-pages-demo/package.json)
+  - [Expo 52 Demo](./18-demos/expo-demo/package.json)
+  - [one v1.1 Demo](./18-demos/one-demo/package.json)
 
 ---
 
