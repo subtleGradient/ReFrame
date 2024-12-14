@@ -47,11 +47,11 @@ Decisions
 
 - [React 18 Demos workspace](./demos/18/package.json)
   - [Next.js 14 Pages demo](./demos/18/next-pages/package.json)
-  - [Expo 52 Demo](./demos/18/expo/package.json)
+  - [x] [Expo 52 Demo](./demos/18/expo/package.json)
   - [one v1.1 Demo](./demos/18/one/package.json)
 
 - [Server Demos](./demos/server/package.json)
-  - [Bun Demo](./demos/server/bun/package.json)
+  - [x] [Bun Demo](./demos/server/bun/package.json)
   - [Deno Demo](./demos/server/deno/package.json)
   - [Node Demo](./demos/server/node/package.json)
   - [JXA Demo](./demos/server/JXA/package.json)
