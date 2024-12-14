@@ -136,6 +136,7 @@ check_command() {
     local command=$2
     local is_critical=${3:-true}
     local required_version=$(get_tool_prop "$tool" "version")
+    local version_check_command=$(get_tool_prop "$tool" "versionCheck" "$command")
 
     log "INFO" "🔍 checking for ${tool} (${command}) ..."
 
@@ -150,7 +151,7 @@ check_command() {
     fi
 
     local version_output
-    version_output=$(${command} --version 2>&1 || ${command} -v 2>&1 || echo "version not available")
+    version_output=$(${version_check_command} --version 2>&1 || ${version_check_command} -v 2>&1 || echo "version not available")
     local installed_version=$(extract_version "$version_output")
 
     if [ -n "$required_version" ] && [ -n "$installed_version" ]; then

@@ -39,5 +39,10 @@ unstable.mkShell {
   shellHook = ''
     echo "Development environment loaded!"
     ${builtins.concatStringsSep "\n" (builtins.map makeVersionCheck (builtins.attrNames requiredTools))}
+
+    # Make the script executable if it isn't already
+    chmod +x ./sh.sh
+    # Run the verification script in quiet mode
+    ./sh.sh --quiet
   '';
 }

@@ -52,6 +52,7 @@
         },
         "nodejs": {
           "nixPackage": "nodejs_23",
+          "versionCheck": "node",
           "command": [
             "node",
             "npm",
