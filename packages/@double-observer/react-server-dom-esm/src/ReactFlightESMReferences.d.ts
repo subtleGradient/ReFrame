@@ -1,4 +1,3 @@
-
 export type ServerReference<T> = T & {
   $$typeof: Symbol | number
   $$id: string
@@ -25,7 +24,7 @@ export type ClientReference<T> = T & {
 export function isClientReference(reference: Object): boolean
 export function isServerReference(reference: Object): boolean
 export function registerClientReference<T>(proxyImplementation: T, id: string, exportName: string): ClientReference<T>
-export function registerServerReference<in out T extends Function>(
+export function registerServerReference<T extends Function>(
   reference: T,
   id: string,
   exportName: string,

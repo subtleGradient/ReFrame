@@ -52,10 +52,7 @@ export async function ChunkSource$forEach<S extends RSCSource>(
       )
     }
 
-    invariant(
-      !(source satisfies never),
-      "ChunkSource$forEach: Source must be an Iterable or AsyncIterable",
-    )
+    invariant(!(source satisfies never), "ChunkSource$forEach: Source must be an Iterable or AsyncIterable")
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") return
     throw error

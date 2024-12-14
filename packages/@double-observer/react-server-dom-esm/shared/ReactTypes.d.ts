@@ -1,10 +1,4 @@
-export type ReactNode =
-  | ReactElement
-  | ReactPortal
-  | ReactText
-  | ReactFragment
-  | ReactProvider<any>
-  | ReactConsumer<any>
+export type ReactNode = ReactElement | ReactPortal | ReactText | ReactFragment | ReactProvider<any> | ReactConsumer<any>
 
 export type ReactEmpty = null | void | boolean
 
@@ -72,11 +66,7 @@ export type ReactScope = {
   $$typeof: symbol | number
 }
 
-export type ReactScopeQuery = (
-  type: string,
-  props: { [key: string]: unknown },
-  instance: unknown,
-) => boolean
+export type ReactScopeQuery = (type: string, props: { [key: string]: unknown }, instance: unknown) => boolean
 
 export type ReactScopeInstance = {
   DO_NOT_USE_queryAllNodes(theReactScopeQuery: ReactScopeQuery): null | Array<object>
@@ -119,11 +109,7 @@ export interface RejectedThenable<T> extends ThenableImpl<T> {
   /** @private */ _debugInfo?: null | ReactDebugInfo
 }
 
-export type Thenable<T> =
-  | UntrackedThenable<T>
-  | PendingThenable<T>
-  | FulfilledThenable<T>
-  | RejectedThenable<T>
+export type Thenable<T> = UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>
 
 export type OffscreenMode = "hidden" | "unstable-defer-without-hiding" | "visible" | "manual"
 

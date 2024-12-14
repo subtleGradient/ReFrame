@@ -1,8 +1,5 @@
 import React from "react"
-import ReactServerDOMServer, {
-  ReactReference$$id,
-  registerClientReference,
-} from "react-server-dom-webpack/server"
+import ReactServerDOMServer, { ReactReference$$id, registerClientReference } from "react-server-dom-webpack/server"
 
 import type RN from "./RNBundle.client"
 type RNBundle = typeof RN
@@ -60,11 +57,7 @@ export const missingClientComponents = new Proxy(
         return (
           clientComponents[ComponentName] ||
           Object.assign(
-            () => (
-              <View key={ComponentName}>
-                {__DEV__ && <Text>TODO: Add {String(ComponentName)}</Text>}
-              </View>
-            ),
+            () => <View key={ComponentName}>{__DEV__ && <Text>TODO: Add {String(ComponentName)}</Text>}</View>,
             { displayName: `TODO.${ComponentName}` },
           )
         )
@@ -102,18 +95,12 @@ export const clientManifest: ReactServerDOMServer.IReactClientManifest = {}
   )) {
     const [id, name] = Component.$$id.split("#")
     if (key !== name)
-      throw new Error(
-        `Component key "${key}" must match export "${name}". Check clientComponents object`,
-      )
+      throw new Error(`Component key "${key}" must match export "${name}". Check clientComponents object`)
     clientManifest[Component.$$id] = { id, chunks: [], name }
   }
 }
 
-export async function Await({
-  children: promise,
-}: {
-  children: React.ReactNode | Promise<React.ReactNode>
-}) {
+export async function Await({ children: promise }: { children: React.ReactNode | Promise<React.ReactNode> }) {
   "server only"
   return await promise
 }

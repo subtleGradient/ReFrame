@@ -42,10 +42,7 @@ export function createClientConfig<C extends Config, M extends ModuleMap>(props:
     requireModule<T>(clientReference: ReactReference$$id): T {
       props.debug?.("requireModule", { clientReference })
       try {
-        const [id, name] = clientReference.split("#") as [
-          keyof ModuleMap,
-          keyof ModuleMap[keyof ModuleMap],
-        ]
+        const [id, name] = clientReference.split("#") as [keyof ModuleMap, keyof ModuleMap[keyof ModuleMap]]
         return (props.modules[id] ?? props.modules["ReFrameDynamic"])[name] as T
       } catch (error) {
         console.warn("requireModule error", { clientReference, error })

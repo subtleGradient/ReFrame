@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-'use strict';
+"use strict"
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./cjs/react-client-flight.production.js');
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./cjs/react-client-flight.production.js")
 } else {
-  module.exports = require('./cjs/react-client-flight.development.js');
+  module.exports = require("./cjs/react-client-flight.development.js")
 }

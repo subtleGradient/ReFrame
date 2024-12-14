@@ -23,6 +23,7 @@ Decisions
 - [ ] ~~re-organize stuff such that I can publish the types separately from the react code itself~~
 
 - [x] generate types for @double-observer/react-server
+
   - [x] react-server/flight.d.ts
   - [x] react-server/index.d.ts
   - [ ] double check that everything is typed
@@ -41,16 +42,19 @@ Decisions
 - use overrides at the root of the demos workspace to link to the local packages of the main workspace
 
 - [ ] [ReFrame workspace](./package.json)
+
   - [ ] [Next.js 15 App demo](./demos/19/next-app/package.json)
   - [ ] [Expo Demo](./demos/19/expo/package.json) -- blank until RN supports react 19
   - [ ] [one Demo](./demos/19/one/package.json) -- blank until RN supports react 19
 
 - [ ] [React 18 Demos workspace](./demos/18/package.json)
+
   - [ ] [Next.js 14 Pages demo](./demos/18/next-pages/package.json)
   - [x] [Expo 52 Demo](./demos/18/expo/package.json)
   - [ ] [one v1.1 Demo](./demos/18/one/package.json)
 
 - [ ] [Server Demos](./demos/server/package.json)
+
   - [x] [Bun Demo](./demos/server/bun/package.json)
   - [ ] [Deno Demo](./demos/server/deno/package.json)
   - [ ] [Node Demo](./demos/server/node/package.json)
@@ -64,29 +68,27 @@ Decisions
 
 ### NEXT
 
-
 - [ ] figure out how to handle server refs on the client
+
   - [ ] generate some RSC code that uses both client and server refs
-
-
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server
 - [ ] publish @double-observer/react-server-dom-esm to npm https://www.npmjs.com/package/@double-observer/react-server-dom-esm
 
-
 - [ ] setup all the @subtlegradient/reframe exports and conditions
 
   - [x] @subtlegradient/reframe/client from client (react-native / expo)
-    - [x] [demo](./demos/reframe-expo-demo-1/app/(tabs)/rsc-stream.tsx)
+
+    - [x] [demo](<./demos/reframe-expo-demo-1/app/(tabs)/rsc-stream.tsx>)
 
   - [ ] @subtlegradient/reframe/server from server (bun)
+
     - [ ] [demo](./demos/reframe-server-demo-rsc/server-render-demo.tsx)
 
   - [ ] @subtlegradient/reframe/server from server (nodejs 23)
   - [ ] @subtlegradient/reframe/server from server (deno)
   - [ ] @subtlegradient/reframe/server from server (PHP)
   - [ ] @subtlegradient/reframe/server from server (Rails 8)
-
 
   - [ ] @subtlegradient/reframe/client from client (browser / next.js)
   - [ ] @subtlegradient/reframe/client from client (browser / importMap / unbundled)

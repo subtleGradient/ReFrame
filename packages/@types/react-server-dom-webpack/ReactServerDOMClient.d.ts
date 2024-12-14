@@ -270,10 +270,7 @@ declare module "react-server-dom-webpack/client" {
    * @param options Options for the Flight client.
    * @returns A Thenable that resolves to the model of the root component.
    */
-  function createFromReadableStream<T>(
-    stream: ReadableStream,
-    options?: FromReadableStreamOptions,
-  ): Thenable<T>
+  function createFromReadableStream<T>(stream: ReadableStream, options?: FromReadableStreamOptions): Thenable<T>
 
   /**
    * Creates a Thenable that resolves to the Server Component tree.
@@ -289,10 +286,7 @@ declare module "react-server-dom-webpack/client" {
    * during the Webpack build process. Ensure that the plugin is configured in your Webpack setup and that the paths
    * and filenames of the generated manifest files match the expectations of your Flight client and server code.
    */
-  function createFromFetch<T>(
-    promiseForResponse: Promise<Response>,
-    options?: FromFetchOptions,
-  ): Thenable<T>
+  function createFromFetch<T>(promiseForResponse: Promise<Response>, options?: FromFetchOptions): Thenable<T>
 
   /**
    * Encodes a React element tree into a Flight response.
@@ -306,11 +300,5 @@ declare module "react-server-dom-webpack/client" {
     options?: { temporaryReferences?: TemporaryReferenceSet },
   ): Promise<string | URLSearchParams | FormData>
 
-  export {
-    createFromFetch,
-    createFromReadableStream,
-    createServerReference,
-    createTemporaryReferenceSet,
-    encodeReply,
-  }
+  export { createFromFetch, createFromReadableStream, createServerReference, createTemporaryReferenceSet, encodeReply }
 }

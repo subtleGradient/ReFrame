@@ -35,19 +35,15 @@ export function* renderDynamicClientModule(
 }
 
 function replacer(key: string, value: any) {
-  if (value instanceof Promise)
-    throw new Error(`Promise values are not supported yet. Got promise for ${key}`)
-  if (typeof value === "function")
-    throw new Error(`function values are not supported yet. Got function for ${key}`)
+  if (value instanceof Promise) throw new Error(`Promise values are not supported yet. Got promise for ${key}`)
+  if (typeof value === "function") throw new Error(`function values are not supported yet. Got function for ${key}`)
   return value
 }
 
 function stringified(strings: TemplateStringsArray, ...valueSubstitutions: any[]) {
   return strings.reduce(
     (output, stringPart, index) =>
-      output +
-      stringPart +
-      (index in valueSubstitutions ? JSON.stringify(valueSubstitutions[index], replacer) : ""),
+      output + stringPart + (index in valueSubstitutions ? JSON.stringify(valueSubstitutions[index], replacer) : ""),
     "",
   )
 }

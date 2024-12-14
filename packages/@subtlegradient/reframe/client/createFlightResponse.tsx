@@ -1,9 +1,6 @@
 import { FlightResponseProps, IReactFlightClient } from "../random/types"
 
-export function createFlightResponse(
-  flight: IReactFlightClient,
-  remoteConfig: FlightResponseProps,
-) {
+export function createFlightResponse(flight: IReactFlightClient, remoteConfig: FlightResponseProps) {
   if ((global as any).__DEV__) flight.injectIntoDevTools()
 
   return flight.createResponse(

@@ -1,14 +1,6 @@
 "use client"
 import invariant from "invariant"
-import React, {
-  Fragment,
-  ReactElement,
-  ReactNode,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-} from "react"
+import React, { Fragment, ReactElement, ReactNode, useDeferredValue, useEffect, useRef, useState } from "react"
 import { AsyncIterable$forEach } from "../random/AsyncIterable$forEach"
 
 interface StreamingFragmentProps {
@@ -40,9 +32,7 @@ function useStreamingChildren(
         setChildren((children) =>
           [
             children,
-            child.key ? child : (
-              <Fragment key={Array.isArray(children) ? children.length : 1}>{child}</Fragment>
-            ),
+            child.key ? child : <Fragment key={Array.isArray(children) ? children.length : 1}>{child}</Fragment>,
           ].flat(),
         )
       },
