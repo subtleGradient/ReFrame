@@ -220,14 +220,14 @@ try_nix() {
         exit $EXIT_ERROR
     fi
 
-    log "INFO" "✅ found Nix configuration files"
-    log "INFO" "🔍 starting Nix shell ..."
+    # log "INFO" "✅ found Nix configuration files"
+    # log "INFO" "🔍 starting Nix shell ..."
 
-    if [ -f shell.nix ]; then
-        exec nix-shell shell.nix
-    else
-        exec nix-shell default.nix
-    fi
+    # if [ -f shell.nix ]; then
+    #     exec nix-shell shell.nix
+    # else
+    #     exec nix-shell default.nix
+    # fi
 }
 
 main() {
