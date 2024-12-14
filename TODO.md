@@ -27,11 +27,14 @@ Decisions
   - [x] react-server/index.d.ts
   - [ ] double check that everything is typed
 
-- [ ] generate types for @double-observer/react-server-dom-esm
+- [x] generate types for @double-observer/react-server-dom-esm
   - [x] ReactClientValue
   - [x] ReactServerValue
+  - [ ] createTemporaryReferenceSet
 
-createTemporaryReferenceSet
+- [ ] figure out how to handle server refs on the client
+  - [ ] generate some RSC code that uses both client and server refs
+
 
 
 - [ ] publish @double-observer/react-server to npm https://www.npmjs.com/package/@double-observer/react-server

@@ -20,7 +20,11 @@
       "default": "./server/index.tsx"
     },
     "./server/jsx-runtime": "./server/jsx-runtime.tsx",
-    "./server/jsx-dev-runtime": "./server/jsx-dev-runtime.tsx"
+    "./server/jsx-dev-runtime": "./server/jsx-dev-runtime.tsx",
+    "./components": {
+      "react-server": "./components/index.server.tsx",
+      "default": "./components/index.client.tsx"
+    }
   },
   "dependencies": {
     "@double-observer/react-client": "workspace:^",

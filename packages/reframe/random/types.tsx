@@ -7,10 +7,7 @@ import type {
   ServerManifest,
   SSRModuleMap,
 } from "@double-observer/react-client/src/ReactFlightClientConfig"
-import {
-  CallServerCallback,
-  EncodeFormActionCallback,
-} from "@double-observer/react-client/src/ReactFlightReplyClient"
+import { CallServerCallback, EncodeFormActionCallback } from "@double-observer/react-client/src/ReactFlightReplyClient"
 import { TemporaryReferenceSet } from "@double-observer/react-client/src/ReactFlightTemporaryReferences"
 
 export type MaybePromise<T> = T | Promise<T>
@@ -48,3 +45,7 @@ export interface FlightResponseProps {
   replayConsole?: boolean
   environmentName?: string
 }
+
+export type RenderQ =
+  | React.ReactElement //
+  | { replace: React.ReactElement }

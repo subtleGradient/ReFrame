@@ -54,18 +54,14 @@ export type ClientAction =
   | (AnyClientAction & ClientActionPayload)
   | (AnyClientAction & {
       promise: Promise<
-        | (Partial<AnyClientAction> & ClientActionPayload)
-        | Array<Partial<AnyClientAction> & ClientActionPayload>
+        (Partial<AnyClientAction> & ClientActionPayload) | Array<Partial<AnyClientAction> & ClientActionPayload>
       >
     })
   | (AnyClientAction & { actions: Array<Partial<AnyClientAction> & ClientActionPayload> })
 
 function isClientAction(value: unknown): value is ClientAction {
   return (
-    typeof value === "object" &&
-    value !== null &&
-    "isClientAction" in value &&
-    (value as ClientAction).isClientAction
+    typeof value === "object" && value !== null && "isClientAction" in value && (value as ClientAction).isClientAction
   )
 }
 
@@ -73,6 +69,7 @@ const ClientActionPropSuffix = "ClientAction" as const
 
 type ServerActionRef<T> = T | "never" // TODO: replace with actual server action reference type
 
+/** @deprecated there's a better way */
 type ClientAct<T> = Prettify<
   ReplaceValues<Suffix<MethodsOf<T>, typeof ClientActionPropSuffix>, ClientAction> & {
     [K in keyof T]: ServerActionRef<T[K]>
@@ -116,9 +113,7 @@ function useClientActionHandlers<T extends object>(serverProps: ClientAct<T>): T
           )
 
         if ("actions" in serverPropValue)
-          return serverPropValue.actions.forEach((clientAction) =>
-            handleServerIntent(propName, clientAction, ...args),
-          )
+          return serverPropValue.actions.forEach((clientAction) => handleServerIntent(propName, clientAction, ...args))
 
         return handleServerIntent(propName, serverPropValue, ...args)
       }) as T[typeof clientPropName]
