@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import "server-only"
 import { PassThrough } from "stream"
-export const name = "@double-observer/reframe/server"
+export const name = "@subtlegradient/reframe/server"
 
 // import * as ReactServerDOMServer from "react-server-dom-webpack/server"
 // import { registerClientReference } from "react-server-dom-webpack/server"

@@ -31,7 +31,7 @@
   "workspaces": [
     "apps/*",
     "demos/19/*",
-    "packages/*",
+    "packages/@*/*",
     "packages/republished/*",
     "packages/@types/*"
   ],

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "@double-observer/reframe",
+  "name": "@subtlegradient/reframe",
   "version": "2024.12.14",
   "type": "module",
   "private": true,

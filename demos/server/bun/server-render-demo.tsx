@@ -6,7 +6,7 @@ import {
   ReFrameServer,
   registerClientReference,
   registerServerReference,
-} from "@double-observer/reframe/server"
+} from "@subtlegradient/reframe/server"
 import Bun from "bun"
 import React, { type ReactElement, type ReactNode } from "react"
 

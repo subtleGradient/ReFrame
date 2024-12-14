@@ -1,6 +1,6 @@
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { StreamingFragment } from "@double-observer/reframe/client"
+// import { StreamingFragment } from "@subtlegradient/reframe/client"
 import { useIsFocused } from "@react-navigation/native"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
@@ -26,21 +26,21 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       <ThemedText>
         <Try catch={ErrorBoundary}>
-          <StreamingFragment
+          {/* <StreamingFragment
             initial={<ThemedText>(connecting)</ThemedText>}
             final={<ThemedText>(disconnected)</ThemedText>}
           >
             {isFocused && renderChunkedTimestamps}
-          </StreamingFragment>
+          </StreamingFragment> */}
         </Try>
       </ThemedText>
 
       <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (append)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>fake streaming, but real chunked rendering</ThemedText>
       <ThemedText>
-        <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
+        {/* <StreamingFragment initial={<ThemedText>loading...</ThemedText>}>
           {isFocused && renderChunked}
-        </StreamingFragment>
+        </StreamingFragment> */}
       </ThemedText>
     </ScrollView>
   )

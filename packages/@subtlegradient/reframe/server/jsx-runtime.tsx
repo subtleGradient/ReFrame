@@ -1,8 +1,8 @@
 /**
  * NOTE: Put this line above imports to enable JSX extensions in this file
- * @jsxImportSource @double-observer/reframe/server
+ * @jsxImportSource @subtlegradient/reframe/server
  */
-import { genClientProxy, type CustomServerTags } from "@double-observer/reframe/server"
+import { genClientProxy, type CustomServerTags } from "@subtlegradient/reframe/server"
 import type { ElementType } from "react"
 import { registerClientReference } from "react-server-dom-webpack/server"
 

@@ -72,24 +72,24 @@ Decisions
 - [ ] publish @double-observer/react-server-dom-esm to npm https://www.npmjs.com/package/@double-observer/react-server-dom-esm
 
 
-- [ ] setup all the @double-observer/reframe exports and conditions
+- [ ] setup all the @subtlegradient/reframe exports and conditions
 
-  - [x] @double-observer/reframe/client from client (react-native / expo)
+  - [x] @subtlegradient/reframe/client from client (react-native / expo)
     - [x] [demo](./demos/reframe-expo-demo-1/app/(tabs)/rsc-stream.tsx)
 
-  - [ ] @double-observer/reframe/server from server (bun)
+  - [ ] @subtlegradient/reframe/server from server (bun)
     - [ ] [demo](./demos/reframe-server-demo-rsc/server-render-demo.tsx)
 
-  - [ ] @double-observer/reframe/server from server (nodejs 23)
-  - [ ] @double-observer/reframe/server from server (deno)
-  - [ ] @double-observer/reframe/server from server (PHP)
-  - [ ] @double-observer/reframe/server from server (Rails 8)
+  - [ ] @subtlegradient/reframe/server from server (nodejs 23)
+  - [ ] @subtlegradient/reframe/server from server (deno)
+  - [ ] @subtlegradient/reframe/server from server (PHP)
+  - [ ] @subtlegradient/reframe/server from server (Rails 8)
 
 
-  - [ ] @double-observer/reframe/client from client (browser / next.js)
-  - [ ] @double-observer/reframe/client from client (browser / importMap / unbundled)
-  - [ ] @double-observer/reframe/client from server
-  - [ ] @double-observer/reframe/server from client
+  - [ ] @subtlegradient/reframe/client from client (browser / next.js)
+  - [ ] @subtlegradient/reframe/client from client (browser / importMap / unbundled)
+  - [ ] @subtlegradient/reframe/client from server
+  - [ ] @subtlegradient/reframe/server from client
 
 - [ ] React 18 Expo 52 demo of server rendering
 - [ ] create multiple client implementations of the same spec
@@ -292,9 +292,9 @@ end-to-end streaming text demo
 > should see a stream of time updates come in every second
 
 - [x] render the streaming text in the demo app
-- [x] create @double-observer/reframe
+- [x] create @subtlegradient/reframe
 - [x] create StreamingFragment
-- [x] yarn workspace reframe-expo-demo-1 add @double-observer/reframe
+- [x] yarn workspace reframe-expo-demo-1 add @subtlegradient/reframe
 
 > from the repo root
 > bun sh

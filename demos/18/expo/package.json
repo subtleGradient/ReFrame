@@ -19,7 +19,7 @@
     "#package": "./package.json"
   },
   "dependencies": {
-    "@double-observer/reframe": "workspace:^",
+    "@subtlegradient/reframe": "latest",
     "@expo/vector-icons": "^14.0.4",
     "@react-navigation/bottom-tabs": "^7.0.0",
     "@react-navigation/native": "^7.0.0",
@@ -50,6 +50,7 @@
     "@types/jest": "^29.5.14",
     "@types/react": "~18.3.16",
     "@types/react-test-renderer": "^18.3.1",
+    "git-root-dir": "^1.0.2",
     "jest": "^29.7.0",
     "jest-expo": "~52.0.2",
     "react-test-renderer": "18.3.1",

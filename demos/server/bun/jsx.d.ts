@@ -6,6 +6,6 @@ interface DemoTags {
   glarm: { children?: ReactNode }
 }
 
-declare module "@double-observer/reframe/server" {
+declare module "@subtlegradient/reframe/server" {
   interface CustomServerTags extends DemoTags {}
 }

@@ -1,8 +1,8 @@
 /**
  * NOTE: Put this line above imports to enable JSX extensions in this file
- * @jsxImportSource @double-observer/reframe/client
+ * @jsxImportSource @subtlegradient/reframe/client
  */
-import type { CustomClientTags } from "@double-observer/reframe/client"
+import type { CustomClientTags } from "@subtlegradient/reframe/client"
 
 declare module "react" {
   namespace JSX {

@@ -6,7 +6,7 @@
     "module": "ESNext",
     "moduleDetection": "force",
     "jsx": "react-jsx",
-    "jsxImportSource": "@double-observer/reframe/server",
+    "jsxImportSource": "@subtlegradient/reframe/server",
     "allowJs": true,
 
     // Bundler mode

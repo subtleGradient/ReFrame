@@ -11,14 +11,24 @@
     "./*"
   ],
   "overrides": {
+    "@repo/eslint-config": "file:../../packages/@repo/eslint-config",
+    "@repo/typescript-config": "file:../../packages/@repo/typescript-config",
+    "@subtlegradient/reframe": "file:../../packages/@subtlegradient/reframe",
+    "@types/react-server-dom-webpack": "file:../../packages/@types/react-server-dom-webpack",
+    "@double-observer/react-client": "file:../../packages/@double-observer/react-client",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@repo/eslint-config": "file:../../packages/eslint-config",
-    "@repo/typescript-config": "file:../../packages/typescript-config",
-    "@double-observer/reframe": "file:../../packages/reframe",
-    "@types/react-server-dom-webpack": "file:../../packages/@types/react-server-dom-webpack",
-    "@double-observer/react-client": "file:../../packages/react-client"
+    "@types/react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@subtlegradient/reframe": "*",
+    "@types/react-server-dom-webpack": "*",
+    "@double-observer/react-client": "*"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }

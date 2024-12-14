@@ -11,7 +11,7 @@
     "dev": "bun run --inspect --hot --conditions=react-server ./server-render-demo.tsx"
   },
   "dependencies": {
-    "@double-observer/reframe": "workspace:^",
+    "@subtlegradient/reframe": "workspace:^",
     "react": "^19.0.0"
   },
   "devDependencies": {

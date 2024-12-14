@@ -1,4 +1,4 @@
-import { name, skdjhfksdjh } from "@double-observer/reframe/server"
+import { name, skdjhfksdjh } from "@subtlegradient/reframe/server"
 console.info(name)
 skdjhfksdjh()
 
