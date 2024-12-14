@@ -1,18 +1,37 @@
 {
   "$schema": "https://json.schemastore.org/package",
-  "name": "reframe-server-demo-node-1",
-  "version": "2024.12.8",
-  "type": "module",
+  "name": "demo-server-node",
+  "version": "2024.12.14",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "demo": "PORT=8000 node --experimental-transform-types --conditions=react-server ./main.ts"
+    "start": "NODE_OPTIONS='--conditions=react-server' ts-node --swc --esm ./src/server.tsx",
+    "dev": "nodemon --watch src -e ts,tsx --exec bun run start"
   },
   "engines": {
     "node": ">=23"
   },
   "peerDependencies": {
-    "typescript": "*"
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@subtlegradient/reframe": "workspace:*",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.10.1",
+    "@swc/helpers": "^0.5.15",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2"
   }
 }
