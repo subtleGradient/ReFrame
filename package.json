@@ -13,7 +13,7 @@
     "todo:watch": "clear; fswatch -0 TODO.md",
     "todo:check": "git status --porcelain | grep -v 'TODO.md'",
     "todo:commit": "git add TODO.md && git commit -m 'todo++'",
-    "todo:commit:no": "git status",
+    "todo:commit:no": "git status; github",
     "todo:onchange": "clear; if [ -z \"$(bun run todo:check)\" ]; then bun run todo:commit; else bun run todo:commit:no; fi",
     "todo:bun": "bun run todo:onchange; bun run todo:watch | while read -d '' event; do bun run todo:onchange; done",
     "todo": "bun run todo:bun"
