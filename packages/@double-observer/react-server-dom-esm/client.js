@@ -1,3 +1,3 @@
-"use strict"
+'use strict';
 
-module.exports = require("./client.browser")
+module.exports = require('./client.browser');

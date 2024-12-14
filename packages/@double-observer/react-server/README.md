@@ -76,7 +76,6 @@ function render(
 The renderable type is a superset of `structuredClone()`. In addition to all the cloneable types `react-server` can render Symbols, Promises, Iterators and Iterables, async Iterators and Iterables.
 
 Here are some examples of what can be rendered
-
 ```js
 // primitives
 createResponse(123, ...)
@@ -93,7 +92,6 @@ Additionally React built ins can be rendered including Function Components
 Function Component are called and the return value can be any renderable type. Since `react-server` supports Promises, Function Components can be async functions.
 
 Here are some examples of what can be rendered
-
 ```js
 
 async function App({ children }) {
@@ -106,15 +104,15 @@ createResponse(<App ><Children /></App>, ...)
 Finally, There are two types of references in `react-server` that can be rendered
 
 #### Client References
-
 When a React Server Component framework bundles an application and encounters a `"use client"` directive it must resister exported members with `"registerClientReference"` which will encode the necessary information for `Flight` to interpret the export as a reference to be loaded on the client rather than a direct dependency on the Server module graph.
 
 When rendering a client reference `Flight` will encode necessary information in the serialized output to describe how to load the code which represents the client module.
 
 While it is common for client references to be components they can be any value.
 
+
 ```js
-"use client"
+'use client'
 
 export function alert(message) {
   alert(message)
@@ -122,7 +120,7 @@ export function alert(message) {
 ```
 
 ```js
-"use client"
+'use client'
 
 export function ClientComp({ onClick, message }) {
   return <button onClick={onClick}>Alert</button>
@@ -131,7 +129,7 @@ export function ClientComp({ onClick, message }) {
 
 ```js
 
-// client references don't have to just be components, anything can be
+// client references don't have to just be components, anything can be 
 // a reference, in this case we're importing a function that will be
 // passed to the ClientComp component
 import { alert } from '...'
@@ -149,7 +147,6 @@ createResponse(
 ```
 
 #### Server References
-
 Similarly When a React Server Component framework bundles an application and encounters a `"use server"` directive in a file or in a function body, including closures, it must implement that function as as a server entrypoint that can be called from the client. To make `Flight` aware that a function is a Server Reference the function should be registered with `registerServerReference()`.
 
 ```js
