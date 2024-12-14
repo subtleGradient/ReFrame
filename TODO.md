@@ -36,7 +36,9 @@ Decisions
 
 ### WIP -- dependency hell
 
-setting up my monorepo as two separate
+- switch back to bun
+- set up the monorepo as two separate workspaces
+- use overrides at the root of the demos workspace to link to the local packages of the main workspace
 
 ---
 
