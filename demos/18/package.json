@@ -26,7 +26,11 @@
     "@repo/typescript-config": "*",
     "@subtlegradient/reframe": "*",
     "@types/react-server-dom-webpack": "*",
-    "@double-observer/react-client": "*"
+    "@double-observer/react-client": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

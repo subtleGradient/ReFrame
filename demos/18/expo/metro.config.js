@@ -21,7 +21,7 @@ module.exports = async () => {
       nodeModulesPaths: [
         resolve(__dirname, "node_modules"),
         resolve(__dirname, "..", "node_modules"),
-        resolve(repoRoot, "packages"), //
+        // resolve(repoRoot, "packages"), //
       ],
     },
   }

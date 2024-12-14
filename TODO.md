@@ -57,6 +57,7 @@ Decisions
   - [ ] [JXA Demo](./demos/server/JXA/package.json)
 
 - [x] configure demo workspace
+- [x] configure demo workspace ++ (demos/18 can link to packages without breaking on react 19)
 
 ---
 

@@ -1,12 +1,10 @@
+import invariant from "invariant"
 import React, { ReactNode } from "react"
 
 const __DEV__ = (global as any).__DEV__ as undefined | boolean
 
 interface ThenableImpl<T> {
-  then(
-    onFulfill: (value: T) => unknown,
-    onReject: (error: unknown) => unknown,
-  ): void | PromiseLike<unknown>
+  then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>
 }
 
 interface MutableThenable<T> extends ThenableImpl<T> {
@@ -33,12 +31,7 @@ interface RejectedThenable<T> extends ThenableImpl<T> {
   readonly reason: unknown
 }
 
-type Thenable<T> =
-  | Promise<T>
-  | UntrackedThenable<T>
-  | PendingThenable<T>
-  | FulfilledThenable<T>
-  | RejectedThenable<T>
+type Thenable<T> = Promise<T> | UntrackedThenable<T> | PendingThenable<T> | FulfilledThenable<T> | RejectedThenable<T>
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type NoThenable<T> = T extends Thenable<any> ? never : T
@@ -70,12 +63,16 @@ const maxUseCallCount_error = 1000
  * ```
  */
 export function use<T>(promise: MutableThenable<T>): T {
-  if (!isPromiseLike(promise))
-    throw new Error("use() called with a non-promise. That is not supported.")
+  if (!isPromiseLike(promise)) throw new Error("use() called with a non-promise. That is not supported.")
+
   if ("use" in React && typeof React.use === "function" && React.use !== use) {
-    if (__DEV__)
-      console.warn("Our `use` polyfill is deprecated in React 19. Use `React.use` instead.")
-    return (React as any).use(promise as PromiseLike<T>) as unknown as T
+    if (__DEV__) console.warn("Our `use` polyfill is deprecated in React 19. Use `React.use` instead.")
+    invariant("use" in React && typeof React.use === "function" && React.use !== use, "React.use is missing")
+    try {
+      return React.use(promise as PromiseLike<T>) as unknown as T
+    } catch (error) {
+      if (__DEV__) console.error("React.use failed", error)
+    }
   }
 
   if (promise.status == null) {
@@ -106,15 +103,8 @@ export function use<T>(promise: MutableThenable<T>): T {
   throw new Error(`Invalid promise status: ${promise.status}`)
 }
 
-export function isPromiseLike<T = unknown, P extends ThenableImpl<T> = ThenableImpl<T>>(
-  thing: unknown,
-): thing is P {
-  return (
-    typeof thing === "object" &&
-    thing !== null &&
-    "then" in thing &&
-    typeof thing.then === "function"
-  )
+export function isPromiseLike<T = unknown, P extends ThenableImpl<T> = ThenableImpl<T>>(thing: unknown): thing is P {
+  return typeof thing === "object" && thing !== null && "then" in thing && typeof thing.then === "function"
 }
 
 type MaybeThenable<T> = T | Thenable<T>
@@ -152,7 +142,8 @@ export function useMaybePromise<T>(value: T | Thenable<T>): T {
  * </Suspense>
  * ```
  */
-export function Use({ children }: { children: MaybePromise<ReactNode> }) {
+export function Use({ children }: { children: MaybePromise<ReactNode> }): ReactNode {
+  console.warn(React.version)
   return useMaybePromise(children)
 }
 
