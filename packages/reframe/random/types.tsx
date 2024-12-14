@@ -1,9 +1,10 @@
 import type * as flight from "@double-observer/react-client/flight"
 
-export type IReactFlightClient = flight.default
+export type IReactFlightClient<C extends ReactFlightClientConfig> = flight.default<C>
 
 import type {
   ModuleLoading,
+  ReactFlightClientConfig,
   ServerManifest,
   SSRModuleMap,
 } from "@double-observer/react-client/src/ReactFlightClientConfig"
