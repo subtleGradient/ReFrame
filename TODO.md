@@ -56,6 +56,9 @@ Decisions
   - [ ] [Node Demo](./demos/server/node/package.json)
   - [ ] [JXA Demo](./demos/server/JXA/package.json)
 
+```sh
+zed ./demos/18/package.json
+```
 
 ---
 
