@@ -38,6 +38,12 @@
   "config": {
     "tools": {
       "required": {
+        "watchman": {
+          "version": "2024.09.09.00",
+          "critical": false,
+          "url": "https://facebook.github.io/watchman",
+          "channel": "stable"
+        },
         "nodejs": {
           "nixPackage": "nodejs_23",
           "command": [
