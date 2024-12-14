@@ -50,6 +50,13 @@ Decisions
   - [Expo 52 Demo](./18-demos/expo-demo/package.json)
   - [one v1.1 Demo](./18-demos/one-demo/package.json)
 
+```sh
+nix-shell
+cd "$(git rev-parse --show-toplevel)"
+rm yarn.lock
+rm -rf node_modules .yarn **/node_modules
+```
+
 ---
 
 ### NEXT
