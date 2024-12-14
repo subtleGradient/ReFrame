@@ -9,7 +9,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\" | grep -v 'unchanged' || true",
     "outdated": "bunx taze --interactive --recursive",
-    "postinstall": "./sh.sh --quiet",
+    "postinstall": "./sh.sh --quiet; cd demos/18; bun i",
     "todo:watch": "clear; fswatch -0 TODO.md",
     "todo:check": "git status --porcelain | grep -v 'TODO.md'",
     "todo:commit": "git add TODO.md && git commit -m 'todo++'",
