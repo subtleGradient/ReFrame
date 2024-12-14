@@ -65,10 +65,10 @@ mkdir -p demos/19
 mkdir -p demos/18
 mkdir -p demos/server
 
-mv demos/reframe-expo-demo-1 demos/18/expo
-mv demos/reframe-server-demo-deno-0 demos/server/deno
-mv demos/reframe-server-demo-node-1 demos/server/node
-mv demos/reframe-server-demo-rsc demos/server/bun
+git mv demos/reframe-expo-demo-1 demos/18/expo
+git mv demos/reframe-server-demo-deno-0 demos/server/deno
+git mv demos/reframe-server-demo-node-1 demos/server/node
+git mv demos/reframe-server-demo-rsc demos/server/bun
 
 ```
 
