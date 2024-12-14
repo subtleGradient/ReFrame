@@ -58,6 +58,7 @@ Decisions
 
 ```sh
 nix-shell
+watchman watch-del-all
 cd "$(git rev-parse --show-toplevel)"
 rm yarn.lock
 rm -rf node_modules .yarn **/node_modules
@@ -69,6 +70,7 @@ mv demos/reframe-expo-demo-1 demos/18/expo
 mv demos/reframe-server-demo-deno-0 demos/server/deno
 mv demos/reframe-server-demo-node-1 demos/server/node
 mv demos/reframe-server-demo-rsc demos/server/bun
+
 ```
 
 ---
