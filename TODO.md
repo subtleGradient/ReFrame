@@ -40,21 +40,21 @@ Decisions
 - set up the monorepo as two separate workspaces
 - use overrides at the root of the demos workspace to link to the local packages of the main workspace
 
-- [ReFrame workspace](./package.json)
-  - [Next.js 15 App demo](./demos/19/next-app/package.json)
-  - [Expo Demo](./demos/19/expo/package.json) -- blank until RN supports react 19
-  - [one Demo](./demos/19/one/package.json) -- blank until RN supports react 19
+- [ ] [ReFrame workspace](./package.json)
+  - [ ] [Next.js 15 App demo](./demos/19/next-app/package.json)
+  - [ ] [Expo Demo](./demos/19/expo/package.json) -- blank until RN supports react 19
+  - [ ] [one Demo](./demos/19/one/package.json) -- blank until RN supports react 19
 
-- [React 18 Demos workspace](./demos/18/package.json)
-  - [Next.js 14 Pages demo](./demos/18/next-pages/package.json)
+- [ ] [React 18 Demos workspace](./demos/18/package.json)
+  - [ ] [Next.js 14 Pages demo](./demos/18/next-pages/package.json)
   - [x] [Expo 52 Demo](./demos/18/expo/package.json)
-  - [one v1.1 Demo](./demos/18/one/package.json)
+  - [ ] [one v1.1 Demo](./demos/18/one/package.json)
 
-- [Server Demos](./demos/server/package.json)
+- [ ] [Server Demos](./demos/server/package.json)
   - [x] [Bun Demo](./demos/server/bun/package.json)
-  - [Deno Demo](./demos/server/deno/package.json)
-  - [Node Demo](./demos/server/node/package.json)
-  - [JXA Demo](./demos/server/JXA/package.json)
+  - [ ] [Deno Demo](./demos/server/deno/package.json)
+  - [ ] [Node Demo](./demos/server/node/package.json)
+  - [ ] [JXA Demo](./demos/server/JXA/package.json)
 
 
 ---
