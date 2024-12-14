@@ -32,6 +32,17 @@ Decisions
   - [x] ReactServerValue
   - [ ] createTemporaryReferenceSet
 
+---
+
+### WIP -- dependency hell
+
+setting up my monorepo as two separate
+
+---
+
+### NEXT
+
+
 - [ ] figure out how to handle server refs on the client
   - [ ] generate some RSC code that uses both client and server refs
 
