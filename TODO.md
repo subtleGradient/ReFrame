@@ -58,6 +58,7 @@ Decisions
 
 - [x] configure demo workspace
 - [x] configure demo workspace ++ (demos/18 can link to packages without breaking on react 19)
+- [x] configure demo workspace ++ (put everything else back the way it was)
 
 ---
 
