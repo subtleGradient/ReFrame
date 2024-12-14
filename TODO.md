@@ -60,8 +60,7 @@ Decisions
 nix-shell
 watchman watch-del-all
 cd "$(git rev-parse --show-toplevel)"
-rm yarn.lock
-rm -rf node_modules .yarn **/node_modules
+rm -rf yarn.lock node_modules .yarn **/node_modules
 mkdir -p demos/19
 mkdir -p demos/18
 mkdir -p demos/server
