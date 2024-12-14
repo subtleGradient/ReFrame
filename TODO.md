@@ -56,21 +56,6 @@ Decisions
   - [Node Demo](./demos/server/node/package.json)
   - [JXA Demo](./demos/server/JXA/package.json)
 
-```sh
-nix-shell
-watchman watch-del-all
-cd "$(git rev-parse --show-toplevel)"
-rm -rf yarn.lock node_modules .yarn **/node_modules
-mkdir -p demos/19
-mkdir -p demos/18
-mkdir -p demos/server
-
-git mv demos/reframe-expo-demo-1 demos/18/expo
-git mv demos/reframe-server-demo-deno-0 demos/server/deno
-git mv demos/reframe-server-demo-node-1 demos/server/node
-git mv demos/reframe-server-demo-rsc demos/server/bun
-
-```
 
 ---
 
