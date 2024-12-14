@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@double-observer/reframe",
-  "version": "2024.12.7",
+  "version": "2024.12.14",
   "type": "module",
   "private": true,
   "scripts": {
