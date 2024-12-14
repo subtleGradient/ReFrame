@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "demo-18-expo",
+  "version": "2024.12.14",
+  "private": true,
+  "scripts": {
+    "postinstall": "cd ../../18/expo; bun i",
+    "dev": "cd ../../18/expo; bun dev"
+  }
+}

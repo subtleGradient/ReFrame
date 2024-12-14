@@ -31,6 +31,9 @@
   },
   "workspaces": [
     "apps/*",
+    "demos/19/*",
+    "demos/not-18/*",
+    "demos/server/*",
     "packages/@*/*"
   ],
   "overrides": {
