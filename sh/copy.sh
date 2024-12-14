@@ -1,11 +1,12 @@
-#!bash
+#!/bin/bash
 cd "$(dirname "$0")"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
 
 # first, set up some variables
 reactDir="$HOME/Developer/react"
-sourceDir="$HOME/Developer/react/build/oss-stable-semver"
-destDir="$REPO_ROOT/packages"
+buildDir="$HOME/Developer/react/build/oss-stable-semver"
+destDir="$REPO_ROOT/packages/@double-observer"
 packageNames=("react-client" "react-server" "react-server-dom-esm")
 buildNames=("react-server/flight" "react-client/flight" "react-server-dom-esm")
 
@@ -35,12 +36,11 @@ build(){
     #   --unsafe-partial      Do not clean ./build first.         [boolean]
 
     yarn build "$(IFS=,; echo "${buildNames[*]}")" --total=8 --releaseChannel=stable --type=ESM_DEV,ESM_PROD,NODE_DEV,NODE_PROD,BUN_DEV,BUN_PROD,RN_OSS_DEV,RN_OSS_PROD,BROWSER_SCRIPT
-    open "$sourceDir"
 }
 
 copyFiles(){
     local packageName=$1
-    local sourcePath="$sourceDir/$packageName"
+    local sourcePath="$buildDir/$packageName"
     local destPath="$destDir/$packageName"
     echo "Copying $sourcePath to $destPath"
     if [ -d "$destPath" ]; then

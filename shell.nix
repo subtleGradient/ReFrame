@@ -41,8 +41,8 @@ unstable.mkShell {
     ${builtins.concatStringsSep "\n" (builtins.map makeVersionCheck (builtins.attrNames requiredTools))}
 
     # Make the script executable if it isn't already
-    chmod +x ./sh.sh
+    chmod +x ./sh/sh.sh
     # Run the verification script in quiet mode
-    ./sh.sh --quiet
+    ./sh/sh.sh --quiet
   '';
 }
