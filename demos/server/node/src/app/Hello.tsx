@@ -1,5 +1,6 @@
 import React, { Suspense } from "react"
 import { ServerPageProps } from "../rsc"
+import { registerServerReference } from "@subtlegradient/reframe/server"
 
 /**
  * max-age
@@ -16,7 +17,7 @@ const maxAge_sec = 60
 const staleWhileRevalidate_sec = 1 * 24 * 60 * 60
 
 export default function Hello({ setHeader }: ServerPageProps) {
-  setHeader("Cache-Control", `public, max-age=${maxAge_sec}, stale-while-revalidate=${staleWhileRevalidate_sec}`)
+  // setHeader("Cache-Control", `public, max-age=${maxAge_sec}, stale-while-revalidate=${staleWhileRevalidate_sec}`)
 
   // const startedAt: EpochTimeStamp = Date.now()
   // const cacheAt: EpochTimeStamp = Date.now()
@@ -50,7 +51,20 @@ export default function Hello({ setHeader }: ServerPageProps) {
   )
 }
 
-export async function HelloMessage({ delay }: { delay: number }) {
-  await new Promise((wake) => setTimeout(wake, delay))
-  return <div>Hello, World! (after {delay}ms)</div>
+export const HelloMessage$onClick = registerServerReference(
+  (props: { delay: number }, event: unknown) => {
+    "use server"
+    console.log("HelloMessage$onClick", props.delay, event)
+  },
+  import.meta.url.split("/src/")[1],
+  "HelloMessage$onClick",
+)
+
+export async function HelloMessage(props: { delay: number }) {
+  await new Promise((wake) => setTimeout(wake, props.delay))
+  return (
+    <div onClick={HelloMessage$onClick.bind(null, props)} style={{ color: "white" }}>
+      Hello, World! (after {props.delay}ms)
+    </div>
+  )
 }

@@ -1,11 +1,14 @@
+import "../../../../server/bun/.status.json"
+import "../../../../server/node/.status.json"
+
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import { CallServerCallback, ServerCallbackMap } from "@double-observer/react-client/src/ReactFlightReplyClient"
 import { ReFrameClient, renderDynamicClientModule, Use } from "@subtlegradient/reframe/client"
-import { RSCSource } from "@subtlegradient/reframe/random/types"
+import { MaybePromise, RSCSource } from "@subtlegradient/reframe/random/types"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
-import React, { ReactNode, Suspense } from "react"
+import React, { ReactNode, Suspense, useMemo } from "react"
 import { Button, ScrollView, Text } from "react-native"
 import pkg from "../../package.json"
 
@@ -35,8 +38,9 @@ const reframe = ReFrameClient.create({
     replayConsole: true,
 
     callServer: ((id, args) => {
+      console.log("ReFrameClient", "callServer", { id, args })
       const callServerFunction = allServerFunctions[id]
-      return callServerFunction(...args)
+      return callServerFunction?.(...args)
     }) satisfies CallServerCallback,
 
     bundlerConfig: {
@@ -83,20 +87,27 @@ const reframe = ReFrameClient.create({
 })
 
 /** render RSC without suspense (ideal for React 18) */
-function ReFrameFrom({ fallback, rsc }: { fallback?: ReactNode; rsc: RSCSource }) {
+function ReFrameFrom({ fallback, rsc }: { fallback?: ReactNode; rsc: MaybePromise<RSCSource | Response> }) {
   const [node, setNode] = React.useState<ReactNode>(null)
   React.useEffect(() => {
     setNode(null)
     const mounted = new AbortController()
-    reframe
-      .from<ReactNode>(rsc, {
-        signal: mounted.signal,
-        onError(error) {
-          console.error("ReFrameDynamic error", error)
-          // return "IGNORE_ERROR"
-        },
+    Promise.resolve(rsc)
+      .then(async (rsc) => (rsc && typeof rsc === "object" && "body" in rsc ? rsc.body : rsc))
+      .then((rsc) => {
+        return reframe
+          .from<ReactNode>(rsc!, {
+            signal: mounted.signal,
+            onError(error) {
+              console.error("ReFrameDynamic error", error)
+              // return "IGNORE_ERROR"
+            },
+            onClose() {
+              console.log("ReFrameDynamic closed")
+            },
+          })
+          .then(setNode)
       })
-      .then(setNode)
     return () => mounted.abort()
   }, [rsc])
   return node ?? fallback
@@ -107,17 +118,29 @@ export default function HomeScreen() {
     <ScrollView style={{ padding: 16, marginBottom: 32 }}>
       <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
-      <ThemedText style={{ backgroundColor: "rebeccapurple" }}>{fakeRSC}</ThemedText>
-      <Try catch={ErrorBoundary}>
+      {/* <ThemedText style={{ backgroundColor: "rebeccapurple" }}>{fakeRSC}</ThemedText> */}
+      {/* <Try catch={ErrorBoundary}>
         <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
           <Use>{reframe.from(fakeRSC)}</Use>
         </Suspense>
 
         <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
+      </Try> */}
+
+      <Try catch={ErrorBoundary}>
+        <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
+          <ReFrameFrom
+            rsc={useMemo(() => fetch("http://localhost:3197/rsc/hello"), [])}
+            fallback={<ThemedText>Loading...</ThemedText>}
+          />
+          <ThemedText>Loaded RSC</ThemedText>{" "}
+        </Suspense>
       </Try>
     </ScrollView>
   )
 }
+
+// const response = fetch("http://localhost:3197/rsc/hello")
 
 // fake RSC server
 const fakeRSC = Array.from(

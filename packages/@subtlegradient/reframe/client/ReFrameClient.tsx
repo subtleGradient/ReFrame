@@ -20,16 +20,21 @@ interface ReFrameClientProps extends CreateClientConfigProps {
   remoteConfig?: Partial<FlightResponseProps>
 }
 
-export default class ReFrameClient {
+type FIXME = any
+
+export default class ReFrameClient<P extends ReFrameClientProps> {
   static create<P extends ReFrameClientProps>(props: P) {
-    return new ReFrameClient(props) as ReFrameClient & { props: P }
+    return new ReFrameClient<P>(props)
   }
 
-  constructor(public readonly props: ReFrameClientProps) {
-    this.flight = new ReactFlightClient(createClientConfig(props)) // satisfies IReactFlightClient
+  private readonly config: ReturnType<typeof createClientConfig<FIXME, FIXME>>
+
+  constructor(public readonly props: P) {
+    this.config = createClientConfig(props)
+    this.flight = new ReactFlightClient(this.config) // satisfies IReactFlightClient
   }
 
-  private readonly flight: ReactFlightClient
+  private readonly flight: ReactFlightClient<FIXME>
   get name() { return this.props.config.rendererPackageName } // prettier-ignore
   get version() { return this.props.config.rendererVersion } // prettier-ignore
 

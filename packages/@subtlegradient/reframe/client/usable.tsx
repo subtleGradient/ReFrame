@@ -1,5 +1,5 @@
 import invariant from "invariant"
-import React, { ReactNode } from "react"
+import React from "react"
 
 const __DEV__ = (global as any).__DEV__ as undefined | boolean
 
@@ -142,7 +142,7 @@ export function useMaybePromise<T>(value: T | Thenable<T>): T {
  * </Suspense>
  * ```
  */
-export function Use({ children }: { children: MaybePromise<ReactNode> }): ReactNode {
+export function Use({ children }: { children: MaybePromise<any> }): any {
   console.warn(React.version)
   return useMaybePromise(children)
 }

@@ -55,7 +55,7 @@ function useStreamingChildren(
   return children
 }
 
-export function StreamingFragment(props: StreamingFragmentProps) {
+export function StreamingFragment(props: StreamingFragmentProps): any {
   const children = useStreamingChildren(props.children, props.initial, props.final)
   return useDeferredValue(children)
 }
