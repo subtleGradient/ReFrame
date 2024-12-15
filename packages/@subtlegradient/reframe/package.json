@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@double-observer/react-client": "workspace:^",
+    "@double-observer/react-server-dom-esm": "workspace:*",
     "@types/react-server-dom-webpack": "workspace:^",
     "invariant": "^2.2.4",
     "react-server-dom-webpack": "^19.0.0",
