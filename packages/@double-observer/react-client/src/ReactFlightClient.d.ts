@@ -1,12 +1,7 @@
-import type {
-  ModuleLoading,
-  ReactFlightClientConfig,
-  ServerManifest,
-  SSRModuleMap,
-} from "./src/ReactFlightClientConfig"
-import type { CallServerCallback, EncodeFormActionCallback } from "./src/ReactFlightReplyClient"
-import type { TemporaryReferenceSet } from "./src/ReactFlightTemporaryReferences"
-import type { Thenable } from "./shared/ReactTypes"
+import type { Thenable } from "../shared/ReactTypes"
+import { ModuleLoading, ReactFlightClientConfig } from "./ReactFlightClientConfig"
+import type { CallServerCallback, EncodeFormActionCallback } from "./ReactFlightReplyClient"
+import type { TemporaryReferenceSet } from "./ReactFlightTemporaryReferences"
 
 export interface FlightResponse<C extends ReactFlightClientConfig = ReactFlightClientConfig> {
   _bundlerConfig: SSRModuleMap
@@ -31,25 +26,40 @@ export interface FlightResponse<C extends ReactFlightClientConfig = ReactFlightC
   _rootEnvironmentName: string
 }
 
-export type FindSourceMapURLCallback = (fileName: string, environmentName: string) => string | null
+export type FindSourceMapURLCallback = (fileName: string, environmentName: string) => string | null | void
 
-export default class ReactFlightClient<C extends ReactFlightClientConfig> {
+export interface FlightResponseProps {
+  bundlerConfig: SSRModuleMap | null
+  serverReferenceConfig: ServerManifest | null
+  moduleLoading: ModuleLoading
+  callServer?: CallServerCallback
+  encodeFormAction?: EncodeFormActionCallback
+  nonce?: string | void
+  temporaryReferences?: TemporaryReferenceSet
+  findSourceMapURL?: FindSourceMapURLCallback
+  replayConsole?: boolean
+  environmentName?: string
+}
+
+type FlightResponseArgs = [
+  bundlerConfig: SSRModuleMap | null,
+  serverReferenceConfig: ServerManifest | null,
+  moduleLoading: ModuleLoading,
+  callServer?: CallServerCallback,
+  encodeFormAction?: EncodeFormActionCallback,
+  nonce?: string | void,
+  temporaryReferences?: TemporaryReferenceSet,
+  findSourceMapURL?: FindSourceMapURLCallback,
+  replayConsole?: boolean,
+  environmentName?: string,
+]
+
+export default class ReactFlightClient<in C extends ReactFlightClientConfig> {
   constructor(config: C)
 
   close: (response: FlightResponse<C>) => void
 
-  createResponse(
-    bundlerConfig: SSRModuleMap | null,
-    serverReferenceConfig: ServerManifest | null,
-    moduleLoading: ModuleLoading,
-    callServer?: CallServerCallback | void,
-    encodeFormAction?: EncodeFormActionCallback | void,
-    nonce?: string | void,
-    temporaryReferences?: TemporaryReferenceSet | void,
-    findSourceMapURL?: FindSourceMapURLCallback | void,
-    replayConsole?: boolean,
-    environmentName?: string,
-  ): FlightResponse<C>
+  createResponse(...args: FlightResponseArgs): FlightResponse<C>
 
   getRoot: <T>(response: FlightResponse<C>) => Thenable<T>
 
