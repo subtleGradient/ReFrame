@@ -37,11 +37,38 @@ const reframe = ReFrameClient.create({
     environmentName: "Fake Server",
     replayConsole: true,
 
-    callServer: ((id, args) => {
+    callServer: async function callServer(id, args) {
       console.log("ReFrameClient", "callServer", { id, args })
-      const callServerFunction = allServerFunctions[id]
-      return callServerFunction?.(...args)
-    }) satisfies CallServerCallback,
+
+      // const response = fetch('/', {
+      //   method: 'POST',
+      //   headers: {
+      //     "Accept": 'text/x-component',
+      //     'rsc-action': `${id}`,
+      //   },
+      //   // headers: {
+      //   //   "Accept": 'text/x-component',
+      //   //   'rsc-action': id,
+      //   // },
+      //   body: await reframe.encodeReply(args),
+      // });
+      // const {returnValue, root} = await createFromFetch(response, {
+      //   callServer,
+      //   moduleBaseURL,
+      //   findSourceMapURL,
+      // });
+      // // Refresh the tree with the new RSC payload.
+      // startTransition(() => {
+      //   updateRoot(root);
+      // });
+      // return returnValue;
+    },
+
+    // ((id, args) => {
+    //   console.log("ReFrameClient", "callServer", { id, args })
+    //   const callServerFunction = allServerFunctions[id]
+    //   return callServerFunction?.(...args)
+    // }) satisfies CallServerCallback,
 
     bundlerConfig: {
       [`${"ReFrameDynamic"}#${"MissingView"}`]: [
