@@ -33,6 +33,13 @@ Decisions
   - [x] ReactServerValue
   - [ ] createTemporaryReferenceSet
 
+- [ ] podman demo
+
+- install podman
+- create a podman container that runs a bun server and node server and configures them to talk to each other
+- then add valkey to the pod
+
+
 ---
 
 ### WIP -- dependency hell

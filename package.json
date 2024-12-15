@@ -45,6 +45,12 @@
   "config": {
     "tools": {
       "required": {
+        "podman": {
+          "version": "5.3.1",
+          "critical": false,
+          "url": "https://podman.io",
+          "channel": "stable"
+        },
         "watchman": {
           "version": "2024.09.09.00",
           "critical": false,
