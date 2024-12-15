@@ -16,7 +16,7 @@ type Config = Prettify<
     Pick<ReactFlightClientConfig, "rendererPackageName" | "rendererVersion">
 >
 
-export function createClientConfig<C extends Config, M extends ModuleMap>(props: {
+export function createClientConfig<M extends ModuleMap, C extends Config = Config>(props: {
   modules: M
   config: C
   debug?: typeof console.debug | null

@@ -1,11 +1,14 @@
+import ReactFlightDOMClient from "@double-observer/react-server-dom-esm/client"
 import ReactFlightClient from "@double-observer/react-client/flight"
 import { ChunkSource$forEach } from "../random/ChunkSource$forEach"
 import { Promise_fromThenable } from "../random/Promise_fromThenable"
-import { FlightResponseProps, RSCSource } from "../random/types"
 import { createClientConfig, ModuleMap } from "./ClientConfig"
 import { createFlightResponse } from "./createFlightResponse"
-import type { FIXME } from "../random/types"
 import { ReactFlightClientConfig } from "@double-observer/react-client/src/ReactFlightClientConfig"
+import { FlightResponseProps } from "@double-observer/react-client/src/ReactFlightClient"
+import { RSCSource } from "../random/types"
+import { ReactServerValue } from "@double-observer/react-client/src/ReactFlightReplyClient"
+import { TemporaryReferenceSet } from "@double-observer/react-client/src/ReactFlightTemporaryReferences"
 
 const IGNORE_ERROR = "IGNORE_ERROR"
 
@@ -22,19 +25,25 @@ interface ReFrameClientProps extends CreateClientConfigProps {
   remoteConfig?: Partial<FlightResponseProps>
 }
 
-export default class ReFrameClient<P extends ReFrameClientProps> {
+export default class ReFrameClient<
+  P extends ReFrameClientProps,
+  C extends ReactFlightClientConfig = ReactFlightClientConfig,
+> {
   static create<P extends ReFrameClientProps>(props: P) {
-    return new ReFrameClient<P>(props)
+    return new ReFrameClient(props)
   }
 
-  private readonly config: ReturnType<typeof createClientConfig<FIXME<ReactFlightClientConfig>, FIXME<ModuleMap>>>
+  private readonly config: ReactFlightClientConfig
 
   constructor(public readonly props: P) {
-    this.config = createClientConfig(props)
+    const { modules, config, debug } = props
+    this.config = createClientConfig({ modules, config, debug })
     this.flight = new ReactFlightClient(this.config) // satisfies IReactFlightClient
+
+    console.log(ReactFlightDOMClient)
   }
 
-  private readonly flight: ReactFlightClient<FIXME<ReactFlightClientConfig>>
+  private readonly flight: ReactFlightClient<C>
   get name() { return this.props.config.rendererPackageName } // prettier-ignore
   get version() { return this.props.config.rendererVersion } // prettier-ignore
 
@@ -76,5 +85,13 @@ export default class ReFrameClient<P extends ReFrameClientProps> {
 
     const root = this.flight.getRoot<T>(response)
     return Promise_fromThenable(root)
+  }
+
+  encodeReply(
+    value: ReactServerValue,
+    options?: { temporaryReferences?: TemporaryReferenceSet; signal?: AbortSignal },
+  ) {
+    console.log("ReFrameClient", "encodeReply", { value, options })
+    // return ReactFlightDOMClient.encodeReply(value, options)
   }
 }

@@ -1,6 +1,7 @@
-import { FlightResponseProps, IReactFlightClient } from "../random/types"
+import ReactFlightClient from "@double-observer/react-client"
+import { FlightResponseProps } from "@double-observer/react-client/src/ReactFlightClient"
 
-export function createFlightResponse(flight: IReactFlightClient, remoteConfig: FlightResponseProps) {
+export function createFlightResponse<F extends ReactFlightClient<any>>(flight: F, remoteConfig: FlightResponseProps) {
   if ((global as any).__DEV__) flight.injectIntoDevTools()
 
   return flight.createResponse(

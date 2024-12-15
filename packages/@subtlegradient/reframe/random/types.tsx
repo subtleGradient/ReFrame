@@ -1,6 +1,7 @@
 export type FIXME<excuse extends any> = any
 
 import type * as flight from "@double-observer/react-client/flight"
+import { FindSourceMapURLCallback } from "@double-observer/react-client/src/ReactFlightClient"
 
 export type IReactFlightClient<C extends ReactFlightClientConfig> = flight.default<C>
 
@@ -35,19 +36,6 @@ export type RSCSource =
 // | ReadableStream<Chunk>["getReader"]
 // | ReadableStreamDefaultReader<Chunk>
 // | ReadableStreamReader<Chunk>
-
-export interface FlightResponseProps {
-  bundlerConfig: SSRModuleMap | null
-  serverReferenceConfig: ServerManifest | null
-  moduleLoading: ModuleLoading
-  callServer?: CallServerCallback | void
-  encodeFormAction?: EncodeFormActionCallback | void
-  nonce?: string | void
-  temporaryReferences?: TemporaryReferenceSet | void
-  findSourceMapURL?: flight.FindSourceMapURLCallback | void
-  replayConsole?: boolean
-  environmentName?: string
-}
 
 export type RenderQ =
   | React.ReactElement //
