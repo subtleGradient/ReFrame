@@ -39,37 +39,42 @@ Decisions
 - create a podman container that runs a bun server and node server and configures them to talk to each other
 - then add valkey to the pod
 
-
 ---
 
-### WIP -- dependency hell
+### ✅ dependency hell
 
-- switch back to bun
-- set up the monorepo as two separate workspaces
-- use overrides at the root of the demos workspace to link to the local packages of the main workspace
+- [x] switch back to bun
+- [x] set up the monorepo as two separate workspaces
+- [x] link to the local packages of the main workspace
 
-- [ ] [ReFrame workspace](./package.json)
+- [x] [ReFrame workspace](./package.json)
 
   - [ ] [Next.js 15 App demo](./demos/19/next-app/package.json)
   - [ ] [Expo Demo](./demos/19/expo/package.json) -- blank until RN supports react 19
   - [ ] [one Demo](./demos/19/one/package.json) -- blank until RN supports react 19
 
-- [ ] [React 18 Demos workspace](./demos/18/package.json)
+- [x] [React 18 Demos workspace](./demos/18/package.json)
 
   - [ ] [Next.js 14 Pages demo](./demos/18/next-pages/package.json)
   - [x] [Expo 52 Demo](./demos/18/expo/package.json)
   - [ ] [one v1.1 Demo](./demos/18/one/package.json)
 
-- [ ] [Server Demos](./demos/server/package.json)
+- [x] [Server Demos](./demos/server/package.json)
 
   - [x] [Bun Demo](./demos/server/bun/package.json)
   - [ ] [Deno Demo](./demos/server/deno/package.json)
-  - [ ] [Node Demo](./demos/server/node/package.json)
+  - [x] [Node Demo](./demos/server/node/package.json)
   - [ ] [JXA Demo](./demos/server/JXA/package.json)
 
 - [x] configure demo workspace
 - [x] configure demo workspace ++ (demos/18 can link to packages without breaking on react 19)
 - [x] configure demo workspace ++ (put everything else back the way it was)
+
+---
+
+#### WIP -- patch react-server-dom-esm to not use `import` directly
+
+
 
 ---
 
