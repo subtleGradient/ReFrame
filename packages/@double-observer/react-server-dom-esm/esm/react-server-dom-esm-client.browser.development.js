@@ -120,7 +120,7 @@ function preloadModule(metadata) {
     return existingPromise;
   } else {
     // $FlowFixMe[unsupported-syntax]
-    var modulePromise = import(metadata.specifier);
+    var modulePromise = shimport(metadata.specifier);
     modulePromise.then(function (value) {
       var fulfilledThenable = modulePromise;
       fulfilledThenable.status = 'fulfilled';
