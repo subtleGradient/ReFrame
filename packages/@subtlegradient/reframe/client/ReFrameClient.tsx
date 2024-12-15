@@ -2,8 +2,10 @@ import ReactFlightClient from "@double-observer/react-client/flight"
 import { ChunkSource$forEach } from "../random/ChunkSource$forEach"
 import { Promise_fromThenable } from "../random/Promise_fromThenable"
 import { FlightResponseProps, RSCSource } from "../random/types"
-import { createClientConfig } from "./ClientConfig"
+import { createClientConfig, ModuleMap } from "./ClientConfig"
 import { createFlightResponse } from "./createFlightResponse"
+import type { FIXME } from "../random/types"
+import { ReactFlightClientConfig } from "@double-observer/react-client/src/ReactFlightClientConfig"
 
 const IGNORE_ERROR = "IGNORE_ERROR"
 
@@ -20,21 +22,19 @@ interface ReFrameClientProps extends CreateClientConfigProps {
   remoteConfig?: Partial<FlightResponseProps>
 }
 
-type FIXME = any
-
 export default class ReFrameClient<P extends ReFrameClientProps> {
   static create<P extends ReFrameClientProps>(props: P) {
     return new ReFrameClient<P>(props)
   }
 
-  private readonly config: ReturnType<typeof createClientConfig<FIXME, FIXME>>
+  private readonly config: ReturnType<typeof createClientConfig<FIXME<ReactFlightClientConfig>, FIXME<ModuleMap>>>
 
   constructor(public readonly props: P) {
     this.config = createClientConfig(props)
     this.flight = new ReactFlightClient(this.config) // satisfies IReactFlightClient
   }
 
-  private readonly flight: ReactFlightClient<FIXME>
+  private readonly flight: ReactFlightClient<FIXME<ReactFlightClientConfig>>
   get name() { return this.props.config.rendererPackageName } // prettier-ignore
   get version() { return this.props.config.rendererVersion } // prettier-ignore
 

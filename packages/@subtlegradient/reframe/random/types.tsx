@@ -1,3 +1,5 @@
+export type FIXME<excuse extends any> = any
+
 import type * as flight from "@double-observer/react-client/flight"
 
 export type IReactFlightClient<C extends ReactFlightClientConfig> = flight.default<C>
