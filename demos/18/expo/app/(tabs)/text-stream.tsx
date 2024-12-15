@@ -78,7 +78,7 @@ const renderChunkedTimestamps = {
   async *[Symbol.asyncIterator]() {
     yield { replace: <ThemedText>loading...</ThemedText> }
 
-    const response = await fetch("http://localhost:8000")
+    const response = await fetch("http://localhost:3197")
     yield { replace: <ThemedText>response: {response.status}</ThemedText> }
 
     await new Promise((resolve) => setTimeout(resolve, 333))

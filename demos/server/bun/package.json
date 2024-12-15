@@ -7,8 +7,8 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "demo": "bun run --conditions=react-server ./server-render-demo.tsx",
-    "dev": "bun run --inspect --hot --conditions=react-server ./server-render-demo.tsx"
+    "server-render-demo": "PORT=3195 bun run --inspect --hot --conditions=react-server ./server-render-demo.tsx",
+    "dev": "PORT=3195 bun run --inspect --hot --conditions=react-server ./server.tsx"
   },
   "dependencies": {
     "@subtlegradient/reframe": "workspace:^",

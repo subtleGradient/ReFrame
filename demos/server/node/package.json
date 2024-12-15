@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "start": "NODE_OPTIONS='--conditions=react-server' ts-node --swc --esm ./src/server.tsx",
+    "start": "NODE_OPTIONS='--conditions=react-server' PORT=3197 ts-node --swc --esm ./src/server.tsx",
     "dev": "nodemon --watch src -e ts,tsx --exec bun run start"
   },
   "engines": {

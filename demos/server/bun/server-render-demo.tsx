@@ -236,7 +236,7 @@ global.main = main
 //   async *[Symbol.asyncIterator]() {
 //     yield { replace: <Text>loading...</Text> }
 
-//     const response = await fetch("http://localhost:8000")
+//     const response = await fetch("http://localhost:3197")
 //     yield { replace: <Text>response: {response.status}</Text> }
 
 //     await new Promise((resolve) => setTimeout(resolve, 333))

@@ -43,6 +43,13 @@
     "@types/react-dom": "^19.0.0"
   },
   "config": {
+    "ports": {
+      "web": 3191,
+      "docs": 3192,
+      "reframe-expo-demo-1": 3194,
+      "demo-server-bun": 3195,
+      "demo-server-node": 3197
+    },
     "tools": {
       "required": {
         "podman": {
