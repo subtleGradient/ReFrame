@@ -14,18 +14,17 @@ export type Options = {
   environmentName?: string
 }
 
-export declare function createFromReadableStream<T>(stream: ReadableStream, options?: Options): Thenable<T>
+export default class ReactFlightDOMClient {
+  static createFromReadableStream<T>(stream: ReadableStream, options?: Options): Thenable<T>
 
-export declare function createFromFetch<T>(promiseForResponse: Promise<FlightResponse>, options?: Options): Thenable<T>
+  static createFromFetch<T>(promiseForResponse: Promise<FlightResponse>, options?: Options): Thenable<T>
 
-export declare function createServerReference<A extends Iterable<any>, T>(
-  id: any,
-  callServer: any,
-): (args: A) => Promise<T>
+  static createServerReference<A extends Iterable<any>, T>(id: any, callServer: any): (args: A) => Promise<T>
 
-export declare function createTemporaryReferenceSet(): TemporaryReferenceSet
+  static createTemporaryReferenceSet(): TemporaryReferenceSet
 
-export declare function encodeReply(
-  value: ReactServerValue,
-  options?: { temporaryReferences?: TemporaryReferenceSet; signal?: AbortSignal },
-): Promise<string | URLSearchParams | FormData>
+  static encodeReply(
+    value: ReactServerValue,
+    options?: { temporaryReferences?: TemporaryReferenceSet; signal?: AbortSignal },
+  ): Promise<string | URLSearchParams | FormData>
+}
