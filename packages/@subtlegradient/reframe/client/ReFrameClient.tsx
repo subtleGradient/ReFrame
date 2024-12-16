@@ -92,6 +92,6 @@ export default class ReFrameClient<
     options?: { temporaryReferences?: TemporaryReferenceSet; signal?: AbortSignal },
   ) {
     console.log("ReFrameClient", "encodeReply", { value, options })
-    // return ReactFlightDOMClient.encodeReply(value, options)
+    return ReactFlightDOMClient.encodeReply(value, options)
   }
 }

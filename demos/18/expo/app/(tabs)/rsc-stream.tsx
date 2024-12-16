@@ -38,7 +38,7 @@ const reframe = ReFrameClient.create({
     replayConsole: true,
 
     callServer: async function callServer(id, args) {
-      console.log("ReFrameClient", "callServer", { id, args })
+      console.log("ReFrameClient", "callServer", { id, args }, await reframe.encodeReply(args))
 
       // const response = fetch('/', {
       //   method: 'POST',
