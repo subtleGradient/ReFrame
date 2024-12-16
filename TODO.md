@@ -74,7 +74,7 @@ Decisions
 
 #### WIP -- patch react-server-dom-esm to not use `import` directly
 
-- [ ] patch the js files to take an `import` implementation via config
+- [x] patch the js files to take an `import` implementation via global `__shimport__` function
 - [ ] patch the types to be classes with instance methods instead of static methods
 
 ---

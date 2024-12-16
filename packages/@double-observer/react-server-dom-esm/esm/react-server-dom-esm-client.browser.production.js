@@ -7,6 +7,10 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+function shimport(metadata_specifier) {
+  if (typeof __shimport__ === "function") return __shimport__(metadata_specifier);
+  return Promise.reject("global.__shimport__ is not defined. Please create a __shimport__ function in the global scope to dynamically import a module.");
+}
 
 import * as ReactDOM from 'react-dom';
 
