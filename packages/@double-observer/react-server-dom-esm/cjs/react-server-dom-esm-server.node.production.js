@@ -9,6 +9,11 @@
  */
 
 "use strict";
+function shimport(metadata_specifier) {
+  if (typeof __shimport__ === "function") return __shimport__(metadata_specifier);
+  return Promise.reject("global.__shimport__ is not defined. Please create a __shimport__ function in the global scope to dynamically import a module.");
+}
+
 var util = require("util");
 require("crypto");
 var async_hooks = require("async_hooks"),
