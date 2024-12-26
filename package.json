@@ -52,6 +52,12 @@
     },
     "tools": {
       "required": {
+        "jq": {
+          "version": "1.7.1",
+          "critical": false,
+          "url": "https://stedolan.github.io/jq",
+          "channel": "stable"
+        },
         "podman": {
           "version": "5.3.1",
           "critical": false,
