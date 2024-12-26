@@ -1,0 +1,26 @@
+{
+  "terminal.integrated.profiles.windows": {
+    "WSL NIX": {
+      "path": "wsl.exe",
+      "args": [
+        "-d",
+        "Ubuntu",
+        "--cd",
+        "${workspaceFolder}",
+        "--shell-type",
+        "standard",
+        "--",
+        "sh",
+        "-c",
+        "/nix/var/nix/profiles/default/bin/nix-shell"
+      ]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "WSL NIX",
+  // "terminal.integrated.profiles.osx": {
+  //   "NIX": {
+  //     "path": "/nix/var/nix/profiles/default/bin/nix-shell"
+  //   }
+  // },
+  // "terminal.integrated.defaultProfile.osx": "NIX",
+}
