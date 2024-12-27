@@ -1,6 +1,7 @@
 import type { Express } from "express"
-import { RSC$createRequestHandler } from "./rsc"
+import * as rsc_callServer from "./app/callServer"
 import Hello from "./app/Hello"
+import { RSC$createRequestHandler } from "./rsc"
 
 export default function defineRoutes(app: Express) {
   app.get("/", (req, res) => {
@@ -22,4 +23,6 @@ export default function defineRoutes(app: Express) {
   })
 
   app.get("/rsc/hello", RSC$createRequestHandler(Hello))
+
+  rsc_callServer.expressConfig(app)
 }
