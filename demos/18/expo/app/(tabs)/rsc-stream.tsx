@@ -3,14 +3,15 @@ import "../../../../server/node/.status.json"
 
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { CallServerCallback, ServerCallbackMap } from "@double-observer/react-client/src/ReactFlightReplyClient"
-import { ReFrameClient, renderDynamicClientModule, Use } from "@subtlegradient/reframe/client"
+import { ServerCallbackMap } from "@double-observer/react-client/src/ReactFlightReplyClient"
+import ReFrameClient, { renderDynamicClientModule } from "@subtlegradient/reframe/client"
 import { MaybePromise, RSCSource } from "@subtlegradient/reframe/random/types"
 import { ErrorBoundaryProps } from "expo-router"
 import { Try } from "expo-router/build/views/Try"
 import React, { ReactNode, Suspense, useMemo } from "react"
 import { Button, ScrollView, Text } from "react-native"
 import pkg from "../../package.json"
+import invariant from "invariant"
 
 export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
   return (
@@ -38,37 +39,29 @@ const reframe = ReFrameClient.create({
     replayConsole: true,
 
     callServer: async function callServer(id, args) {
-      console.log("ReFrameClient", "callServer", { id, args }, await reframe.encodeReply(args))
+      console.log("ReFrameClient", "callServer", { id, args })
 
-      // const response = fetch('/', {
-      //   method: 'POST',
-      //   headers: {
-      //     "Accept": 'text/x-component',
-      //     'rsc-action': `${id}`,
-      //   },
-      //   // headers: {
-      //   //   "Accept": 'text/x-component',
-      //   //   'rsc-action': id,
-      //   // },
-      //   body: await reframe.encodeReply(args),
-      // });
-      // const {returnValue, root} = await createFromFetch(response, {
-      //   callServer,
-      //   moduleBaseURL,
-      //   findSourceMapURL,
-      // });
-      // // Refresh the tree with the new RSC payload.
-      // startTransition(() => {
-      //   updateRoot(root);
-      // });
-      // return returnValue;
+      const response = await fetch("http://localhost:3197/rsc/callServer", {
+        method: "POST",
+        headers: {
+          "Accept": "text/x-component, text/event-stream",
+          "rsc-action": `${id}`,
+        },
+        body: await reframe.encodeReply(args).catch((error) => {
+          console.error("ReFrameClient", "encodeReply error", error)
+          return reframe.encodeReply([String(error)])
+        }),
+      })
+
+      invariant(response.ok, "callServer response not ok")
+      invariant(response.body, "callServer response body missing")
+
+      return await reframe.from(response.body, {
+        // callServer:null,
+        // moduleBaseURL:null,
+        // findSourceMapURL:null,
+      })
     },
-
-    // ((id, args) => {
-    //   console.log("ReFrameClient", "callServer", { id, args })
-    //   const callServerFunction = allServerFunctions[id]
-    //   return callServerFunction?.(...args)
-    // }) satisfies CallServerCallback,
 
     bundlerConfig: {
       [`${"ReFrameDynamic"}#${"MissingView"}`]: [
