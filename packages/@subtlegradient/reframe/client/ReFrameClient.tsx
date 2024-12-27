@@ -35,6 +35,18 @@ export default class ReFrameClient<
 
   private readonly config: ReactFlightClientConfig
 
+  // setServerConfig(serverConfig: ServerConfig) {
+  //   this.serverConfig = serverConfig
+  // }
+
+  /**
+   * url to the configuration of your rsc server
+   * e.g. `https://example.com/.well-known/reframe-config.json`
+   */
+  // fetchServerConfig(rscConfigURL: URL) {
+
+  // }
+
   constructor(public readonly props: P) {
     const { modules, config, debug } = props
     this.config = createClientConfig({ modules, config, debug })
