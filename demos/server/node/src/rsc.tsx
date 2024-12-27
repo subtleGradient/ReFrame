@@ -1,4 +1,4 @@
-import { ReFrameServer } from "@subtlegradient/reframe/server"
+import ReFrameServer from "@subtlegradient/reframe/server"
 import { Request, RequestHandler, Response } from "express"
 import React, { ComponentType } from "react"
 
