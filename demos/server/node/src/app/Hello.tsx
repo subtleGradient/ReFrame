@@ -52,7 +52,7 @@ export default function Hello({ setHeader }: ServerPageProps) {
 }
 
 export const HelloMessage$onClick = registerServerReference(
-  (props: { delay: number }, event: unknown) => {
+  function HelloMessage$onClick(props: { delay: number }, event: unknown) {
     "use server"
     console.log("HelloMessage$onClick", props.delay, event)
   },
