@@ -149,7 +149,7 @@ function useReRenderable(reRenderable: ReRenderable): ReactNode {
     const mounted = new AbortController()
     reRenderable({
       render(onlyChild) {
-        if (mounted.signal.aborted) throw new Error("Aborted")
+        mounted.signal.throwIfAborted()
         setNode(onlyChild)
       },
       signal: mounted.signal,
