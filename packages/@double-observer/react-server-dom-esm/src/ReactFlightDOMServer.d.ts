@@ -9,7 +9,7 @@ import type { TemporaryReferenceSet } from "./ReactFlightServerConfigESMBundler"
 
 export type { TemporaryReferenceSet }
 
-type Options = {
+export interface RenderOptions {
   identifierPrefix?: string
   environmentName?: string | (() => string)
   filterStackFrame?: (url: string, functionName: string) => boolean
@@ -18,17 +18,11 @@ type Options = {
   temporaryReferences?: TemporaryReferenceSet
 }
 
-type PrerenderOptions = {
-  identifierPrefix?: string
-  environmentName?: string | (() => string)
-  filterStackFrame?: (url: string, functionName: string) => boolean
-  onError?: (error: unknown) => void
-  onPostpone?: (reason: string) => void
-  temporaryReferences?: TemporaryReferenceSet
+export interface PrerenderOptions extends RenderOptions {
   signal?: AbortSignal
 }
 
-type PipeableStream = {
+interface PipeableStream {
   abort(reason: unknown): void
   pipe<T extends Writable>(destination: T): T
 }
@@ -40,7 +34,7 @@ type StaticResult = {
 export declare function renderToPipeableStream(
   model: ReactClientValue,
   moduleBasePath: ClientManifest,
-  options?: Options,
+  options?: RenderOptions,
 ): PipeableStream
 
 export declare function prerenderToNodeStream(
@@ -69,8 +63,4 @@ export declare function decodeFormState<T, V, A extends (...args: any[]) => any>
   serverManifest: ServerManifest,
 ): null | Promise<[T, string, string, number]>
 
-export {
-  registerClientReference,
-  registerServerReference,
-  createTemporaryReferenceSet,
-} from "./ReactFlightESMReferences"
+export * from "./ReactFlightESMReferences"

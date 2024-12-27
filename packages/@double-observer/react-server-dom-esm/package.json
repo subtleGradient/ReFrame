@@ -41,7 +41,8 @@
     },
     "./static.node": "./static.node.js",
     "./node-loader": "./esm/react-server-dom-esm-node-loader.production.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./src/*": "./src/*"
   },
   "main": "index.js",
   "repository": {
