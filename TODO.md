@@ -41,6 +41,11 @@ Decisions
 
 ---
 
+### WIP -- get it running on windows
+
+- [x] nix-shell on windows with WSL2
+- [x] bun dev runs on windows
+
 ### ✅ dependency hell
 
 - [x] switch back to bun

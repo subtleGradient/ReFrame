@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "demo-expo": "cd demos/18/expo; bun web",
-    "postinstall": "watchman watch-del \"$PWD\"; ./sh/sh.sh --quiet; cd demos/18; bun i",
+    "postinstall": "./sh/sh.sh --quiet; cd demos/18; bun i",
     "sh": "nix-shell",
     "build": "turbo build",
     "dev": "turbo dev",
@@ -52,6 +52,12 @@
     },
     "tools": {
       "required": {
+        "jq": {
+          "version": "1.7.1",
+          "critical": false,
+          "url": "https://stedolan.github.io/jq",
+          "channel": "stable"
+        },
         "podman": {
           "version": "5.3.1",
           "critical": false,

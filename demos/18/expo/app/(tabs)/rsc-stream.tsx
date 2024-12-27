@@ -117,16 +117,16 @@ function ReFrameFrom({ fallback, rsc }: { fallback?: ReactNode; rsc: MaybePromis
       .then((rsc) => {
         return reframe
           .from<ReactNode>(rsc!, {
-            signal: mounted.signal,
-            onError(error) {
-              console.error("ReFrameDynamic error", error)
-              // return "IGNORE_ERROR"
-            },
+        signal: mounted.signal,
+        onError(error) {
+          console.error("ReFrameDynamic error", error)
+          // return "IGNORE_ERROR"
+        },
             onClose() {
               console.log("ReFrameDynamic closed")
             },
-          })
-          .then(setNode)
+      })
+      .then(setNode)
       })
     return () => mounted.abort()
   }, [rsc])
@@ -139,22 +139,18 @@ export default function HomeScreen() {
       <ThemedText style={{ fontSize: 24, marginTop: 16 }}>Streaming text demo (replace)</ThemedText>
       <ThemedText style={{ fontSize: 14 }}>real streaming and chunked rendering</ThemedText>
       {/* <ThemedText style={{ backgroundColor: "rebeccapurple" }}>{fakeRSC}</ThemedText> */}
-      {/* <Try catch={ErrorBoundary}>
-        <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
-          <Use>{reframe.from(fakeRSC)}</Use>
-        </Suspense>
-
-        <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} />
-      </Try> */}
-
       <Try catch={ErrorBoundary}>
-        <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
-          <ReFrameFrom
-            rsc={useMemo(() => fetch("http://localhost:3197/rsc/hello"), [])}
-            fallback={<ThemedText>Loading...</ThemedText>}
-          />
-          <ThemedText>Loaded RSC</ThemedText>{" "}
-        </Suspense>
+        {/* <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
+          <Use>{reframe.from(fakeRSC)}</Use>
+        </Suspense> */}
+
+        {/* <Suspense fallback={<ThemedText>Loading...</ThemedText>}>
+          <Use>{reframe.from(fakeRSC)}</Use>
+        </Suspense> */}
+
+        {/* <ReFrameFrom rsc={fakeRSC} fallback={<ThemedText>Loading...</ThemedText>} /> */}
+
+        <ReRenderTimestamp />
       </Try>
     </ScrollView>
   )
@@ -170,3 +166,85 @@ const fakeRSC = Array.from(
     name: "",
   }),
 ).join("")
+
+interface ReRenderableProps {
+  render: (onlyChild: ReactNode) => void
+  signal: AbortSignal
+}
+interface ReRenderable {
+  (props: ReRenderableProps): Promise<void>
+}
+
+function useReRenderable(reRenderable: ReRenderable): ReactNode {
+  const [node, setNode] = React.useState<ReactNode>(null)
+  React.useEffect(() => {
+    setNode(null)
+    const mounted = new AbortController()
+    reRenderable({
+      render(onlyChild) {
+        mounted.signal.throwIfAborted()
+        setNode(onlyChild)
+      },
+      signal: mounted.signal,
+    }).catch((error) => {
+      if (mounted.signal.aborted) return
+      setNode(() => {
+        // bubble up to the error boundary
+        throw error
+      })
+    })
+    return () => mounted.abort()
+  }, [reRenderable])
+  return node
+}
+
+function ReRender({ reRenderable }: { reRenderable: ReRenderable }) {
+  return useReRenderable(reRenderable)
+}
+
+const ReRenderTimestamp = () => <ReRender reRenderable={renderTimestamp} />
+
+const renderTimestamp: ReRenderable = async ({ render, signal }) => {
+  render(<ThemedText>loading...</ThemedText>)
+
+  const response = await fetch("http://localhost:3197/", { signal })
+  render(<ThemedText>response: {response.status}</ThemedText>)
+
+  await new Promise((resolve, reject) => {
+    const timeout = setTimeout(resolve, 333)
+    signal.addEventListener("abort", () => {
+      clearTimeout(timeout)
+      reject(new Error("Aborted"))
+    })
+  })
+  if (signal.aborted) return
+
+  const { body } = response
+
+  if (!body) {
+    render(<ThemedText>ERROR: no body</ThemedText>)
+    return
+  }
+  const textDecoder = new TextDecoder()
+  for await (const chunk of body) {
+    if (signal.aborted) return
+    const random = Math.random()
+    const chunkText = textDecoder.decode(chunk)
+    const latestChunkLine = chunkText.trim().split("\n").reverse()[0]
+    render(
+      <ThemedText
+        key={random}
+        style={{
+          // random background color so it's easier to see that something changed
+          backgroundColor: `hsl(${random * 360}, 50%, 50%)`,
+          color: "white",
+          fontVariant: ["tabular-nums"],
+        }}
+      >
+        {latestChunkLine}
+      </ThemedText>,
+    )
+  }
+
+  render(<ThemedText>{"\n\n"}Done</ThemedText>)
+}
