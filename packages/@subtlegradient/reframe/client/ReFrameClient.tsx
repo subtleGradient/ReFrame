@@ -29,7 +29,7 @@ export default class ReFrameClient {
     this.flight = new ReactFlightClient(createClientConfig(props)) // satisfies IReactFlightClient
   }
 
-  private readonly flight: ReactFlightClient
+  private readonly flight: ReactFlightClient<any>
   get name() { return this.props.config.rendererPackageName } // prettier-ignore
   get version() { return this.props.config.rendererVersion } // prettier-ignore
 
