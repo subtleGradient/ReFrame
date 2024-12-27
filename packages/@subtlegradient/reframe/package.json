@@ -30,6 +30,7 @@
     "@double-observer/react-client": "workspace:^",
     "@double-observer/react-server-dom-esm": "workspace:*",
     "@types/react-server-dom-webpack": "workspace:^",
+    "body-parser": "^1.20.3",
     "invariant": "^2.2.4",
     "react-server-dom-webpack": "^19.0.0",
     "server-only": "^0.0.1"
