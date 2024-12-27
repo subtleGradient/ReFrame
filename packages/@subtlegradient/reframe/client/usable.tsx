@@ -142,7 +142,7 @@ export function useMaybePromise<T>(value: T | Thenable<T>): T {
  * </Suspense>
  * ```
  */
-export function Use({ children }: { children: MaybePromise<ReactNode> }): ReactNode {
+export function Use({ children }: { children: MaybePromise<ReactNode> }): any {
   console.warn(React.version)
   return useMaybePromise(children)
 }
