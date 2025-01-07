@@ -91,7 +91,7 @@ export interface ReactFlightClientConfig<
   resolveServerReference(bundlerConfig: BundlerConfig, id: ServerRefId): ClientRefKey
 
   preloadModule(clientReference: ClientRefKey): Promise<void> | null
-  requireModule(clientReference: ClientRefKey): T
+  requireModule<T>(clientReference: ClientRefKey): T
   dispatchHint(code: string, model: unknown): void
 
   prepareDestinationForModule(moduleLoading: ModuleLoading, nonce: string | undefined, metadata: Metadata): void

@@ -1,5 +1,5 @@
 import type { Thenable } from "../shared/ReactTypes"
-import { ModuleLoading, ReactFlightClientConfig } from "./ReactFlightClientConfig"
+import { ModuleLoading, ReactFlightClientConfig, ServerManifest, SSRModuleMap } from "./ReactFlightClientConfig"
 import type { CallServerCallback, EncodeFormActionCallback } from "./ReactFlightReplyClient"
 import type { TemporaryReferenceSet } from "./ReactFlightTemporaryReferences"
 

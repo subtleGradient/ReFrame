@@ -6,7 +6,7 @@ type AnyFunction = (...args: any[]) => any
 export type ServerReferenceId = number
 export type ServerCallbackMap = { [id: ServerReferenceId]: (...args: any[]) => Promise<any> }
 
-export type CallServerCallback = (id: ServerReferenceId, args: any[]) => (Promise<unknown> & ReturnType<F>) | void
+export type CallServerCallback = (id: ServerReferenceId, args: any[]) => Promise<unknown> | void
 
 export type EncodeFormActionCallback = (id: ServerReferenceId, args: any[]) => ReactCustomFormAction | void
 
