@@ -82,15 +82,14 @@ export function expressConfig(app: Express) {
     try {
       console.log("body", req.body)
 
-      const args: Iterable<any> = await decodeReply(req.body, moduleBasePath as any).then(
-        (it) => it ?? [],
-        (error) => {
-          console.error("decodeReply error", error)
-          return []
-        },
-      )
-
-      console.log("args", { args })
+      const args: Iterable<any> =
+        (await decodeReply(req.body, moduleBasePath as any).then(
+          (it) => it ?? [],
+          (error) => {
+            console.error("decodeReply error", error)
+            return []
+          },
+        )) ?? []
 
       // console.log("multipart/form-data", req.is("multipart/form-data"))
       // console.log("body", `(((${req.body})))`)
@@ -98,7 +97,13 @@ export function expressConfig(app: Express) {
 
       // const form: FormData = new FormData(req.body)
 
-      sendRSC(res, { error: null, value: serverValue(...args) })
+      console.debug("serverValue", serverValue)
+      console.debug("args", args)
+
+      const responseValue = await serverValue(...args)
+      console.debug("responseValue", responseValue)
+
+      sendRSC(res, { error: null, value: responseValue })
       return
     } catch (error) {
       console.error(error)
@@ -224,3 +229,5 @@ async function sendRSC(res: Response, serverValue: ReactServerValue) {
     if (!res.writableEnded) res.end()
   }
 }
+
+console.log("ReFrameServer", "moduleBasePath", moduleBasePath)
