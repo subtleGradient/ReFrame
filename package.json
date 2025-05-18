@@ -5,7 +5,7 @@
   "scripts": {
     "demo-expo": "cd demos/18/expo; bun web",
     "postinstall": "./sh/sh.sh --quiet; cd demos/18; bun i",
-    "sh": "nix-shell",
+    "sh": "nix develop",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",

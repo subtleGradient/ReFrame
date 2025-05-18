@@ -38,3 +38,7 @@ yarn-error.log*
 
 # status
 **/.status.json
+
+# Direnv
+.direnv
+.envrc.local
